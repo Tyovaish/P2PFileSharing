@@ -1,12 +1,12 @@
 package Message.Types;
 
-import Message.Message;
+import Message.NormalMessage;
 
 /**
  * Created by Trevor on 10/23/2017.
  */
-public class InterestedMessage extends Message {
+public class InterestedMessage extends NormalMessage {
     public InterestedMessage(){
-        messageType=2;
+        messageType=INTERESTED;
     }
 }

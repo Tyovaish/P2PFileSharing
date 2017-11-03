@@ -1,4 +1,6 @@
-package Message.Types;
+package Message;
+
+import Message.Message;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -6,11 +8,14 @@ import java.nio.ByteBuffer;
 /**
  * Created by Trevor on 10/23/2017.
  */
-public class HandshakeMessage implements Serializable {
+public class HandshakeMessage extends Message {
     final private String handshakeHeader="P2PFILESHARINGPROJ";
-    final private int handShakeHeaderSize=18;
     final private int handShakeSize=32;
-    public byte[] getMessage(int peerID){
+    int peerID;
+    public HandshakeMessage(int peerID){
+        this.peerID=peerID;
+    }
+    public byte[] getByteMessage(){
         byte [] handShakeMessage=new byte[handShakeSize];
         byte [] handShakeHeaderInBytes= handshakeHeader.getBytes();
         for(int i=0;i<handShakeHeaderInBytes.length;i++){
@@ -21,16 +26,7 @@ public class HandshakeMessage implements Serializable {
         handShakeMessage[29]=peerIDInBytes[1];
         handShakeMessage[30]=peerIDInBytes[2];
         handShakeMessage[31]=peerIDInBytes[3];
-
         return handShakeMessage;
     }
-    public void print(){
-        byte [] message=getMessage(5000);
-        for(int i=0;i<handShakeSize;i++){
-            System.out.println(i+" "+(int) message[i]);
-        }
-        int number=ByteBuffer.wrap(message,28,4).getInt();
-        System.out.println(number);
-    }
-
+    public byte getMessageType(){return Message.HANDSHAKE;}
 }

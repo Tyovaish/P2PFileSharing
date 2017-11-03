@@ -1,12 +1,12 @@
 package Message.Types;
 
-import Message.Message;
+import Message.NormalMessage;
 
 /**
  * Created by Trevor on 10/23/2017.
  */
-public class BitfieldMessage extends Message {
+public class BitfieldMessage extends NormalMessage {
     public BitfieldMessage(){
-        messageType=5;
+        messageType=BITFIELD;
     }
 }

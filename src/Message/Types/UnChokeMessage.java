@@ -1,12 +1,12 @@
 package Message.Types;
 
-import Message.Message;
+import Message.NormalMessage;
 
 /**
  * Created by Trevor on 10/23/2017.
  */
-public class UnChokeMessage extends Message {
+public class UnChokeMessage extends NormalMessage {
     public UnChokeMessage(){
-        messageType=7;
+        messageType=UNCHOKE;
     }
 }

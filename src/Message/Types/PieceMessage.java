@@ -1,12 +1,12 @@
 package Message.Types;
 
-import Message.Message;
+import Message.NormalMessage;
 
 /**
  * Created by Trevor on 10/23/2017.
  */
-public class PieceMessage extends Message {
+public class PieceMessage extends NormalMessage {
     public PieceMessage(){
-        messageType=7;
+        messageType=PIECE;
     }
 }

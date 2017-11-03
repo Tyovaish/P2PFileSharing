@@ -1,4 +1,4 @@
-import sun.rmi.transport.tcp.TCPConnection;
+package Logger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,7 +16,7 @@ public class InformationLogger {
     int peerIDOfProccess;
     FileWriter fileWriter;
     BufferedWriter bufferedWriter;
-    InformationLogger(int peerIDOfProccess){
+    public InformationLogger(int peerIDOfProccess){
         this.peerIDOfProccess=peerIDOfProccess;
         date=new Date();
         try {
