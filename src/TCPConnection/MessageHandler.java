@@ -1,6 +1,7 @@
 package TCPConnection;
 
 import Message.Message;
+import Peer.NeighborState;
 import Peer.PeerProcess;
 
 import static Message.Message.*;
@@ -15,7 +16,7 @@ public class MessageHandler {
         this.peerProcess=peerProcess;
         this.tcpConnection=tcpConnection;
     }
-    public void handleMessage(Message message){
+    public void handleMessage(Message message, NeighborState neighbor){
         switch(message.getMessageType()){
             case BITFIELD:
                 handleBitfieldMessage(message);
@@ -27,19 +28,19 @@ public class MessageHandler {
                 handleHandshakeMessage(message);
                 break;
             case HAVE:
-                handleHaveMessage(message);
+                handleHaveMessage(message, neighbor);
                 break;
             case INTERESTED:
-                handleInterestedMessage(message);
+                handleInterestedMessage(message, neighbor);
                 break;
             case NOTINTERESTED:
-                handleNotInterestedMessage(message);
+                handleNotInterestedMessage(message, neighbor);
                 break;
             case REQUEST:
                 handleRequestMessage(message);
                 break;
             case UNCHOKE:
-                handleUnchokeMessage(message);
+                handleUnchokeMessage(message, neighbor);
                 break;
             case PIECE:
                 handlePieceMessage(message);
@@ -58,8 +59,8 @@ public class MessageHandler {
         */
     }
 
-    private void handleUnchokeMessage(Message message) {
-
+    private void handleUnchokeMessage(Message message, NeighborState neighbor) {
+        neighbor.unchokeClient();
     }
 
     private void handleRequestMessage(Message message) {
@@ -70,15 +71,15 @@ public class MessageHandler {
         */
     }
 
-    private void handleNotInterestedMessage(Message message) {
-
+    private void handleNotInterestedMessage(Message message, NeighborState neighbor) {
+        neighbor.setNotInterested();
     }
 
-    private void handleInterestedMessage(Message message) {
-
+    private void handleInterestedMessage(Message message, NeighborState neighbor) {
+        neighbor.setInterested();
     }
 
-    private void handleHaveMessage(Message message) {
+    private void handleHaveMessage(Message message, NeighborState neighbor) {
 
     }
 

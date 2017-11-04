@@ -100,7 +100,7 @@ public class TCPConnection implements Runnable{
         while(true) {
             sendMessage(new HandshakeMessage(1000));
             Message message = getMessage();
-            messageHandler.handleMessage(message);
+            messageHandler.handleMessage(message, neighbor);
             for(int i=0;i<message.getByteMessage().length;i++){
                 System.out.print((char) message.getByteMessage()[i]);
             }
