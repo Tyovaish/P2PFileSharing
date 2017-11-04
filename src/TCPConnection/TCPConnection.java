@@ -2,6 +2,7 @@ package TCPConnection;
 import Message.Message;
 import Message.HandshakeMessage;
 import Message.Types.*;
+import Peer.NeighborState;
 import Peer.PeerInfo;
 import Peer.PeerProcess;
 
@@ -16,7 +17,7 @@ import java.net.UnknownHostException;
  */
 public class TCPConnection implements Runnable{
     PeerProcess peerProcess;
-    PeerInfo neighborInfo;
+    NeighborState neighbor;
     PeerInfo currentPeerInfo;
     Socket socket;
     MessageHandler messageHandler;
@@ -29,6 +30,7 @@ public class TCPConnection implements Runnable{
     }
     public TCPConnection(PeerProcess peerProcess,PeerInfo peerInfo){
             try {
+                neighbor = new NeighborState();
                 this.peerProcess = peerProcess;
                 socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
                 this.currentPeerInfo=peerProcess.getPeerInfo().copy();

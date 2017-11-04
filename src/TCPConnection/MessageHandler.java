@@ -51,7 +51,11 @@ public class MessageHandler {
     }
 
     private void handlePieceMessage(Message message) {
-
+        /*
+        byte[] payload = message.getByteMessage();
+        int index = payload[0:3].toInt();
+        file.setPiece(payload, index);
+        */
     }
 
     private void handleUnchokeMessage(Message message) {
@@ -59,7 +63,11 @@ public class MessageHandler {
     }
 
     private void handleRequestMessage(Message message) {
-
+        /*
+        byte[] payload = message.getByteMessage();
+        int index = payload.toInt();
+        byte[] piece = file.getPiece(index);
+        */
     }
 
     private void handleNotInterestedMessage(Message message) {
