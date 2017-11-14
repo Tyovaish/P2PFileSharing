@@ -5,6 +5,7 @@
 *.log
 #XML not downloaded
 *.xml
+*.iml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
