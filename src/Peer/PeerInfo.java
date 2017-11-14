@@ -7,7 +7,6 @@ public class PeerInfo {
     int peerID;
     int portNumber;
     String hostName;
-    boolean isChoked=true;
     boolean hasfile=false;
 
     public PeerInfo(int peerID, String hostName,int portNumber, boolean hasFile){
@@ -28,8 +27,6 @@ public class PeerInfo {
     }
     public String getHostName(){return hostName;}
     public boolean getHasFile(){return hasfile;}
-    public boolean getIsChoked(){return isChoked;}
-    public void setIsChoked(boolean isChoked){this.isChoked=isChoked;}
     public PeerInfo copy(){
         return new PeerInfo(peerID,hostName,portNumber,hasfile);
     }

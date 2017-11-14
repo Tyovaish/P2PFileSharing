@@ -21,7 +21,6 @@ public class PeerProcess{
             while (true) {
                 Socket potentialNeighbor=serverSocket.accept();
                 System.out.println("Accepted");
-
                 TCPConnection currentTCPConnection = new TCPConnection(this, potentialNeighbor);
                 System.out.println("About to start thread");
                 new Thread(currentTCPConnection).start();
@@ -34,7 +33,7 @@ public class PeerProcess{
         return peerInfo;
     }
     private void connectToPreviousPeers(){
-        PeerInfoFileParser peerInfoFileParser=new PeerInfoFileParser("C:\\Users\\Trevor\\IdeaProjects\\P2PFileSharing\\src\\Test\\FileTest\\PeerInfo.cfg");
+        PeerInfoFileParser peerInfoFileParser=new PeerInfoFileParser("C:\\Users\\Trevor\\IdeaProjects\\P2PFileSharingProject\\src\\Test\\FileTest\\PeerInfo.cfg");
         ArrayList<PeerInfo> allPeerInfo=peerInfoFileParser.getPeersToConnect();
         int positionInitialized=-1;
         for(int i=0;i<allPeerInfo.size();i++){
