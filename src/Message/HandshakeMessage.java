@@ -1,6 +1,7 @@
 package Message;
 
 import Message.Message;
+import sun.misc.resources.Messages_es;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -9,9 +10,22 @@ import java.nio.ByteBuffer;
  * Created by Trevor on 10/23/2017.
  */
 public class HandshakeMessage extends Message {
-    final private String handshakeHeader="P2PFILESHARINGPROJ";
-    final private int handShakeSize=32;
+    final private static String handshakeHeader="P2PFILESHARINGPROJ";
+    final private static int handShakeSize=32;
     int peerID;
+    public static boolean checkHandshakeMessage(Message message){
+        byte [] handshake=message.getByteMessage();
+        for(int i=0;i<handshakeHeader.getBytes().length;i++){
+            if(handshakeHeader.getBytes()[i]!=handshake[i]){
+                return false;
+            }
+        }
+        return true;
+
+    }
+    public static int getPeerIDFromHandshakeMessage(Message message){
+        return ByteBuffer.wrap(message.getByteMessage(),28,4).getInt();
+    }
     public HandshakeMessage(int peerID){
         this.peerID=peerID;
     }

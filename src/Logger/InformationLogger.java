@@ -26,7 +26,7 @@ public class InformationLogger {
             e.printStackTrace();
         }
     }
-    public void logTCPConnectionSent(int peerIDOfReciever){
+    public synchronized void logTCPConnectionSent(int peerIDOfReciever){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -35,7 +35,7 @@ public class InformationLogger {
         output.append(peerIDOfReciever);
         addToLogFile(output.toString());
     }
-    public void logTCPConnectionRecieved(int peerIDOfSender){
+    public synchronized void logTCPConnectionRecieved(int peerIDOfSender){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -45,7 +45,7 @@ public class InformationLogger {
         addToLogFile(output.toString());
 
     }
-    public void logChangePrefferedNeighbors(ArrayList<Integer> prefferedNeighborsList){
+    public synchronized void logChangePrefferedNeighbors(ArrayList<Integer> prefferedNeighborsList){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -56,7 +56,7 @@ public class InformationLogger {
         }
         addToLogFile(output.toString());
     }
-    public void logOptimisticallyUnchokeNeighbor(int peerIDOfUnchokeNeighbor){
+    public synchronized void logOptimisticallyUnchokeNeighbor(int peerIDOfUnchokeNeighbor){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -65,7 +65,7 @@ public class InformationLogger {
         output.append(peerIDOfUnchokeNeighbor);
         addToLogFile(output.toString());
     }
-    public void logRecievedOptimisticallyUnchoke(int peerIDOfRecievedUnchokingNeighbor){
+    public synchronized void logRecievedOptimisticallyUnchoke(int peerIDOfRecievedUnchokingNeighbor){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -74,7 +74,7 @@ public class InformationLogger {
         output.append(peerIDOfRecievedUnchokingNeighbor);
         addToLogFile(output.toString());
     }
-    public void logChoke(int peerIDOfChokedNeighbor){
+    public synchronized void logChoke(int peerIDOfChokedNeighbor){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -83,7 +83,7 @@ public class InformationLogger {
         output.append(peerIDOfChokedNeighbor);
         addToLogFile(output.toString());
     }
-    public void logHaveMessage(int peerIDOfHaveSender, int pieceIndex){
+    public synchronized void logHaveMessage(int peerIDOfHaveSender, int pieceIndex){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -94,7 +94,7 @@ public class InformationLogger {
         output.append(pieceIndex);
         addToLogFile(output.toString());
     }
-    public void logInterestedMessage(int peerIDOfInterested){
+    public synchronized void logInterestedMessage(int peerIDOfInterested){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -103,7 +103,7 @@ public class InformationLogger {
         output.append(peerIDOfInterested);
         addToLogFile(output.toString());
     }
-    public void logNotInterestedMessage(int peerIDOfNotInterested){
+    public synchronized void logNotInterestedMessage(int peerIDOfNotInterested){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -112,7 +112,7 @@ public class InformationLogger {
         output.append(peerIDOfNotInterested);
         addToLogFile(output.toString());
     }
-    public void logDownloading(int peerIDOfPieceDownloadedFrom, int pieceIndex,int numberOfPiecesInPossesion){
+    public synchronized void logDownloading(int peerIDOfPieceDownloadedFrom, int pieceIndex,int numberOfPiecesInPossesion){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -125,7 +125,7 @@ public class InformationLogger {
         output.append(numberOfPiecesInPossesion);
         addToLogFile(output.toString());
     }
-    public void logCompletition(){
+    public synchronized void logCompletition(){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
@@ -133,7 +133,7 @@ public class InformationLogger {
         output.append(" has downloaded the complete file.");
         addToLogFile(output.toString());
     }
-    public void addToLogFile(String log){
+    public synchronized void addToLogFile(String log){
         try {
             bufferedWriter.write(log);
             bufferedWriter.newLine();
@@ -141,7 +141,7 @@ public class InformationLogger {
             e.printStackTrace();
         }
     }
-    public void closeLog(){
+    public synchronized void closeLog(){
         try {
             bufferedWriter.close();
             fileWriter.close();

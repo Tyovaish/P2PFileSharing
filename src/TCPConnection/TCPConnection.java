@@ -25,6 +25,9 @@ public class TCPConnection implements Runnable{
     public TCPConnection(PeerProcess peerProcess,Socket socket){
         this.peerProcess=peerProcess;
         this.socket=socket;
+        Message handshakeMessage=getMessage();
+        System.out.println(HandshakeMessage.checkHandshakeMessage(handshakeMessage));
+        System.out.println(HandshakeMessage.getPeerIDFromHandshakeMessage(handshakeMessage));
         this.currentPeerInfo=peerProcess.getPeerInfo().copy();
         messageHandler=new MessageHandler(peerProcess,this);
     }
@@ -36,6 +39,7 @@ public class TCPConnection implements Runnable{
                 this.currentPeerInfo=peerProcess.getPeerInfo().copy();
                 System.out.println("Connected to " + peerInfo.getPeerID());
                 messageHandler=new MessageHandler(peerProcess,this);
+                sendMessage(new HandshakeMessage(peerProcess.getPeerInfo().getPeerID()));
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -65,40 +69,11 @@ public class TCPConnection implements Runnable{
         }
         return null;
     }
-    public void sendHandShakeMessage(){
-        sendMessage(new HandshakeMessage(peerProcess.getPeerInfo().getPeerID()));
-    }
-    public void sendChokeMessage(){
-        sendMessage(new ChokeMessage());
-    }
-    public void sendHaveMessage(){
-        sendMessage(new HaveMessage());
-    }
-    public void sendBitfieldMessage(){
-        sendMessage(new BitfieldMessage());
-    }
-    public void sendInterestedMessage(){
-        sendMessage(new InterestedMessage());
-    }
-    public void sendNotInterestedMessage(){
-
-    }
-    public void sendPieceMessage(){
-    }
-    public void sendRequestMessage(){
-        sendMessage(new RequestMessage());
-    }
-    public void sendUnChokeMessage(){
-        sendMessage(new UnChokeMessage());
-    }
-
-
-
 
     @Override
     public void run() {
         while(true) {
-            sendMessage(new HandshakeMessage(1000));
+            sendMessage(new BitfieldMessage());
             Message message = getMessage();
             messageHandler.handleMessage(message, neighbor);
             for(int i=0;i<message.getByteMessage().length;i++){
