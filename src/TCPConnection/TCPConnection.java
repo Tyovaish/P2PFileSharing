@@ -3,7 +3,7 @@ import File.PeerInfoFileParser;
 import Message.Message;
 import Message.HandshakeMessage;
 import Message.Types.*;
-import Peer.NeighborState;
+import TCPConnection.Neighbor.NeighborState;
 import Peer.PeerInfo;
 import Peer.PeerClient;
 
@@ -53,14 +53,12 @@ public class TCPConnection implements Runnable{
             ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(message);
             out.flush();
-            System.out.println("Sent message");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public Message getMessage() {
         try {
-            System.out.println("Waiting for message");
             ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
             return (Message) in.readObject();
         } catch (IOException e) {
@@ -77,7 +75,6 @@ public class TCPConnection implements Runnable{
             sendMessage(new BitfieldMessage());
             Message message = getMessage();
             messageHandler.handleMessage(message);
-            System.out.println();
         }
     }
     public PeerInfo getCurrentPeerInfo(){

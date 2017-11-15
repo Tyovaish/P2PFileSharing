@@ -1,5 +1,6 @@
 package Peer;
 import File.PeerInfoFileParser;
+import TCPConnection.Neighbor.NeighborManager;
 import TCPConnection.TCPConnection;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,14 +9,16 @@ import java.util.ArrayList;
 
 public class PeerClient {
     PeerInfo peerInfo;
-    ArrayList<TCPConnection> tcpConnections;
-    byte [][] currentFile;
+    NeighborManager neighborManager;
+
     public PeerClient(int peerID)
     {
+        this.neighborManager=new NeighborManager();
         this.peerInfo=new PeerInfo(peerID,PeerInfoFileParser.getPeerInfo(peerID).getPortNumber());
     }
     public void run() {
         connectToPreviousPeers();
+        new Thread(neighborManager).start();
         try {
             ServerSocket serverSocket = new ServerSocket(peerInfo.getPortNumber());
             System.out.println("Running on portNumber "+peerInfo.getPortNumber());
@@ -38,7 +41,6 @@ public class PeerClient {
         int positionInitialized=-1;
         for(int i=0;i<allPeerInfo.size();i++){
             if(peerInfo.getPeerID()==allPeerInfo.get(i).getPeerID()){
-                System.out.println("Yes");
                 positionInitialized=i;
             }
         }

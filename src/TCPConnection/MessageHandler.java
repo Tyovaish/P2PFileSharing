@@ -1,8 +1,7 @@
 package TCPConnection;
 
 import Message.Message;
-import Peer.NeighborState;
-import Peer.PeerClient;
+import TCPConnection.Neighbor.NeighborState;
 
 import static Message.Message.*;
 
