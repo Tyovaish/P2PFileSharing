@@ -10,8 +10,7 @@ import java.util.ArrayList;
  */
 public class PeerInfoFileTest {
     public static void main(String args[]){
-        PeerInfoFileParser peerInfoFileParser=new PeerInfoFileParser("C:\\Users\\Trevor\\IdeaProjects\\P2PFileSharing\\src\\Test\\FileTest\\PeerInfo.cfg");
-        ArrayList<PeerInfo> peerInfos=peerInfoFileParser.getPeersToConnect();
+        ArrayList<PeerInfo> peerInfos=PeerInfoFileParser.getPeersToConnect();
         for(int i=0;i<peerInfos.size();i++){
             System.out.println(peerInfos.get(i).getPeerID()+"  "+peerInfos.get(i).getHostName()+" "+peerInfos.get(i).getPortNumber()+" "+peerInfos.get(i).getHasFile());
         }
