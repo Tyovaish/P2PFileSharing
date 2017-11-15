@@ -1,4 +1,4 @@
-package Peer;
+package TCPConnection.Neighbor;
 
 /**
  * Created by Logan on 11/4/2017.
