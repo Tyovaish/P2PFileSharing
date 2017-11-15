@@ -27,6 +27,7 @@ public class PeerClient {
                 System.out.println("Accepted");
                 TCPConnection currentTCPConnection = new TCPConnection(this, neighbor);
                 System.out.println("About to start thread");
+                neighborManager.addNeighbor(currentTCPConnection);
                 new Thread(currentTCPConnection).start();
             }
         } catch (IOException e) {
