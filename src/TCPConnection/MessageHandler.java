@@ -2,7 +2,7 @@ package TCPConnection;
 
 import Message.Message;
 import Peer.NeighborState;
-import Peer.PeerProcess;
+import Peer.PeerClient;
 
 import static Message.Message.*;
 
@@ -10,13 +10,13 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    PeerProcess peerProcess;
     TCPConnection tcpConnection;
-    MessageHandler(PeerProcess peerProcess,TCPConnection tcpConnection){
-        this.peerProcess=peerProcess;
+    NeighborState neighbor;
+    MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
         this.tcpConnection=tcpConnection;
+        this.neighbor=neighbor;
     }
-    public void handleMessage(Message message, NeighborState neighbor){
+    public void handleMessage(Message message){
         switch(message.getMessageType()){
             case BITFIELD:
                 handleBitfieldMessage(message);
@@ -24,23 +24,20 @@ public class MessageHandler {
             case CHOKE:
                 handleChokeMessage(message);
                 break;
-            case HANDSHAKE:
-                handleHandshakeMessage(message);
-                break;
             case HAVE:
-                handleHaveMessage(message, neighbor);
+                handleHaveMessage(message);
                 break;
             case INTERESTED:
-                handleInterestedMessage(message, neighbor);
+                handleInterestedMessage(message);
                 break;
             case NOTINTERESTED:
-                handleNotInterestedMessage(message, neighbor);
+                handleNotInterestedMessage(message);
                 break;
             case REQUEST:
                 handleRequestMessage(message);
                 break;
             case UNCHOKE:
-                handleUnchokeMessage(message, neighbor);
+                handleUnchokeMessage(message);
                 break;
             case PIECE:
                 handlePieceMessage(message);
@@ -59,7 +56,7 @@ public class MessageHandler {
         */
     }
 
-    private void handleUnchokeMessage(Message message, NeighborState neighbor) {
+    private void handleUnchokeMessage(Message message) {
         neighbor.unchokeClient();
     }
 
@@ -71,21 +68,18 @@ public class MessageHandler {
         */
     }
 
-    private void handleNotInterestedMessage(Message message, NeighborState neighbor) {
+    private void handleNotInterestedMessage(Message message) {
         neighbor.setNotInterested();
     }
 
-    private void handleInterestedMessage(Message message, NeighborState neighbor) {
+    private void handleInterestedMessage(Message message) {
         neighbor.setInterested();
     }
 
-    private void handleHaveMessage(Message message, NeighborState neighbor) {
+    private void handleHaveMessage(Message message) {
 
     }
 
-    private void handleHandshakeMessage(Message message) {
-
-    }
 
     private void handleChokeMessage(Message message) {
 

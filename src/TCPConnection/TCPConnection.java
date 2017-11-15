@@ -1,10 +1,11 @@
 package TCPConnection;
+import File.PeerInfoFileParser;
 import Message.Message;
 import Message.HandshakeMessage;
 import Message.Types.*;
 import Peer.NeighborState;
 import Peer.PeerInfo;
-import Peer.PeerProcess;
+import Peer.PeerClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,30 +17,30 @@ import java.net.UnknownHostException;
  * Created by Trevor on 10/18/2017.
  */
 public class TCPConnection implements Runnable{
-    PeerProcess peerProcess;
+    PeerClient peerClient;
     NeighborState neighbor;
     PeerInfo currentPeerInfo;
+    PeerInfo neighborPeerInfo;
     Socket socket;
     MessageHandler messageHandler;
 
-    public TCPConnection(PeerProcess peerProcess,Socket socket){
-        this.peerProcess=peerProcess;
+    public TCPConnection(PeerClient peerClient, Socket socket){
+        this.peerClient = peerClient;
         this.socket=socket;
-        Message handshakeMessage=getMessage();
-        System.out.println(HandshakeMessage.checkHandshakeMessage(handshakeMessage));
-        System.out.println(HandshakeMessage.getPeerIDFromHandshakeMessage(handshakeMessage));
-        this.currentPeerInfo=peerProcess.getPeerInfo().copy();
-        messageHandler=new MessageHandler(peerProcess,this);
+        this.neighbor=new NeighborState();
+        this.currentPeerInfo= peerClient.getPeerInfo().copy();
+        this.neighborPeerInfo= PeerInfoFileParser.getPeerInfo(HandshakeMessage.getPeerIDFromHandshakeMessage(getMessage()));
+        messageHandler=new MessageHandler(this,this.neighbor);
     }
-    public TCPConnection(PeerProcess peerProcess,PeerInfo peerInfo){
+    public TCPConnection(PeerClient peerClient, PeerInfo peerInfo){
             try {
-                neighbor = new NeighborState();
-                this.peerProcess = peerProcess;
+                this.neighbor = new NeighborState();
+                this.peerClient = peerClient;
+                this.currentPeerInfo= peerClient.getPeerInfo().copy();
                 socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
-                this.currentPeerInfo=peerProcess.getPeerInfo().copy();
                 System.out.println("Connected to " + peerInfo.getPeerID());
-                messageHandler=new MessageHandler(peerProcess,this);
-                sendMessage(new HandshakeMessage(peerProcess.getPeerInfo().getPeerID()));
+                messageHandler=new MessageHandler(this,this.neighbor);
+                sendMessage(new HandshakeMessage(peerClient.getPeerInfo().getPeerID()));
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -75,12 +76,12 @@ public class TCPConnection implements Runnable{
         while(true) {
             sendMessage(new BitfieldMessage());
             Message message = getMessage();
-            messageHandler.handleMessage(message, neighbor);
-            for(int i=0;i<message.getByteMessage().length;i++){
-                System.out.print((char) message.getByteMessage()[i]);
-            }
+            messageHandler.handleMessage(message);
             System.out.println();
         }
+    }
+    public PeerInfo getCurrentPeerInfo(){
+        return currentPeerInfo;
     }
 }
 
