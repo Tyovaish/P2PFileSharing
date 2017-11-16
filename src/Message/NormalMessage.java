@@ -10,9 +10,7 @@ public abstract class NormalMessage extends Message{
     protected byte[] messageHeader;
     protected byte [] messagePayload;
     public byte[] getByteMessage(){
-        messageHeader=new byte[5];
-        messageHeader[4]=messageType;
-        return messageHeader;
+        return messagePayload;
     }
     public void setMessagePayload(byte [] payload){
         messagePayload=payload;

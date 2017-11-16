@@ -68,17 +68,45 @@ public class TCPConnection implements Runnable{
         }
         return null;
     }
+    synchronized public void sendHaveMessage(){
 
+    }
+    synchronized public void sendBitfieldMessage(){
+
+    }
+    synchronized public void sendInterestedMessage(){
+
+    }
+    synchronized public void sendNotInterestedMessage(){
+
+    }
+    synchronized public void sendPieceMessage(){
+
+    }
+    synchronized public void sendUnchokeMessage(){
+
+    }
+    synchronized public void sendChokeMessage(){
+
+    }
+    synchronized public void sendRequestMessage(){
+
+    }
+    synchronized public void sendHandShakeMessage(){
+
+    }
+
+
+    public PeerInfo getCurrentPeerInfo(){
+        return currentPeerInfo;
+    }
     @Override
     public void run() {
         while(true) {
-            sendMessage(new BitfieldMessage());
+            sendMessage(new BitfieldMessage(new byte[10]));
             Message message = getMessage();
             messageHandler.handleMessage(message);
         }
-    }
-    public PeerInfo getCurrentPeerInfo(){
-        return currentPeerInfo;
     }
 }
 

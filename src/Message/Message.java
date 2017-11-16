@@ -15,8 +15,6 @@ public abstract class Message implements Serializable{
     public static final byte REQUEST=6;
     public static final byte PIECE=7;
     public static final byte HANDSHAKE=8;
-
-    abstract public byte[] getByteMessage();
     public byte [] getSliceOfMessage(int start,int end){
         byte [] sliceOfMessaage=new byte[end-start+1];
         byte[] message=getByteMessage();
@@ -25,5 +23,6 @@ public abstract class Message implements Serializable{
         }
         return sliceOfMessaage;
     }
+    abstract public byte[] getByteMessage();
     abstract public byte getMessageType();
 }
