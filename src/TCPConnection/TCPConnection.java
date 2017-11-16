@@ -18,8 +18,8 @@ import java.net.UnknownHostException;
  */
 public class TCPConnection implements Runnable{
     PeerClient peerClient;
-    NeighborState neighbor;
-    PeerInfo currentPeerInfo;
+    NeighborState currentNeighborState;
+    PeerInfo clientPeerInfo;
     PeerInfo neighborPeerInfo;
     Socket socket;
     MessageHandler messageHandler;
@@ -27,20 +27,19 @@ public class TCPConnection implements Runnable{
     public TCPConnection(PeerClient peerClient, Socket socket){
         this.peerClient = peerClient;
         this.socket=socket;
-        this.neighbor=new NeighborState();
-        this.currentPeerInfo= peerClient.getPeerInfo().copy();
-        this.neighborPeerInfo= PeerInfoFileParser.getPeerInfo(HandshakeMessage.getPeerIDFromHandshakeMessage(getMessage()));
-        messageHandler=new MessageHandler(this,this.neighbor);
+        this.currentNeighborState=new NeighborState();
+        this.clientPeerInfo= peerClient.getPeerInfo().copy();
+        this.neighborPeerInfo=new PeerInfo();
+        messageHandler=new MessageHandler(this,this.currentNeighborState);
     }
     public TCPConnection(PeerClient peerClient, PeerInfo peerInfo){
             try {
-                this.neighbor = new NeighborState();
+                this.currentNeighborState = new NeighborState();
                 this.peerClient = peerClient;
-                this.currentPeerInfo= peerClient.getPeerInfo().copy();
+                this.clientPeerInfo= peerClient.getPeerInfo().copy();
                 socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
                 System.out.println("Connected to " + peerInfo.getPeerID());
-                messageHandler=new MessageHandler(this,this.neighbor);
-                sendMessage(new HandshakeMessage(peerClient.getPeerInfo().getPeerID()));
+                messageHandler=new MessageHandler(this,this.currentNeighborState);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -48,7 +47,7 @@ public class TCPConnection implements Runnable{
             }
     }
 
-    public void sendMessage(Message message){
+    public synchronized void sendMessage(Message message){
         try {
             ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(message);
@@ -68,44 +67,16 @@ public class TCPConnection implements Runnable{
         }
         return null;
     }
-    synchronized public void sendHaveMessage(){
-
-    }
-    synchronized public void sendBitfieldMessage(){
-
-    }
-    synchronized public void sendInterestedMessage(){
-
-    }
-    synchronized public void sendNotInterestedMessage(){
-
-    }
-    synchronized public void sendPieceMessage(){
-
-    }
-    synchronized public void sendUnchokeMessage(){
-
-    }
-    synchronized public void sendChokeMessage(){
-
-    }
-    synchronized public void sendRequestMessage(){
-
-    }
-    synchronized public void sendHandShakeMessage(){
-
-    }
-
-
-    public PeerInfo getCurrentPeerInfo(){
-        return currentPeerInfo;
-    }
+    public MessageHandler getMessageHandler(){return messageHandler;}
+    public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
+    public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
     @Override
     public void run() {
         while(true) {
-            sendMessage(new BitfieldMessage(new byte[10]));
-            Message message = getMessage();
-            messageHandler.handleMessage(message);
+            System.out.println("Sent Message");
+            messageHandler.handleSendingMessage();
+            messageHandler.handleMessage(getMessage());
+            System.out.println("Got Problem");
         }
     }
 }

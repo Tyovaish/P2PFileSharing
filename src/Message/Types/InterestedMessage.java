@@ -8,8 +8,7 @@ import java.nio.ByteBuffer;
  * Created by Trevor on 10/23/2017.
  */
 public class InterestedMessage extends NormalMessage {
-    public InterestedMessage(int pieceIndex){
+    public InterestedMessage(){
         messageType=INTERESTED;
-        super.messagePayload= ByteBuffer.allocate(4).putInt(pieceIndex).array();
     }
 }
