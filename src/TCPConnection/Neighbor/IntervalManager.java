@@ -1,6 +1,7 @@
 package TCPConnection.Neighbor;
 
 import File.CommonFileParser;
+import Peer.PeerClient;
 import TCPConnection.TCPConnection;
 
 import java.util.ArrayList;
@@ -8,14 +9,14 @@ import java.util.ArrayList;
 /**
  * Created by Trevor on 11/14/2017.
  */
-public class NeighborManager implements Runnable {
-    ArrayList<TCPConnection> neighborConnections;
-    long unchokingInterval;
+public class IntervalManager implements Runnable {
+    PeerClient peerClient;
     long optimisticallyUnchokingInterval;
-    public NeighborManager(){
+    long unchokingInterval;
+    public IntervalManager(PeerClient peerClient){
+        this.peerClient=peerClient;
         unchokingInterval= CommonFileParser.getUnchokingInterval()*1000;
         optimisticallyUnchokingInterval=CommonFileParser.getOptimisticUnchokingInterval()*1000;
-        neighborConnections=new ArrayList<TCPConnection>();
     }
     @Override
     public void run() {
@@ -24,9 +25,6 @@ public class NeighborManager implements Runnable {
         while(true){
             if(System.currentTimeMillis()-unchokingStartTime>unchokingInterval){
                 System.out.println("Unchoke");
-                if(neighborConnections.size()!=0){
-                    System.out.println("Hello");
-                }
                 unchokingStartTime=System.currentTimeMillis();
             }
             if(System.currentTimeMillis()-optmisticallyUnchokeTime>optimisticallyUnchokingInterval){
@@ -34,9 +32,5 @@ public class NeighborManager implements Runnable {
                 optmisticallyUnchokeTime=System.currentTimeMillis();
             }
         }
-    }
-    public synchronized void addNeighbor(TCPConnection tcpConnection){
-
-        neighborConnections.add(tcpConnection);
     }
 }

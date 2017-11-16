@@ -81,7 +81,7 @@ public class MessageHandler {
 
 
     private void handleChokeMessage(Message message) {
-
+        neighbor.isChoking();
     }
 
     private void handleBitfieldMessage(Message message) {
