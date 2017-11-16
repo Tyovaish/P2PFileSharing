@@ -19,6 +19,7 @@ public class PeerInfo {
         this.peerID=peerID;
         this.portNumber=portNumber;
     }
+    public PeerInfo(){}
     public int getPeerID(){
         return peerID;
     }
@@ -29,5 +30,8 @@ public class PeerInfo {
     public boolean getHasFile(){return hasfile;}
     public PeerInfo copy(){
         return new PeerInfo(peerID,hostName,portNumber,hasfile);
+    }
+    public void setPeerID(int peerID){
+        this.peerID=peerID;
     }
 }
