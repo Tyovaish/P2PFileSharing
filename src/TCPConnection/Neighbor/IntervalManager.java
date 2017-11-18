@@ -25,10 +25,12 @@ public class IntervalManager implements Runnable {
         while(true){
             if(System.currentTimeMillis()-unchokingStartTime>unchokingInterval){
                 unchokingStartTime=System.currentTimeMillis();
+                peerClient.unchokeBestNeighbors();
             }
             if(System.currentTimeMillis()-optmisticallyUnchokeTime>optimisticallyUnchokingInterval){
                 //System.out.println("OptimisticallyUnchoke");
                 optmisticallyUnchokeTime=System.currentTimeMillis();
+                peerClient.optimisticallyUnchoke();
             }
             try {
                 Thread.sleep(100);
