@@ -1,7 +1,6 @@
 package Peer;
 import File.PeerInfoFileParser;
-import Message.Types.HaveMessage;
-import Message.Types.PieceMessage;
+import Message.Message;
 import TCPConnection.Neighbor.IntervalManager;
 import TCPConnection.TCPConnection;
 import java.io.IOException;
@@ -38,8 +37,7 @@ public class PeerClient {
     }
     public void sendHaveMessageToNeighbors(int pieceIndex){
         for(int i=0;i<neighbors.size();i++){
-            neighbors.get(i).sendMessage(new HaveMessage(pieceIndex));
-        }
+            neighbors.get(i).sendMessage(new Message(Message.HAVE));}
     }
     public void run() {
         connectToPreviousPeers();

@@ -1,15 +1,10 @@
 package TCPConnection;
-import File.PeerInfoFileParser;
 import Message.Message;
-import Message.HandshakeMessage;
-import Message.Types.*;
 import TCPConnection.Neighbor.NeighborState;
 import Peer.PeerInfo;
 import Peer.PeerClient;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import Message.*;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -23,6 +18,8 @@ public class TCPConnection implements Runnable{
     PeerInfo neighborPeerInfo;
     Socket socket;
     MessageHandler messageHandler;
+    DataOutputStream out;
+    DataInputStream in;
 
     public TCPConnection(PeerClient peerClient, Socket socket){
         this.peerClient = peerClient;
@@ -30,27 +27,48 @@ public class TCPConnection implements Runnable{
         this.currentNeighborState=new NeighborState();
         this.clientPeerInfo= peerClient.getPeerInfo().copy();
         this.neighborPeerInfo=new PeerInfo();
+        try {
+            this.out=new DataOutputStream(socket.getOutputStream());
+            out.flush();
+            this.in=new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
+        HandshakeMessage.readHandshake(in,neighborPeerInfo);
         messageHandler=new MessageHandler(this,this.currentNeighborState);
     }
-    public TCPConnection(PeerClient peerClient, PeerInfo peerInfo){
-            try {
-                this.currentNeighborState = new NeighborState();
-                this.peerClient = peerClient;
-                this.clientPeerInfo= peerClient.getPeerInfo().copy();
-                socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
-                System.out.println("Connected to " + peerInfo.getPeerID());
-                messageHandler=new MessageHandler(this,this.currentNeighborState);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public TCPConnection(PeerClient peerClient, PeerInfo peerInfo) {
+        try {
+            this.currentNeighborState = new NeighborState();
+            this.peerClient = peerClient;
+            this.clientPeerInfo = peerClient.getPeerInfo().copy();
+            this.neighborPeerInfo=peerInfo;
+            socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
+
+            this.out=new DataOutputStream(socket.getOutputStream());
+            out.flush();
+            this.in=new DataInputStream(socket.getInputStream());
+
+            HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
+            HandshakeMessage.readHandshake(in,neighborPeerInfo);
+            System.out.println(neighborPeerInfo.getPeerID());
+            messageHandler = new MessageHandler(this, this.currentNeighborState);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    public void sendHandshakeMessage(){
+
+    }
     public synchronized void sendMessage(Message message){
         try {
-            ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
-            out.writeObject(message);
+            out.writeInt(message.getPayloadLength());
+            out.write(message.getMessageType());
+            out.write(message.getPayload());
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,11 +76,12 @@ public class TCPConnection implements Runnable{
     }
     public Message getMessage() {
         try {
-            ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
-            return (Message) in.readObject();
+           int payloadLength=in.readInt();
+           byte messageType=in.readByte();
+           byte [] payload=new byte[payloadLength];
+           in.readFully(payload);
+           return new Message(messageType,payload);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -73,10 +92,8 @@ public class TCPConnection implements Runnable{
     @Override
     public void run() {
         while(true) {
-            System.out.println("Sent Message");
             messageHandler.handleSendingMessage();
             messageHandler.handleMessage(getMessage());
-            System.out.println("Got Problem");
         }
     }
 }

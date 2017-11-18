@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Trevor on 10/25/2017.
  */
-public abstract class Message implements Serializable{
+public class Message{
     public static final byte CHOKE=0;
     public static final byte UNCHOKE=1;
     public static final byte INTERESTED=2;
@@ -15,14 +15,24 @@ public abstract class Message implements Serializable{
     public static final byte REQUEST=6;
     public static final byte PIECE=7;
     public static final byte HANDSHAKE=8;
-    public byte [] getSliceOfMessage(int start,int end){
-        byte [] sliceOfMessaage=new byte[end-start+1];
-        byte[] message=getByteMessage();
-        for(int j=0,i=start;i<end;j++,i++){
-            sliceOfMessaage[j]=message[i];
-        }
-        return sliceOfMessaage;
+    byte messageType;
+    byte [] payload;
+    public Message(byte messageType, byte[] payload){
+        this.messageType=messageType;
+        this.payload=payload;
     }
-    abstract public byte[] getByteMessage();
-    abstract public byte getMessageType();
+    public Message(byte messageType){
+        this.messageType=messageType;
+        this.payload=new byte[0];
+    }
+    public byte[] getPayload(){
+        return payload;
+    }
+    public byte getMessageType(){
+        return messageType;
+    }
+    public int getPayloadLength(){
+        return payload.length;
+    }
+
 }
