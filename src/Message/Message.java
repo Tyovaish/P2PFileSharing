@@ -1,6 +1,7 @@
 package Message;
 
 import java.io.Serializable;
+import java.nio.ByteBuffer;
 
 /**
  * Created by Trevor on 10/25/2017.
@@ -24,6 +25,10 @@ public class Message{
     public Message(byte messageType){
         this.messageType=messageType;
         this.payload=new byte[0];
+    }
+    public Message(byte messageType,int pieceIndex){
+        this.messageType=messageType;
+        this.payload= ByteBuffer.allocate(4).putInt(pieceIndex).array();
     }
     public byte[] getPayload(){
         return payload;

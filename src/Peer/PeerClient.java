@@ -8,6 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static Message.Message.HAVE;
+
 public class PeerClient {
     PeerInfo peerInfo;
     IntervalManager intervalManager;
@@ -32,12 +34,19 @@ public class PeerClient {
             new Thread(peer).start();
         }
     }
-    public PeerInfo getPeerInfo(){
-        return peerInfo;
-    }
     public void sendHaveMessageToNeighbors(int pieceIndex){
         for(int i=0;i<neighbors.size();i++){
-            neighbors.get(i).sendMessage(new Message(Message.HAVE));}
+            neighbors.get(i).sendMessage(new Message(HAVE,pieceIndex));
+        }
+    }
+    public void unchokeBestNeighbors(){
+
+    }
+    public void optimisticallyUnchoke(){
+
+    }
+    public PeerInfo getPeerInfo(){
+        return peerInfo;
     }
     public void run() {
         connectToPreviousPeers();
