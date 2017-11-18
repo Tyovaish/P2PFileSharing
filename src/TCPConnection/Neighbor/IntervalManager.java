@@ -24,12 +24,16 @@ public class IntervalManager implements Runnable {
         long optmisticallyUnchokeTime=System.currentTimeMillis();
         while(true){
             if(System.currentTimeMillis()-unchokingStartTime>unchokingInterval){
-                System.out.println("Unchoke");
                 unchokingStartTime=System.currentTimeMillis();
             }
             if(System.currentTimeMillis()-optmisticallyUnchokeTime>optimisticallyUnchokingInterval){
-                System.out.println("OptimisticallyUnchoke");
+                //System.out.println("OptimisticallyUnchoke");
                 optmisticallyUnchokeTime=System.currentTimeMillis();
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
