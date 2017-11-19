@@ -55,10 +55,12 @@ public class PeerClient {
         for(int i = 0; i < neighbors.size(); i++){
             neighbors.get(i).getNeighborState().chokeNeighbor();
             if( preferred.size() < NumberOfPreferredNeighbors || comp.compare(neighbors.get(i), preferred.peek()) == 1){
-                if(preferred.size() == NumberOfPreferredNeighbors){
-                    preferred.remove(preferred.peek());
-                }
-                preferred.offer(neighbors.get(i));
+                 if(neighbors.get(i).getNeighborState().isInterestedInClient()) {
+                     if (preferred.size() == NumberOfPreferredNeighbors) {
+                         preferred.remove(preferred.peek());
+                     }
+                     preferred.offer(neighbors.get(i));
+                 }
             }
         }
         for(int j = 0; j < preferred.size(); j++){
@@ -71,7 +73,7 @@ public class PeerClient {
         int remaining = neighbors.size();
         while(remaining > 0){
             i = random.nextInt(neighbors.size());
-            if(!neighbors.get(i).getNeighborState().isChokingNeighbor()){
+            if(!neighbors.get(i).getNeighborState().isChokingNeighbor() || !neighbors.get(i).getNeighborState().isInterestedInClient()){
                 remaining--;
                 continue;
             }

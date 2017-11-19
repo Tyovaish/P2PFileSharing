@@ -94,8 +94,8 @@
       <file leaf-file-name="PeerClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Peer/PeerClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-132">
-              <caret line="58" column="55" lean-forward="true" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="55" />
+            <state relative-caret-position="333">
+              <caret line="62" column="18" lean-forward="false" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -674,7 +674,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511132943352</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="removed print statements">
+      <created>1511133493293</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1511133493293</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -738,7 +745,8 @@
     <MESSAGE value="unchokeBestNeighbors implementation" />
     <MESSAGE value="preferred neighbor list" />
     <MESSAGE value="optimistically unchoke" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimistically unchoke" />
+    <MESSAGE value="removed print statements" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed print statements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1045,8 +1053,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Peer/PeerClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-132">
-          <caret line="58" column="55" lean-forward="true" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="55" />
+        <state relative-caret-position="333">
+          <caret line="62" column="18" lean-forward="false" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
