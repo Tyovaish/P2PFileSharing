@@ -17,9 +17,15 @@ public class PeerClient {
     PeerInfo peerInfo;
     IntervalManager intervalManager;
     ArrayList<TCPConnection> neighbors;
+    Comparator<TCPConnection> comp;
+    PriorityQueue<TCPConnection> preferred;
+    int NumberOfPreferredNeighbors;
     public PeerClient(int peerID)
     {
         neighbors=new ArrayList<TCPConnection>();
+        NumberOfPreferredNeighbors = CommonFileParser.getNumberOfPreferredNeighbors();
+        comp = new NeighborComparator();
+        preferred = new PriorityQueue<TCPConnection>(NumberOfPreferredNeighbors, comp);
         this.intervalManager=new IntervalManager(this);
         this.peerInfo=new PeerInfo(peerID,PeerInfoFileParser.getPeerInfo(peerID).getPortNumber());
     }
@@ -45,19 +51,17 @@ public class PeerClient {
     }
     public void unchokeBestNeighbors(){
         int NumberOfPreferredNeighbors = CommonFileParser.getNumberOfPreferredNeighbors();
-        Comparator<TCPConnection> comp = new NeighborComparator();
-        PriorityQueue<TCPConnection> heap = new PriorityQueue<TCPConnection>(NumberOfPreferredNeighbors, comp);
         for(int i = 0; i < neighbors.size(); i++){
             neighbors.get(i).getNeighborState().chokeNeighbor();
-            if( heap.size() < NumberOfPreferredNeighbors || comp.compare(neighbors.get(i), heap.peek()) == 1){
-                if(heap.size() == NumberOfPreferredNeighbors){
-                    heap.remove(heap.peek());
+            if( preferred.size() < NumberOfPreferredNeighbors || comp.compare(neighbors.get(i), preferred.peek()) == 1){
+                if(preferred.size() == NumberOfPreferredNeighbors){
+                    preferred.remove(preferred.peek());
                 }
-                heap.offer(neighbors.get(i));
+                preferred.offer(neighbors.get(i));
             }
         }
-        for(int j = 0; j < heap.size(); j++){
-            heap.peek().getNeighborState().unchokeNeighbor();
+        for(int j = 0; j < preferred.size(); j++){
+            preferred.peek().getNeighborState().unchokeNeighbor();
         }
     }
     public void optimisticallyUnchoke(){
