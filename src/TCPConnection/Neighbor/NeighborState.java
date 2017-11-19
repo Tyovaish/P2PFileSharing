@@ -24,6 +24,7 @@ public class NeighborState {
     public boolean hasRecievedHandshake(){return hasRecievedHandshake;}
     public boolean hasSentHandshake(){return hasSentHandshake;}
     public boolean hasSentBitfield(){return sentBitfield;}
+    public int getPiecesRecieved() {return piecesRecieved;}
     public void chokeNeighbor() { chokingNeighbor = true; }
     public void unchokeNeighbor() { chokingNeighbor = false; }
     public void chokeClient() { chokingClient= true; }

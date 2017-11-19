@@ -24,6 +24,7 @@ public class IntervalManager implements Runnable {
         long optmisticallyUnchokeTime=System.currentTimeMillis();
         while(true){
             if(System.currentTimeMillis()-unchokingStartTime>unchokingInterval){
+                System.out.println("--------------------------------------------------");
                 unchokingStartTime=System.currentTimeMillis();
                 peerClient.unchokeBestNeighbors();
             }
