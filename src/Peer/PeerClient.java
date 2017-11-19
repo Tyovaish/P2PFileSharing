@@ -1,4 +1,5 @@
 package Peer;
+import File.CommonFileParser;
 import File.PeerInfoFileParser;
 import Message.Message;
 import TCPConnection.Neighbor.IntervalManager;
@@ -14,6 +15,7 @@ public class PeerClient {
     PeerInfo peerInfo;
     IntervalManager intervalManager;
     ArrayList<TCPConnection> neighbors;
+    int numberOfPrefferedNeighbors= CommonFileParser.getNumberOfPreferredNeighbors();
     public PeerClient(int peerID)
     {
         neighbors=new ArrayList<TCPConnection>();
@@ -40,7 +42,6 @@ public class PeerClient {
         }
     }
     public void unchokeBestNeighbors(){
-
     }
     public void optimisticallyUnchoke(){
 

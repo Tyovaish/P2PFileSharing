@@ -30,6 +30,16 @@ public class Message{
         this.messageType=messageType;
         this.payload= ByteBuffer.allocate(4).putInt(pieceIndex).array();
     }
+    public Message(byte messageType,int pieceIndex,byte[] payload){
+        byte [] pieceIndexInBytes=ByteBuffer.allocate(4).putInt(pieceIndex).array();
+        this.payload=new byte[pieceIndexInBytes.length+payload.length];
+        for(int i=0;i<pieceIndexInBytes.length;++i){
+            this.payload[i]=pieceIndexInBytes[i];
+        }
+        for(int i=pieceIndexInBytes.length;i<this.payload.length;++i){
+            this.payload[i]=payload[i];
+        }
+    }
     public byte[] getPayload(){
         return payload;
     }
