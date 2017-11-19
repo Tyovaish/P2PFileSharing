@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 import static Message.Message.HAVE;
 
@@ -65,7 +66,20 @@ public class PeerClient {
         }
     }
     public void optimisticallyUnchoke(){
-
+        Random random = new Random();
+        int i;
+        int remaining = neighbors.size();
+        while(remaining > 0){
+            System.out.println("F");
+            i = random.nextInt(neighbors.size());
+            if(!neighbors.get(i).getNeighborState().isChokingNeighbor()){
+                remaining--;
+                continue;
+            }
+            neighbors.get(i).getNeighborState().unchokeNeighbor();
+            System.out.println("OU");
+            break;
+        }
     }
     public PeerInfo getPeerInfo(){
         return peerInfo;
