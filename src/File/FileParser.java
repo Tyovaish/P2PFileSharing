@@ -87,7 +87,7 @@ public class FileParser {
       fos.flush();
       fos.close();
     } catch(IOException e) {
-      System.out.println("IO Excepton");
+      System.out.println("IO Exception");
     }
   }
 }
