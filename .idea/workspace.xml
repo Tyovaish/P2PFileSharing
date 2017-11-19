@@ -2,12 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05a29124-66fc-4de3-9d67-5e396fb43653" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Message/Types/InterestedMessage.java" afterPath="$PROJECT_DIR$/src/Message/Types/InterestedMessage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Peer/PeerInfo.java" afterPath="$PROJECT_DIR$/src/Peer/PeerInfo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPConnection/MessageHandler.java" afterPath="$PROJECT_DIR$/src/TCPConnection/MessageHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPConnection/Neighbor/NeighborState.java" afterPath="$PROJECT_DIR$/src/TCPConnection/Neighbor/NeighborState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPConnection/TCPConnection.java" afterPath="$PROJECT_DIR$/src/TCPConnection/TCPConnection.java" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/File/CommonFileParser.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/File/CommonFileParser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/File/PeerInfoFileParser.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/File/PeerInfoFileParser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Logger/InformationLogger.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Logger/InformationLogger.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/HandshakeMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/HandshakeMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Message.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Message.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/NormalMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/NormalMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/BitfieldMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/BitfieldMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/ChokeMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/ChokeMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/HaveMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/HaveMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/InterestedMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/InterestedMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/NotInterestedMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/NotInterestedMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/PieceMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/PieceMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/RequestMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/RequestMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/UnChokeMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/UnChokeMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerInfo.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerInfo.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerProcess.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerProcess.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/MessageHandler.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/MessageHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/TCPConnection.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/TCPConnection.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/CommonFileTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/CommonFileTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/PeerInfoFileTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/PeerInfoFileTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/LoggerTest/LoggerTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/LoggerTest/LoggerTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient2.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/FileParser.java" afterPath="$PROJECT_DIR$/src/File/FileParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/FileTest.java" afterPath="$PROJECT_DIR$/src/File/FileTest.java" />
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +50,8 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="IntervalManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TCPConnection/Neighbor/IntervalManager.java">
@@ -87,10 +117,34 @@
             <state relative-caret-position="102">
               <caret line="6" column="43" lean-forward="false" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
               <folding />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
+      <file leaf-file-name="FileTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="350">
+              <caret line="39" column="62" lean-forward="true" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="FileParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
       <file leaf-file-name="MessageHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TCPConnection/MessageHandler.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -115,9 +169,13 @@
       </file>
       <file leaf-file-name="MessageTestClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient.java">
+=======
+      <file leaf-file-name="CommonFileParser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="34">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -145,6 +203,7 @@
       </file>
     </leaf>
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -155,15 +214,23 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>System</find>
+=======
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>bos</find>
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+<<<<<<< HEAD
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
+=======
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -174,6 +241,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/src/File/CommonFileParser.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/Peer/NeighborState.java" />
         <option value="$PROJECT_DIR$/src/Logger/InformationLogger.java" />
         <option value="$PROJECT_DIR$/src/Message/HandshakeMessage.java" />
@@ -200,14 +268,17 @@
         <option value="$PROJECT_DIR$/src/Peer/PeerInfo.java" />
         <option value="$PROJECT_DIR$/src/TCPConnection/MessageHandler.java" />
         <option value="$PROJECT_DIR$/src/TCPConnection/TCPConnection.java" />
+=======
+        <option value="$PROJECT_DIR$/src/File/FileParser.java" />
+        <option value="$PROJECT_DIR$/src/File/FileTest.java" />
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="34" />
+    <option name="width" value="3200" />
+    <option name="height" value="1766" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -224,6 +295,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -410,6 +482,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+=======
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="File" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -417,13 +515,34 @@
       <pane id="Scope" />
     </panes>
   </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Trevor\IdeaProjects\P2PFileSharing\src" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.MessageTestClient2">
     <configuration default="false" name="MessageTestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+=======
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.MessageTestClient">
+    <configuration name="MessageTestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="Test.MessageTest.*" />
@@ -481,14 +600,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="P2PFileSharingProject" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
-      <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
@@ -496,7 +607,6 @@
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <module />
-      <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -511,23 +621,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -548,6 +641,61 @@
       </option>
       <envs />
       <patterns />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -596,6 +744,7 @@
       <envs />
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -637,6 +786,8 @@
       <item index="1" class="java.lang.String" itemvalue="Application.MessageTestClient2" />
       <item index="2" class="java.lang.String" itemvalue="Application.CommonFileTest" />
     </list>
+=======
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
     <recent_temporary>
       <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Application.MessageTestClient2" />
@@ -670,11 +821,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="34" width="3200" height="1766" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5021482" order="7" side_tool="true" content_ui="tabs" />
@@ -701,6 +853,32 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938856" sideWeight="0.50125" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37409598" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938856" sideWeight="0.49875" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.221875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -722,6 +900,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Peer/PeerClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -757,11 +936,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TCPConnection/MessageHandler.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+<<<<<<< HEAD
             <element signature="e#2322#2323#0" expanded="true" />
             <element signature="e#2385#2386#0" expanded="true" />
             <element signature="e#3369#3370#0" expanded="true" />
@@ -772,15 +955,27 @@
             <element signature="e#3687#3688#0" expanded="true" />
             <element signature="e#3744#3745#0" expanded="true" />
             <element signature="e#3813#3814#0" expanded="true" />
+=======
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/TCPConnection/TCPConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
           <caret line="102" column="58" lean-forward="false" selection-start-line="102" selection-start-column="58" selection-end-line="102" selection-end-column="58" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
         </state>
       </provider>
     </entry>
@@ -877,14 +1072,137 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="572">
+=======
+        <state relative-caret-position="884">
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
           <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient.java">
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/File/CommonFileParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient.java" />
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="39" column="62" lean-forward="true" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
@@ -1041,6 +1359,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+=======
+        <state relative-caret-position="34">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+>>>>>>> b4ca54a81ff010a6938edaabd2c2997a25f7046e
           <folding />
         </state>
       </provider>
