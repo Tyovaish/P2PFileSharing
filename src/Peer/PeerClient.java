@@ -70,14 +70,12 @@ public class PeerClient {
         int i;
         int remaining = neighbors.size();
         while(remaining > 0){
-            System.out.println("F");
             i = random.nextInt(neighbors.size());
             if(!neighbors.get(i).getNeighborState().isChokingNeighbor()){
                 remaining--;
                 continue;
             }
             neighbors.get(i).getNeighborState().unchokeNeighbor();
-            System.out.println("OU");
             break;
         }
     }

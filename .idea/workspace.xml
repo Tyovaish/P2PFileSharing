@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05a29124-66fc-4de3-9d67-5e396fb43653" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharingProject/File/PeerInfoFileParser.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/File/PeerInfoFileParser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/FileTest/PeerInfo.cfg" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/FileTest/PeerInfo.cfg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Peer/PeerClient.java" afterPath="$PROJECT_DIR$/src/Peer/PeerClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPConnection/Neighbor/IntervalManager.java" afterPath="$PROJECT_DIR$/src/TCPConnection/Neighbor/IntervalManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -97,8 +94,8 @@
       <file leaf-file-name="PeerClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Peer/PeerClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="72" column="36" lean-forward="false" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+            <state relative-caret-position="-132">
+              <caret line="58" column="55" lean-forward="true" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -670,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511130213320</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="optimistically unchoke">
+      <created>1511132943352</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1511132943352</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -733,7 +737,8 @@
     <MESSAGE value="neighbor state" />
     <MESSAGE value="unchokeBestNeighbors implementation" />
     <MESSAGE value="preferred neighbor list" />
-    <option name="LAST_COMMIT_MESSAGE" value="preferred neighbor list" />
+    <MESSAGE value="optimistically unchoke" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimistically unchoke" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1040,8 +1045,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Peer/PeerClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="72" column="36" lean-forward="false" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+        <state relative-caret-position="-132">
+          <caret line="58" column="55" lean-forward="true" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
