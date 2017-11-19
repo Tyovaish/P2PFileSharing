@@ -2,31 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05a29124-66fc-4de3-9d67-5e396fb43653" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/File/CommonFileParser.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/File/CommonFileParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/File/PeerInfoFileParser.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/File/PeerInfoFileParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Logger/InformationLogger.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Logger/InformationLogger.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/HandshakeMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/HandshakeMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Message.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Message.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/NormalMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/NormalMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/BitfieldMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/BitfieldMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/ChokeMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/ChokeMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/HaveMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/HaveMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/InterestedMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/InterestedMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/NotInterestedMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/NotInterestedMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/PieceMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/PieceMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/RequestMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/RequestMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/UnChokeMessage.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Message/Types/UnChokeMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerInfo.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerProcess.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/MessageHandler.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/MessageHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/TCPConnection.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/TCPConnection/TCPConnection.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/CommonFileTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/CommonFileTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/PeerInfoFileTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/PeerInfoFileTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/LoggerTest/LoggerTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/LoggerTest/LoggerTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient2.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/MessageTest/MessageTestClient2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/CommonFileParser.java" afterPath="$PROJECT_DIR$/src/File/CommonFileParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/FileParser.java" afterPath="$PROJECT_DIR$/src/File/FileParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/FileTest.java" afterPath="$PROJECT_DIR$/src/File/FileTest.java" />
     </list>
@@ -43,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="FileTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FileTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="39" column="62" lean-forward="true" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
+            <state relative-caret-position="-476">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -67,7 +44,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommonFileParser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CommonFileParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
@@ -96,8 +73,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/src/File/CommonFileParser.java" />
-        <option value="$PROJECT_DIR$/src/File/FileParser.java" />
         <option value="$PROJECT_DIR$/src/File/FileTest.java" />
+        <option value="$PROJECT_DIR$/src/File/FileParser.java" />
+        <option value="$PROJECT_DIR$/src/File/CommonFileParser.java" />
       </list>
     </option>
   </component>
@@ -123,7 +101,6 @@
     <panes>
       <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -147,6 +124,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,6 +381,34 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="39" column="62" lean-forward="false" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/CommonFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
@@ -527,20 +533,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/src/File/CommonFileParser.java" />
     <entry file="file://$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient.java" />
-    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="39" column="62" lean-forward="true" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -552,6 +548,16 @@
         <state relative-caret-position="34">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/File/FileTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-476">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
