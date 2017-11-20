@@ -55,7 +55,7 @@ public class MessageHandler {
             sendBitfieldMessage();
             currentNeighborState.sentBitfield();
         } else if(!currentNeighborState.isChokingClient()){
-            sendRequestMessage(currentNeighborState.getRandomPiece());
+            //sendRequestMessage(currentNeighborState.getRandomPiece());
         } else {
             sendInterestedMessage();
         }
