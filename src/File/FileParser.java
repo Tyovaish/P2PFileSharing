@@ -92,4 +92,7 @@ public class FileParser {
       System.out.println("IO Exception");
     }
   }
+  public boolean isFinished(){
+    return false;
+  }
 }
