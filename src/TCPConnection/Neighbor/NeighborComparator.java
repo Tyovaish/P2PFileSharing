@@ -1,4 +1,4 @@
-package Peer;
+package TCPConnection.Neighbor;
 
 import TCPConnection.TCPConnection;
 

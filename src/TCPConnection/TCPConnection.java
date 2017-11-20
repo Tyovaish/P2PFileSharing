@@ -7,6 +7,7 @@ import Message.*;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import File.*;
 
 /**
  * Created by Trevor on 10/18/2017.
@@ -86,6 +87,9 @@ public class TCPConnection implements Runnable{
     public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
     public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
     public NeighborState getNeighborState(){return getNeighborState();}
+    public FileParser getFile(){return peerClient.getFile();}
+    public Socket getSocket(){return socket;}
+    public boolean isFinished(){return currentNeighborState.checkIfFinished();}
     @Override
     public void run() {
         while(true) {

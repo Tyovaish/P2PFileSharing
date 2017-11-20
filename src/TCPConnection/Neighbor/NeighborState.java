@@ -1,5 +1,8 @@
 package TCPConnection.Neighbor;
 
+import File.FileParser;
+import TCPConnection.TCPConnection;
+
 import java.util.BitSet;
 
 /**
@@ -10,7 +13,6 @@ public class NeighborState {
     boolean hasSentHandshake=false;
     boolean chokingNeighbor = true;
     boolean chokingClient = true;
-    boolean interestedInNeighbor = false;
     boolean interestedInClient=false;
     boolean sentBitfield=false;
     BitSet bitfield;
@@ -19,7 +21,6 @@ public class NeighborState {
 
     public boolean isChokingNeighbor() { return chokingNeighbor; }
     public boolean isChokingClient() { return chokingClient; }
-    public boolean isInterestedInNeighbor() { return interestedInNeighbor; }
     public boolean isInterestedInClient(){return interestedInClient;}
     public boolean hasRecievedHandshake(){return hasRecievedHandshake;}
     public boolean hasSentHandshake(){return hasSentHandshake;}
@@ -29,7 +30,6 @@ public class NeighborState {
     public void unchokeNeighbor() { chokingNeighbor = false; }
     public void chokeClient() { chokingClient= true; }
     public void unchokeClient() { chokingClient = false; }
-    public void setInterestedInNeighbor() {interestedInNeighbor  = true; }
     public void setNotInterestedInNeighbor() { interestedInClient = false; }
     public void setInterestedInClient(){}{interestedInClient=true;}
     public void setNotInterestedInClient(){interestedInClient=false;}
@@ -38,6 +38,13 @@ public class NeighborState {
     public void recievedHandshake(){hasRecievedHandshake=true;}
     public void sentHandshake(){hasSentHandshake=true;}
     public void sentBitfield(){sentBitfield=true;}
+    public boolean checkIfFinished(){return bitfield.cardinality()==bitfield.size();}
+    public int getRandomPiece(FileParser file){
+        return 0;
+    }
+    public boolean isInterestedInNeighbor(FileParser file){
+        return false;
+    }
 
 
 

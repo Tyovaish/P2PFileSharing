@@ -1,8 +1,10 @@
 package Peer;
 import File.CommonFileParser;
+import File.FileParser;
 import File.PeerInfoFileParser;
 import Message.Message;
 import TCPConnection.Neighbor.IntervalManager;
+import TCPConnection.Neighbor.NeighborComparator;
 import TCPConnection.TCPConnection;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -20,6 +22,7 @@ public class PeerClient {
     ArrayList<TCPConnection> neighbors;
     Comparator<TCPConnection> comp;
     PriorityQueue<TCPConnection> preferred;
+    FileParser file;
     int NumberOfPreferredNeighbors;
     public PeerClient(int peerID)
     {
@@ -81,9 +84,27 @@ public class PeerClient {
             break;
         }
     }
+    public boolean allFinished(){
+        for(int i=0;i<neighbors.size();i++){
+            if(neighbors.get(i).isFinished()==false){
+                return false;
+            }
+        }
+        return file.isFinished();
+    }
+    public void shutdown(){
+        for(int i=0;i<neighbors.size();i++){
+            try {
+                neighbors.get(i).getSocket().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public PeerInfo getPeerInfo(){
         return peerInfo;
     }
+    public FileParser getFile(){return file;}
     public void run() {
         connectToPreviousPeers();
         new Thread(intervalManager).start();
