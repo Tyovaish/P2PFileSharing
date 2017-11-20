@@ -17,13 +17,14 @@ public class InformationLogger {
     FileWriter fileWriter;
     BufferedWriter bufferedWriter;
     private static InformationLogger _instance;
-    public static InformationLogger Instance(int peerIDOfProccess){
+    public static InformationLogger Instance(){
         if(_instance == null){
-            _instance = new InformationLogger(peerIDOfProccess);
+            _instance = new InformationLogger();
         }
         return _instance;
     }
-    private InformationLogger(int peerIDOfProccess){
+    private InformationLogger() {}
+    public void init(int peerIDOfProccess){
         this.peerIDOfProccess=peerIDOfProccess;
         date=new Date();
         try {

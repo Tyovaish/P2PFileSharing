@@ -88,7 +88,8 @@ public class PeerClient {
         return peerInfo;
     }
     public void run() {
-        InformationLogger logger = InformationLogger.Instance(peerInfo.getPeerID());
+        InformationLogger logger = InformationLogger.Instance();
+        logger.init(peerInfo.getPeerID());
         connectToPreviousPeers();
         new Thread(intervalManager).start();
         try {
