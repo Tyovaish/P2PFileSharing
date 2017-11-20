@@ -67,6 +67,7 @@ public class MessageHandler {
     private void handlePieceMessage(Message message) {
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()).array();
+       tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),0,1);
 
     }
 
@@ -75,6 +76,7 @@ public class MessageHandler {
             System.out.println("Recieved Unchoke");
         }
         currentNeighborState.unchokeClient();
+        tcpConnection.getInformationLogger().logChoke(1001);
     }
 
     private void handleRequestMessage(Message message) {
@@ -83,9 +85,7 @@ public class MessageHandler {
         }
         int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
         byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
-        if(!currentNeighborState.isChokingNeighbor()){
 
-        }
         /*
         byte[] payload = message.getByteMessage();
         int index = payload.toInt();
@@ -98,6 +98,7 @@ public class MessageHandler {
             System.out.println("Recieved Not Interested");
         }
         currentNeighborState.setNotInterestedInClient();
+        tcpConnection.getInformationLogger().logNotInterestedMessage(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleInterestedMessage(Message message) {
@@ -105,6 +106,7 @@ public class MessageHandler {
             System.out.println("Recieved Intereseted");
         }
         currentNeighborState.setInterestedInClient();
+        tcpConnection.getInformationLogger().logInterestedMessage(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleHaveMessage(Message message) {

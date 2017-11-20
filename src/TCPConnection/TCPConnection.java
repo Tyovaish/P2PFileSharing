@@ -1,4 +1,5 @@
 package TCPConnection;
+import Logger.InformationLogger;
 import Message.Message;
 import TCPConnection.Neighbor.NeighborState;
 import Peer.PeerInfo;
@@ -21,11 +22,10 @@ public class TCPConnection implements Runnable{
     MessageHandler messageHandler;
     DataOutputStream out;
     DataInputStream in;
-
+    InformationLogger informationLogger;
     public TCPConnection(PeerClient peerClient, Socket socket){
         this.peerClient = peerClient;
         this.socket=socket;
-        this.currentNeighborState=new NeighborState();
         this.clientPeerInfo= peerClient.getPeerInfo().copy();
         this.neighborPeerInfo=new PeerInfo();
         try {
@@ -37,11 +37,11 @@ public class TCPConnection implements Runnable{
         }
         HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
         HandshakeMessage.readHandshake(in,neighborPeerInfo);
+        this.currentNeighborState=new NeighborState(neighborPeerInfo);
         messageHandler=new MessageHandler(this,this.currentNeighborState);
     }
     public TCPConnection(PeerClient peerClient, PeerInfo peerInfo) {
         try {
-            this.currentNeighborState = new NeighborState();
             this.peerClient = peerClient;
             this.clientPeerInfo = peerClient.getPeerInfo().copy();
             this.neighborPeerInfo=peerInfo;
@@ -53,6 +53,7 @@ public class TCPConnection implements Runnable{
 
             HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
             HandshakeMessage.readHandshake(in,neighborPeerInfo);
+            this.currentNeighborState = new NeighborState(neighborPeerInfo);
             messageHandler = new MessageHandler(this, this.currentNeighborState);
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -89,6 +90,7 @@ public class TCPConnection implements Runnable{
     public NeighborState getNeighborState(){return getNeighborState();}
     public FileParser getFile(){return peerClient.getFile();}
     public Socket getSocket(){return socket;}
+    public InformationLogger getInformationLogger(){return peerClient.getInformationLogger();}
     public boolean isFinished(){return currentNeighborState.checkIfFinished();}
     @Override
     public void run() {

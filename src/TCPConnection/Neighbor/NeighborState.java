@@ -1,6 +1,7 @@
 package TCPConnection.Neighbor;
 
 import File.FileParser;
+import Peer.PeerInfo;
 import TCPConnection.TCPConnection;
 
 import java.util.BitSet;
@@ -9,6 +10,7 @@ import java.util.BitSet;
  * Created by Logan on 11/4/2017.
  */
 public class NeighborState {
+    PeerInfo neighborInfo;
     boolean hasRecievedHandshake=false;
     boolean hasSentHandshake=false;
     boolean chokingNeighbor = true;
@@ -17,8 +19,9 @@ public class NeighborState {
     boolean sentBitfield=false;
     BitSet bitfield;
     int piecesRecieved;
-
-
+    public NeighborState(PeerInfo neighborInfo){
+        this.neighborInfo=neighborInfo;
+    }
     public boolean isChokingNeighbor() { return chokingNeighbor; }
     public boolean isChokingClient() { return chokingClient; }
     public boolean isInterestedInClient(){return interestedInClient;}
@@ -45,6 +48,8 @@ public class NeighborState {
     public boolean isInterestedInNeighbor(FileParser file){
         return false;
     }
+    public int getNeighborPeerID(){return neighborInfo.getPeerID();}
+    //public int getNumberOfPiecesInPossesion(){return }
 
 
 
