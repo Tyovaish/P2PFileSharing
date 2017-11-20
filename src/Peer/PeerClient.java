@@ -1,9 +1,12 @@
 package Peer;
 import File.CommonFileParser;
 import File.PeerInfoFileParser;
+import Logger.InformationLogger;
 import Message.Message;
 import TCPConnection.Neighbor.IntervalManager;
 import TCPConnection.TCPConnection;
+
+import javax.sound.midi.MidiDevice;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -85,6 +88,7 @@ public class PeerClient {
         return peerInfo;
     }
     public void run() {
+        InformationLogger logger = InformationLogger.Instance(peerInfo.getPeerID());
         connectToPreviousPeers();
         new Thread(intervalManager).start();
         try {
