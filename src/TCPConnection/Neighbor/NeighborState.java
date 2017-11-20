@@ -13,6 +13,7 @@ public class NeighborState {
     boolean interestedInNeighbor = false;
     boolean interestedInClient=false;
     boolean sentBitfield=false;
+    boolean finished=false;
     BitSet bitfield;
     int piecesRecieved;
 
@@ -32,11 +33,13 @@ public class NeighborState {
     public void setNotInterestedInNeighbor() { interestedInClient = false; }
     public void setInterestedInClient(){}{interestedInClient=true;}
     public void setNotInterestedInClient(){interestedInClient=false;}
-    public void updateBitField(int pieceIndex) { bitfield.set(pieceIndex,true); }
+    public void updateBitField(int pieceIndex) {++piecesRecieved;bitfield.set(pieceIndex,true); }
     public void updateBitfield(byte [] bitfield){this.bitfield=BitSet.valueOf(bitfield);}
     public void recievedHandshake(){hasRecievedHandshake=true;}
     public void sentHandshake(){hasSentHandshake=true;}
     public void sentBitfield(){sentBitfield=true;}
+    public int getPiecesRecieved(){return piecesRecieved;}
+    public int checkIfFinished(){return bitfield.cardinality();}
 
 
 

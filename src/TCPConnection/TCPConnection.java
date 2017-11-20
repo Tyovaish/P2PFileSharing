@@ -52,7 +52,6 @@ public class TCPConnection implements Runnable{
 
             HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
             HandshakeMessage.readHandshake(in,neighborPeerInfo);
-            System.out.println(neighborPeerInfo.getPeerID());
             messageHandler = new MessageHandler(this, this.currentNeighborState);
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -61,9 +60,6 @@ public class TCPConnection implements Runnable{
         }
     }
 
-    public void sendHandshakeMessage(){
-
-    }
     public synchronized void sendMessage(Message message){
         try {
             out.writeInt(message.getPayloadLength());
@@ -89,6 +85,7 @@ public class TCPConnection implements Runnable{
     public MessageHandler getMessageHandler(){return messageHandler;}
     public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
     public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
+    public NeighborState getNeighborState(){return getNeighborState();}
     @Override
     public void run() {
         while(true) {
