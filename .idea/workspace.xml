@@ -1,63 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05a29124-66fc-4de3-9d67-5e396fb43653" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/File/CommonFileParser.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/File/PeerInfoFileParser.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Logger/InformationLogger.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Message/HandshakeMessage.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Message/Message.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Peer/PeerInfo.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Peer/PeerProcess.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/TCPConnection/MessageHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/TCPConnection/TCPConnection.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/FileTest/CommonFileTest.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/FileTest/PeerInfoFileTest.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/LoggerTest/LoggerTest.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/MessageTest/MessageTestClient2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/FileTest/Common.cfg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/P2PFileSharingProject/Test/FileTest/PeerInfo.cfg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Peer/PeerClient.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TCPConnection/Neighbor/IntervalManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TCPConnection/Neighbor/NeighborState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient3.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient4.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient5.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/NormalMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/BitfieldMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/ChokeMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/HaveMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/InterestedMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/NotInterestedMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/PieceMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/RequestMessage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Message/Types/UnChokeMessage.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/P2PFileSharing.iml" afterPath="$PROJECT_DIR$/P2PFileSharingProject.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/File/FileTest.java" afterPath="$PROJECT_DIR$/src/Test/FileTest/FileTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient.java" afterPath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerProcess.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Peer/PeerProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/CommonFileTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/CommonFileTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/PeerInfoFileTest.class" afterPath="$PROJECT_DIR$/out/production/P2PFileSharing/Test/FileTest/PeerInfoFileTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/CommonFileParser.java" afterPath="$PROJECT_DIR$/src/File/CommonFileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/FileParser.java" afterPath="$PROJECT_DIR$/src/File/FileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/File/PeerInfoFileParser.java" afterPath="$PROJECT_DIR$/src/File/PeerInfoFileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Logger/InformationLogger.java" afterPath="$PROJECT_DIR$/src/Logger/InformationLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Message/HandshakeMessage.java" afterPath="$PROJECT_DIR$/src/Message/HandshakeMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Message/Message.java" afterPath="$PROJECT_DIR$/src/Message/Message.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Peer/PeerInfo.java" afterPath="$PROJECT_DIR$/src/Peer/PeerInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Peer/PeerProcess.java" afterPath="$PROJECT_DIR$/src/Peer/PeerProcess.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPConnection/MessageHandler.java" afterPath="$PROJECT_DIR$/src/TCPConnection/MessageHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPConnection/TCPConnection.java" afterPath="$PROJECT_DIR$/src/TCPConnection/TCPConnection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/FileTest/Common.cfg" afterPath="$PROJECT_DIR$/src/Test/FileTest/Common.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/FileTest/CommonFileTest.java" afterPath="$PROJECT_DIR$/src/Test/FileTest/CommonFileTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/FileTest/PeerInfo.cfg" afterPath="$PROJECT_DIR$/src/Test/FileTest/PeerInfo.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/FileTest/PeerInfoFileTest.java" afterPath="$PROJECT_DIR$/src/Test/FileTest/PeerInfoFileTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient2.java" afterPath="$PROJECT_DIR$/src/Test/MessageTest/MessageTestClient2.java" />
-    </list>
+    <list default="true" id="05a29124-66fc-4de3-9d67-5e396fb43653" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -86,7 +30,7 @@
       <file leaf-file-name="FileParser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
+            <state relative-caret-position="2244">
               <caret line="66" column="39" lean-forward="false" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -907,7 +851,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/File/FileParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
+        <state relative-caret-position="2244">
           <caret line="66" column="39" lean-forward="false" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
