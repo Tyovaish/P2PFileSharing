@@ -3,11 +3,13 @@ import File.CommonFileParser;
 import File.PeerInfoFileParser;
 import Message.Message;
 import TCPConnection.Neighbor.IntervalManager;
+import TCPConnection.Neighbor.NeighborState;
 import TCPConnection.TCPConnection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.BitSet;
 
 import static Message.Message.HAVE;
 
@@ -15,6 +17,7 @@ public class PeerClient {
     PeerInfo peerInfo;
     IntervalManager intervalManager;
     ArrayList<TCPConnection> neighbors;
+    //File file
     int numberOfPrefferedNeighbors= CommonFileParser.getNumberOfPreferredNeighbors();
     public PeerClient(int peerID)
     {
@@ -49,6 +52,7 @@ public class PeerClient {
     public PeerInfo getPeerInfo(){
         return peerInfo;
     }
+    //public File getFile(){return file;}
     public void run() {
         connectToPreviousPeers();
         new Thread(intervalManager).start();
@@ -66,7 +70,4 @@ public class PeerClient {
             e.printStackTrace();
         }
     }
-    
-
-
 }

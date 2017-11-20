@@ -55,7 +55,7 @@ public class MessageHandler {
             sendBitfieldMessage();
             currentNeighborState.sentBitfield();
         } else if(!currentNeighborState.isChokingClient()&&currentNeighborState.isInterestedInNeighbor()){
-            sendRequestMessage(3);
+            sendRequestMessage(tcpConnection.getRandomPiece());
         } else if(currentNeighborState.isInterestedInNeighbor()){
             sendInterestedMessage();
         } else {
@@ -112,7 +112,7 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Choke");
         }
-        currentNeighborState.isChokingClient();
+        currentNeighborState.chokeClient();
     }
 
     private void handleBitfieldMessage(Message message) {

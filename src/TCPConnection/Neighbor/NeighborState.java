@@ -13,7 +13,6 @@ public class NeighborState {
     boolean interestedInNeighbor = false;
     boolean interestedInClient=false;
     boolean sentBitfield=false;
-    boolean finished=false;
     BitSet bitfield;
     int piecesRecieved;
 
@@ -25,21 +24,20 @@ public class NeighborState {
     public boolean hasRecievedHandshake(){return hasRecievedHandshake;}
     public boolean hasSentHandshake(){return hasSentHandshake;}
     public boolean hasSentBitfield(){return sentBitfield;}
-    public void chokeNeighbor() { chokingNeighbor = true; }
-    public void unchokeNeighbor() { chokingNeighbor = false; }
+    public void chokeNeighbor() { chokingNeighbor = true;}
+    public void unchokeNeighbor() { chokingNeighbor = false;}
     public void chokeClient() { chokingClient= true; }
     public void unchokeClient() { chokingClient = false; }
-    public void setInterestedInNeighbor() {interestedInNeighbor  = true; }
-    public void setNotInterestedInNeighbor() { interestedInClient = false; }
     public void setInterestedInClient(){}{interestedInClient=true;}
     public void setNotInterestedInClient(){interestedInClient=false;}
     public void updateBitField(int pieceIndex) {++piecesRecieved;bitfield.set(pieceIndex,true); }
     public void updateBitfield(byte [] bitfield){this.bitfield=BitSet.valueOf(bitfield);}
+    public BitSet getBitfield(){return bitfield;}
     public void recievedHandshake(){hasRecievedHandshake=true;}
     public void sentHandshake(){hasSentHandshake=true;}
     public void sentBitfield(){sentBitfield=true;}
     public int getPiecesRecieved(){return piecesRecieved;}
-    public int checkIfFinished(){return bitfield.cardinality();}
+    public boolean checkIfFinished(){return bitfield.cardinality()==bitfield.size();}
 
 
 
