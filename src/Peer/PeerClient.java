@@ -54,8 +54,8 @@ public class PeerClient {
         }
     }
     public void unchokeBestNeighbors(){
-        int NumberOfPreferredNeighbors = CommonFileParser.getNumberOfPreferredNeighbors();
         for(int i = 0; i < neighbors.size(); i++){
+            neighbors.get(i).getMessageHandler().sendChokeMessage();
             neighbors.get(i).getNeighborState().chokeNeighbor();
             if( preferred.size() < NumberOfPreferredNeighbors || comp.compare(neighbors.get(i), preferred.peek()) == 1){
                  if(neighbors.get(i).getNeighborState().isInterestedInClient()) {
@@ -80,6 +80,7 @@ public class PeerClient {
                 remaining--;
                 continue;
             }
+            neighbors.get(i).getMessageHandler().sendUnchokeMessage();
             neighbors.get(i).getNeighborState().unchokeNeighbor();
             break;
         }
