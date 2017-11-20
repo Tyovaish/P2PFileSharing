@@ -1,4 +1,4 @@
-package Test.MessageTest;
+package Test.ClientTest;
 
 import Peer.PeerClient;
 

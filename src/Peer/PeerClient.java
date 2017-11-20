@@ -19,6 +19,7 @@ public class PeerClient {
     ArrayList<TCPConnection> neighbors;
     //File file
     int numberOfPrefferedNeighbors= CommonFileParser.getNumberOfPreferredNeighbors();
+
     public PeerClient(int peerID)
     {
         neighbors=new ArrayList<TCPConnection>();

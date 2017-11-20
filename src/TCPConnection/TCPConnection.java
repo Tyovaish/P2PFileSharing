@@ -82,25 +82,6 @@ public class TCPConnection implements Runnable{
         }
         return null;
     }
-    public int getRandomPiece(){
-            //BitSet piecesNeighborHas=currentNeighborState.getBitfield();
-            //BitSet piecesClientHas=tcpConnection.getFile().getBitfield();
-            //for(int i=0;i<piecesNeighborHas.size();i++){
-            //if(piecesNeighborHas.get(i)==!piecesClientHas
-        return 0;
-
-    }
-    public boolean isInterested(){
-        //BitSet piecesNeighborHas=currentNeighborState.getBitfield();
-        //BitSet piecesClientHas=tcpConnection.getFile().getBitfield();
-        //for(int i=0;i<piecesNeighborHas.size();i++){
-        //  if(piecesNeighborHas.get(i)==true && piecesClientHas.get(i)==false){
-        //
-        //  return true;
-        //}
-        //return false;
-        return false;
-    }
     public MessageHandler getMessageHandler(){return messageHandler;}
     public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
     public PeerInfo getClientPeerInfo(){return clientPeerInfo;}

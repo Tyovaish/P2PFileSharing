@@ -54,18 +54,17 @@ public class MessageHandler {
         if(!currentNeighborState.hasSentBitfield()){
             sendBitfieldMessage();
             currentNeighborState.sentBitfield();
-        } else if(!currentNeighborState.isChokingClient()&&currentNeighborState.isInterestedInNeighbor()){
-            sendRequestMessage(tcpConnection.getRandomPiece());
-        } else if(currentNeighborState.isInterestedInNeighbor()){
-            sendInterestedMessage();
+        } else if(!currentNeighborState.isChokingClient()){
+            sendRequestMessage(currentNeighborState.getRandomPiece());
         } else {
-            sendNotInterestedMessage();
+            sendInterestedMessage();
         }
     }
 
     private void handlePieceMessage(Message message) {
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()).array();
+
     }
 
     private void handleUnchokeMessage(Message message) {
@@ -79,7 +78,11 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Request");
         }
+        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
+        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
+        if(!currentNeighborState.isChokingNeighbor()){
 
+        }
         /*
         byte[] payload = message.getByteMessage();
         int index = payload.toInt();

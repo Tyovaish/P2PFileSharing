@@ -1,5 +1,7 @@
 package TCPConnection.Neighbor;
 
+import TCPConnection.TCPConnection;
+
 import java.util.BitSet;
 
 /**
@@ -10,7 +12,6 @@ public class NeighborState {
     boolean hasSentHandshake=false;
     boolean chokingNeighbor = true;
     boolean chokingClient = true;
-    boolean interestedInNeighbor = false;
     boolean interestedInClient=false;
     boolean sentBitfield=false;
     BitSet bitfield;
@@ -19,7 +20,17 @@ public class NeighborState {
 
     public boolean isChokingNeighbor() { return chokingNeighbor; }
     public boolean isChokingClient() { return chokingClient; }
-    public boolean isInterestedInNeighbor() { return interestedInNeighbor; }
+    /*public boolean isInterestedInNeighbor(File clientFile){
+        //BitSet piecesNeighborHas=currentNeighborState.getBitfield();
+        //BitSet piecesClientHas=clientFile.getBitfield();
+        //for(int i=0;i<piecesNeighborHas.size();i++){
+        //  if(piecesNeighborHas.get(i)==true && piecesClientHas.get(i)==false){
+        //
+        //  return true;
+        //}
+        //return false;
+        return false;
+    }*/
     public boolean isInterestedInClient(){return interestedInClient;}
     public boolean hasRecievedHandshake(){return hasRecievedHandshake;}
     public boolean hasSentHandshake(){return hasSentHandshake;}
@@ -37,6 +48,19 @@ public class NeighborState {
     public void sentHandshake(){hasSentHandshake=true;}
     public void sentBitfield(){sentBitfield=true;}
     public int getPiecesRecieved(){return piecesRecieved;}
+    public int getRandomPiece(){
+        //BitSet piecesNeighborHas=currentNeighborState.getBitfield();
+        //BitSet piecesClientHas=tcpConnection.getFile().getBitfield();
+        //for(int i=0;i<piecesNeighborHas.size();i++){
+        //  if(piecesNeighborHas.get(i)==true && piecesClientHas.get(i)==false{
+        //
+        //  }
+        //}
+        return 0;
+    }
+    public void setPieceIndex(int pieceIndex, byte [] payLoad){
+
+    }
     public boolean checkIfFinished(){return bitfield.cardinality()==bitfield.size();}
 
 
