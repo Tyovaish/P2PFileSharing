@@ -1,13 +1,10 @@
 package TCPConnection;
 import Message.Message;
-import Message.HandshakeMessage;
-import Message.Types.*;
+import TCPConnection.Neighbor.NeighborState;
 import Peer.PeerInfo;
-import Peer.PeerProcess;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import Peer.PeerClient;
+import Message.*;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -15,94 +12,85 @@ import java.net.UnknownHostException;
  * Created by Trevor on 10/18/2017.
  */
 public class TCPConnection implements Runnable{
-    PeerProcess peerProcess;
-    PeerInfo neighborInfo;
-    PeerInfo currentPeerInfo;
+    PeerClient peerClient;
+    NeighborState currentNeighborState;
+    PeerInfo clientPeerInfo;
+    PeerInfo neighborPeerInfo;
     Socket socket;
     MessageHandler messageHandler;
+    DataOutputStream out;
+    DataInputStream in;
 
-    public TCPConnection(PeerProcess peerProcess,Socket socket){
-        this.peerProcess=peerProcess;
+    public TCPConnection(PeerClient peerClient, Socket socket){
+        this.peerClient = peerClient;
         this.socket=socket;
-        this.currentPeerInfo=peerProcess.getPeerInfo().copy();
-        messageHandler=new MessageHandler(peerProcess,this);
+        this.currentNeighborState=new NeighborState();
+        this.clientPeerInfo= peerClient.getPeerInfo().copy();
+        this.neighborPeerInfo=new PeerInfo();
+        try {
+            this.out=new DataOutputStream(socket.getOutputStream());
+            out.flush();
+            this.in=new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
+        HandshakeMessage.readHandshake(in,neighborPeerInfo);
+        messageHandler=new MessageHandler(this,this.currentNeighborState);
     }
-    public TCPConnection(PeerProcess peerProcess,PeerInfo peerInfo){
-            try {
-                this.peerProcess = peerProcess;
-                socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
-                this.currentPeerInfo=peerProcess.getPeerInfo().copy();
-                System.out.println("Connected to " + peerInfo.getPeerID());
-                messageHandler=new MessageHandler(peerProcess,this);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public TCPConnection(PeerClient peerClient, PeerInfo peerInfo) {
+        try {
+            this.currentNeighborState = new NeighborState();
+            this.peerClient = peerClient;
+            this.clientPeerInfo = peerClient.getPeerInfo().copy();
+            this.neighborPeerInfo=peerInfo;
+            socket = new Socket(peerInfo.getHostName(), peerInfo.getPortNumber());
+
+            this.out=new DataOutputStream(socket.getOutputStream());
+            out.flush();
+            this.in=new DataInputStream(socket.getInputStream());
+
+            HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
+            HandshakeMessage.readHandshake(in,neighborPeerInfo);
+            messageHandler = new MessageHandler(this, this.currentNeighborState);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void sendMessage(Message message){
+    public synchronized void sendMessage(Message message){
         try {
-            ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
-            out.writeObject(message);
+            out.writeInt(message.getPayloadLength());
+            out.write(message.getMessageType());
+            out.write(message.getPayload());
             out.flush();
-            System.out.println("Sent message");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public Message getMessage() {
         try {
-            System.out.println("Waiting for message");
-            ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
-            return (Message) in.readObject();
+           int payloadLength=in.readInt();
+           byte messageType=in.readByte();
+           byte [] payload=new byte[payloadLength];
+           in.readFully(payload);
+           return new Message(messageType,payload);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public void sendHandShakeMessage(){
-        sendMessage(new HandshakeMessage(peerProcess.getPeerInfo().getPeerID()));
-    }
-    public void sendChokeMessage(){
-        sendMessage(new ChokeMessage());
-    }
-    public void sendHaveMessage(){
-        sendMessage(new HaveMessage());
-    }
-    public void sendBitfieldMessage(){
-        sendMessage(new BitfieldMessage());
-    }
-    public void sendInterestedMessage(){
-        sendMessage(new InterestedMessage());
-    }
-    public void sendNotInterestedMessage(){
-
-    }
-    public void sendPieceMessage(){
-    }
-    public void sendRequestMessage(){
-        sendMessage(new RequestMessage());
-    }
-    public void sendUnChokeMessage(){
-        sendMessage(new UnChokeMessage());
-    }
-
-
-
-
+    public MessageHandler getMessageHandler(){return messageHandler;}
+    public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
+    public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
+    public NeighborState getNeighborState(){return getNeighborState();}
     @Override
     public void run() {
         while(true) {
-            sendMessage(new HandshakeMessage(1000));
-            Message message = getMessage();
-            messageHandler.handleMessage(message);
-            for(int i=0;i<message.getByteMessage().length;i++){
-                System.out.print((char) message.getByteMessage()[i]);
-            }
-            System.out.println();
+            messageHandler.handleSendingMessage();
+            messageHandler.handleMessage(getMessage());
         }
     }
 }

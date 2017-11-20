@@ -7,12 +7,11 @@ import File.CommonFileParser;
  */
 public class CommonFileTest {
     public static void main(String args[]){
-        CommonFileParser commonFileParser=new CommonFileParser("C:\\Users\\Trevor\\IdeaProjects\\P2PFileSharing\\src\\Test\\FileTest\\Common.cfg");
-        System.out.println("NumberOfPrefferedNeighbors "+commonFileParser.getNumberOfPreferredNeighbors());
-        System.out.println("UnchokingInterval "+commonFileParser.getUnchokingInterval());
-        System.out.println("OptimisticUnchokingInterval "+commonFileParser.getOptimisticUnchokingInterval());
-        System.out.println("FileName "+commonFileParser.getFileName());
-        System.out.println("FileSize "+commonFileParser.getFileSize());
-        System.out.println("PieceSize "+commonFileParser.getPieceSize());
+        System.out.println("NumberOfPrefferedNeighbors "+CommonFileParser.getNumberOfPreferredNeighbors());
+        System.out.println("UnchokingInterval "+CommonFileParser.getUnchokingInterval());
+        System.out.println("OptimisticUnchokingInterval "+CommonFileParser.getOptimisticUnchokingInterval());
+        System.out.println("FileName "+CommonFileParser.getFileName());
+        System.out.println("FileSize "+CommonFileParser.getFileSize());
+        System.out.println("PieceSize "+CommonFileParser.getPieceSize());
     }
 }
