@@ -1,14 +1,14 @@
 package Test.MessageTest;
 
-import Peer.PeerProcess;
+import Peer.PeerClient;
 
 /**
  * Created by Trevor on 10/24/2017.
  */
-public class MessageTestClient {
+public class MessageTestClient1 {
     //First Client
     public static void main(String args []) {
-        PeerProcess client1 = new PeerProcess(1001,7000);
+        PeerClient client1 = new PeerClient(1001);
         client1.run();
     }
 }

@@ -1,15 +1,20 @@
-//package File;
+package Test.FileTest;
 
 import java.io.*;
 import java.lang.*;
 import java.nio.file.*;
+import File.CommonFileParser;
+import File.FileParser;
+
 
 
 public class FileTest {
 
     public static void main(String args[]) {
 
-        String filePath = "bitch.txt";
+        String filePath = CommonFileParser.getFileName();
+
+        System.out.println("File Name: " + CommonFileParser.getFileName());
 
         File file = new File(filePath);
 
@@ -31,15 +36,22 @@ public class FileTest {
                     Path pth = Paths.get(filePath);
                     byte[] byteFile = Files.readAllBytes(pth);
 
-                    CommonFileParser cfp = new File.CommonFileParser(filePath);
+                    FileParser fp = new FileParser();
 
-                    FileParser fp = new FileParser(filePath, byteFile.length, byteFile.length);
+                    int byteIndex = 0;
+                    for(int i = 0; i < byteFile.length; i += CommonFileParser.getPieceSize()) {
+                        System.out.println("Getting new segment");
+                        byte[] byteSegment = new byte[(int) CommonFileParser.getPieceSize()];
+                        for(int j = 0; j < (int) CommonFileParser.getPieceSize(); j++) {
+                            if(i + j < byteFile.length) {
+                                System.out.println("Getting new byte");
+                                byteSegment[j] = byteFile[i + j];
+                            }
+                        }
 
-                    System.out.println("Common file parser piece size: " + cfp.getPieceSize());
+                        fp.setPiece(byteSegment, byteIndex);
 
-                    for(int i = 0; i < byteFile.length; i++) {
-                        byte[] byteSegment = new byte[cfp.getPieceSize()];
-                        fp.setPiece(b, byteIndex);
+                        byteIndex++;
                     }
 
                     System.out.println(fp.getPiece(0));

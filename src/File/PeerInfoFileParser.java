@@ -12,12 +12,12 @@ import java.util.ArrayList;
  * Created by Trevor on 11/1/2017.
  */
 public class PeerInfoFileParser {
-    ArrayList<PeerInfo> peersToConnect;
-    public PeerInfoFileParser(String peerInfoFileName) {
-        peersToConnect=new ArrayList<PeerInfo>();
+    public static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/PeerInfo.cfg";
+    public static  ArrayList<PeerInfo> getPeersToConnect(){
         String line = null;
+        ArrayList<PeerInfo> peersToConnect=new ArrayList<PeerInfo>();
         try {
-            FileReader fileReader = new FileReader(peerInfoFileName);
+            FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
                 String[] peerInfoProperties = line.split(" ");
@@ -30,14 +30,20 @@ public class PeerInfoFileParser {
                 }
                 peersToConnect.add(new PeerInfo(peerID,hostName,portNumber,hasFile));
             }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }
-    public ArrayList<PeerInfo> getPeersToConnect(){
-
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return peersToConnect;
+    }
+    public static PeerInfo getPeerInfo(int peerID) {
+        ArrayList<PeerInfo> peers=getPeersToConnect();
+        for(int i=0;i<peers.size();i++){
+            if(peers.get(i).getPeerID()==peerID){
+                return peers.get(i);
+            }
+        }
+        return null;
     }
 }

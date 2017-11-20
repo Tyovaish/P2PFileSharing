@@ -1,4 +1,4 @@
-//package File;
+package File;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,73 +9,44 @@ import java.io.IOException;
  * Created by Trevor on 11/1/2017.
  */
 public class CommonFileParser {
-    int numberOfPreferredNeighbors;
-    int unchokingInterval;
-    int optimisticUnchokingInterval;
-    String fileName;
-    long fileSize;
-    long pieceSize;
+    static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/FileTest/Common.cfg";
 
-    public CommonFileParser(String commonFileName){
-                String line=null;
-                try {
-                    FileReader fileReader = new FileReader(commonFileName);
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
-        while((line = bufferedReader.readLine()) != null) {
-            String [] commonProperties=line.split(" ");
-            switch(commonProperties[0]){
-                case "NumberOfPreferredNeighbors":
-                    numberOfPreferredNeighbors=Integer.parseInt(commonProperties[1]);
-                    break;
-                case "UnchokingInterval":
-                    unchokingInterval=Integer.parseInt(commonProperties[1]);
-                    break;
-                case "OptimisticUnchokingInterval":
-                    optimisticUnchokingInterval=Integer.parseInt(commonProperties[1]);
-                    break;
-                case "FileName":
-                   fileName=commonProperties[1];
-                    break;
-                case "FileSize":
-                    fileSize=Integer.parseInt(commonProperties[1]);
-                    break;
-                case "PieceSize":
-                    pieceSize=Integer.parseInt(commonProperties[1]);
-                    break;
+    private static String getValueOfProperty(String identifier) {
+        String line=null;
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while((line = bufferedReader.readLine()) != null) {
+                String [] commonProperties=line.split(" ");
+                if(commonProperties[0].compareTo(identifier)==0){
+                    return commonProperties[1];
+                }
             }
-        }
-
-        // Always close files.
-        bufferedReader.close();
+            // Always close files.
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+    public static int getNumberOfPreferredNeighbors(){return Integer.parseInt(getValueOfProperty("NumberOfPreferredNeighbors"));}
+
+    public static int getOptimisticUnchokingInterval() {return Integer.parseInt(getValueOfProperty("OptimisticUnchokingInterval"));}
+
+    public static int getUnchokingInterval() {return Integer.parseInt(getValueOfProperty("UnchokingInterval"));    }
+
+    public static long getFileSize() {
+        return Long.parseLong(getValueOfProperty("FileSize"));
     }
 
-    public int getNumberOfPreferredNeighbors() {
-        return numberOfPreferredNeighbors;
+    public static long getPieceSize() {
+        return Long.parseLong(getValueOfProperty("PieceSize"));
     }
 
-    public int getOptimisticUnchokingInterval() {
-        return optimisticUnchokingInterval;
-    }
-
-    public int getUnchokingInterval() {
-        return unchokingInterval;
-    }
-
-    public long getFileSize() {
-        return fileSize;
-    }
-
-    public long getPieceSize() {
-        return pieceSize;
-    }
-
-    public String getFileName() {
-        return fileName;
+    public static String getFileName() {
+        return getValueOfProperty("FileName");
     }
 
 }

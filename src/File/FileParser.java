@@ -1,31 +1,27 @@
-//package File;
+package File;
 
 import java.io.*;
 import java.lang.*;
 
 public class FileParser {
 
-  byte byteFile[][];
-  float fileSize;
-  float pieceSize;
-  boolean receivedPieces[];
-  String fileName;
+  long fileSize = CommonFileParser.getFileSize();
+  long pieceSize = CommonFileParser.getPieceSize();;
+  String fileName = CommonFileParser.getFileName();
+  String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-  public FileParser(String filePath, float fileSize, float pieceSize) {
-    this.fileSize = fileSize;
-    this.pieceSize = pieceSize;
-
-    fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-
-    byteFile = new byte[(int)Math.ceil(fileSize / pieceSize)][(int)pieceSize];
-    receivedPieces = new boolean[(int)Math.ceil(fileSize / pieceSize)];
-  }
+  byte byteFile[][] = new byte[(int)Math.ceil(fileSize / pieceSize) + 1][(int)pieceSize];
+  boolean receivedPieces[] = new boolean[(int)Math.ceil(fileSize / pieceSize) + 1];
 
   public void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
     receivedPieces[index] = true;
 
-    System.out.println("Setting piece: " + byteFile[index]);
+    for(int i = 0; i < byteFile[index].length; i++) {
+      System.out.println("Setting piece: " + byteFile[index][i]);
+    }
+
+    System.out.println("byteFile has " + byteFile.length + " columns and " + byteFile[index].length + " rows.");
   }
 
   public byte[] getPiece(int index) {
@@ -67,6 +63,7 @@ public class FileParser {
   }
 
   public void bytesToFile() {
+    System.out.println("Outputting file");
     File outputFile = new File(fileName);
     try {
       FileOutputStream fos = new FileOutputStream(outputFile);
@@ -78,7 +75,7 @@ public class FileParser {
       fos.flush();
       fos.close();
     } catch(IOException e) {
-      System.out.println("IO Excepton");
+      System.out.println("IO Exception");
     }
   }
 }
