@@ -2,7 +2,6 @@ package Message;
 
 import Message.Message;
 import Peer.PeerInfo;
-import sun.misc.resources.Messages_es;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

@@ -50,26 +50,38 @@ public class MessageHandler {
         }
 
     }
+    public void handleSendingMessage(){
+        if(!currentNeighborState.hasSentBitfield()){
+            sendBitfieldMessage();
+            currentNeighborState.sentBitfield();
+        } else if(!currentNeighborState.isChokingClient()){
+            sendRequestMessage(currentNeighborState.getRandomPiece());
+        } else {
+            sendInterestedMessage();
+        }
+    }
 
     private void handlePieceMessage(Message message) {
-        /*
-        byte[] payload = message.getByteMessage();
-        int index = payload[0:3].toInt();
-        file.setPiece(payload, index);
-        */
+       int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
+       byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()).array();
+
     }
 
     private void handleUnchokeMessage(Message message) {
         if(debug){
             System.out.println("Recieved Unchoke");
         }
-
         currentNeighborState.unchokeClient();
     }
 
     private void handleRequestMessage(Message message) {
         if(debug){
             System.out.println("Recieved Request");
+        }
+        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
+        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
+        if(!currentNeighborState.isChokingNeighbor()){
+
         }
         /*
         byte[] payload = message.getByteMessage();
@@ -96,15 +108,14 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Have Message");
         }
+        currentNeighborState.updateBitField(ByteBuffer.wrap(message.getPayload()).getInt());
 
     }
-
-
     private void handleChokeMessage(Message message) {
         if(debug){
             System.out.println("Recieved Choke");
         }
-        currentNeighborState.isChokingClient();
+        currentNeighborState.chokeClient();
     }
 
     private void handleBitfieldMessage(Message message) {
@@ -114,65 +125,53 @@ public class MessageHandler {
         currentNeighborState.updateBitfield(message.getPayload());
     }
 
-    public void handleSendingMessage(){
-        if(!currentNeighborState.hasSentBitfield()){
-            sendBitfieldMessage();
-            currentNeighborState.sentBitfield();
-        } else if(!currentNeighborState.isChokingClient()&&currentNeighborState.isInterestedInNeighbor()){
-            sendRequestMessage(3);
-        } else if(currentNeighborState.isInterestedInNeighbor()){
-            sendInterestedMessage();
-        } else {
-            sendNotInterestedMessage();
-        }
-    }
-     public void sendHaveMessage(int pieceIndex){
+     public synchronized void sendHaveMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Have");
         }
         tcpConnection.sendMessage(new Message(HAVE));
     }
-    public void sendBitfieldMessage(){
+    public synchronized void sendBitfieldMessage(){
         if(debug){
             System.out.println("Sent Bitfield");
         }
         tcpConnection.sendMessage(new Message(BITFIELD));
     }
-     public void sendInterestedMessage(){
+     public synchronized void sendInterestedMessage(){
         if(debug){
             System.out.println("Sent Interested");
         }
         tcpConnection.sendMessage(new Message(INTERESTED));
     }
-     public void sendNotInterestedMessage(){
+     public synchronized void sendNotInterestedMessage(){
         if(debug){
             System.out.println("Sent Not Interested");
         }
         tcpConnection.sendMessage(new Message(NOTINTERESTED));
     }
-     public void sendPieceMessage(int pieceIndex){
+     public synchronized void sendPieceMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Piece Message");
         }
-        tcpConnection.sendMessage(new Message(PIECE));
+        tcpConnection.sendMessage(new Message(PIECE,pieceIndex,new byte[0]));
     }
-             public void sendUnchokeMessage(){
+    public synchronized void sendUnchokeMessage(){
         if(debug){
             System.out.println("Sent Unchoke Message");
         }
         tcpConnection.sendMessage(new Message(UNCHOKE));
     }
-    synchronized public void sendChokeMessage(){
+    public synchronized void sendChokeMessage(){
         if(debug){
             System.out.println("Sent Choke");
         }
         tcpConnection.sendMessage(new Message(CHOKE));
     }
-    synchronized public void sendRequestMessage(int pieceIndex){
+    public synchronized void sendRequestMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Request");
         }
-        tcpConnection.sendMessage(new Message(REQUEST));
+        tcpConnection.sendMessage(new Message(REQUEST,pieceIndex));
     }
 
 }
