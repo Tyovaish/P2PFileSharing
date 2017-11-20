@@ -9,16 +9,16 @@ import java.io.IOException;
  * Created by Trevor on 11/1/2017.
  */
 public class CommonFileParser {
-    static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/FileTest/Common.cfg";
+    static final String filePath="C:\\Users\\Logan\\Documents\\P2PFileSharing\\src\\Test\\FileTest\\Common.cfg";
 
-    private static String getValueOfProperty(String identifier) {
+    private static String getValueOfProperty(String indentifier) {
         String line=null;
         try {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while((line = bufferedReader.readLine()) != null) {
                 String [] commonProperties=line.split(" ");
-                if(commonProperties[0].compareTo(identifier)==0){
+                if(commonProperties[0].compareTo(indentifier)==0){
                     return commonProperties[1];
                 }
             }

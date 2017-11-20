@@ -84,6 +84,7 @@ public class TCPConnection implements Runnable{
     }
     public MessageHandler getMessageHandler(){return messageHandler;}
     public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
+    public NeighborState getNeighborState() {return currentNeighborState;}
     public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
     public NeighborState getNeighborState(){return getNeighborState();}
     @Override

@@ -12,7 +12,7 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    final boolean debug=true;
+    final boolean debug=false;
     TCPConnection tcpConnection;
     NeighborState currentNeighborState;
     MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
