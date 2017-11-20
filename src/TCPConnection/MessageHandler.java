@@ -51,13 +51,16 @@ public class MessageHandler {
 
     }
     public void handleSendingMessage(){
+        boolean isInterested=currentNeighborState.isInterestedInNeighbor(tcpConnection.getFile());
         if(!currentNeighborState.hasSentBitfield()){
             sendBitfieldMessage();
             currentNeighborState.sentBitfield();
-        } else if(!currentNeighborState.isChokingClient()){
-            //sendRequestMessage(currentNeighborState.getRandomPiece());
-        } else {
+        } else if(!currentNeighborState.isChokingClient()&&isInterested){
+            sendRequestMessage(currentNeighborState.getRandomPiece(tcpConnection.getFile()));
+        } else if(isInterested){
             sendInterestedMessage();
+        } else {
+            sendNotInterestedMessage();
         }
     }
 

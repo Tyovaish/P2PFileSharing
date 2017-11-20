@@ -6,7 +6,7 @@ import java.lang.*;
 public class FileParser {
 
   long fileSize = CommonFileParser.getFileSize();
-  long pieceSize = CommonFileParser.getPieceSize();;
+  long pieceSize = CommonFileParser.getPieceSize();
   String fileName = CommonFileParser.getFileName();
   String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
 
@@ -77,5 +77,8 @@ public class FileParser {
     } catch(IOException e) {
       System.out.println("IO Exception");
     }
+  }
+  public boolean isFinished(){
+    return false;
   }
 }

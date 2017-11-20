@@ -32,6 +32,9 @@ public class IntervalManager implements Runnable {
                 optmisticallyUnchokeTime=System.currentTimeMillis();
                 peerClient.optimisticallyUnchoke();
             }
+            if(peerClient.allFinished()){
+                peerClient.shutdown();
+            }
 
             try {
                 Thread.sleep(100);
