@@ -2,12 +2,13 @@ package File;
 
 import java.io.*;
 import java.lang.*;
+import Peer.PeerInfo;
 
 public class FileParser {
 
   long fileSize = CommonFileParser.getFileSize();
-  long pieceSize = CommonFileParser.getPieceSize();
-  String fileName = CommonFileParser.getFileName();
+  long pieceSize = CommonFileParser.getPieceSize();;
+  String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
   String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
 
   byte byteFile[][] = new byte[(int)Math.ceil(fileSize / pieceSize) + 1][(int)pieceSize];
@@ -64,7 +65,19 @@ public class FileParser {
 
   public void bytesToFile() {
     System.out.println("Outputting file");
-    File outputFile = new File(fileName);
+
+    PeerInfo pid = new PeerInfo();
+
+    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + pid.getPeerID());
+
+    if(!directory.exists()) {
+      directory.mkdir();
+    }
+
+    File outputFile = new File(directory + "/" + fileName);
+
+    System.out.println("File name is " + fileName);
+
     try {
       FileOutputStream fos = new FileOutputStream(outputFile);
       
@@ -74,11 +87,9 @@ public class FileParser {
 
       fos.flush();
       fos.close();
-    } catch(IOException e) {
+    }
+    catch(IOException e) {
       System.out.println("IO Exception");
     }
-  }
-  public boolean isFinished(){
-    return false;
   }
 }
