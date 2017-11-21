@@ -2,21 +2,24 @@ package File;
 
 import java.io.*;
 import java.lang.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+
 import Peer.PeerInfo;
 
 public class FileParser {
 
   long fileSize = CommonFileParser.getFileSize();
-  long pieceSize = CommonFileParser.getPieceSize();;
+  long pieceSize = CommonFileParser.getPieceSize();
+  int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
   String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
   String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-  byte byteFile[][] = new byte[(int)Math.ceil(fileSize / pieceSize) + 1][(int)pieceSize];
-  boolean receivedPieces[] = new boolean[(int)Math.ceil(fileSize / pieceSize) + 1];
+  byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
+  BitSet piecesInPossesion = new BitSet(numberOfPieces);
 
   public void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
-    receivedPieces[index] = true;
+    piecesInPossesion.set(index,true);
 
     for(int i = 0; i < byteFile[index].length; i++) {
       System.out.println("Setting piece: " + byteFile[index][i]);
@@ -31,37 +34,31 @@ public class FileParser {
     return byteFile[index];
   }
 
-  public byte[] getPiecesWeDontHave() {
-    System.out.println("Getting pieces we don't have");
-
-    byte pieces[] = new byte[(int)Math.ceil(fileSize / pieceSize)];
-    for(int i = 0; i < receivedPieces.length; i++) {
-      if(!receivedPieces[i]) {
-        pieces[i] = 1;
-      }
-      else {
-        pieces[0] = 0;
+  public BitSet getCurrentFileState() {
+    return piecesInPossesion;
+  }
+  public int getNumberOfPieces(){
+    return numberOfPieces;
+  }
+  public int getNumberOfPiecesInPossession(){
+    int pieceCount=0;
+    for(int i=0;i<numberOfPieces;i++){
+      if (piecesInPossesion.get(i)==true){
+          ++pieceCount;
       }
     }
-
-    return pieces;
+      return pieceCount;
+  }
+  public ArrayList<Integer> getInterestedPieces(BitSet peerBitfield){
+      ArrayList<Integer> interestedPieces=new ArrayList<Integer>();
+      for(int i=0;i<numberOfPieces;++i){
+        if(piecesInPossesion.get(i)==false && peerBitfield.get(i)==true){
+          interestedPieces.add(i);
+        }
+      }
+      return interestedPieces;
   }
 
-  public byte[] getPiecesWeHave() {
-    System.out.println("Getting pieces we do have");
-
-    byte pieces[] = new byte[(int)Math.ceil(fileSize / pieceSize)];
-    for(int i = 0; i < receivedPieces.length; i++) {
-      if(receivedPieces[i] == true) {
-        pieces[i] = 1;
-      }
-      else {
-        pieces[0] = 0;
-      }
-    }
-
-    return pieces;
-  }
 
   public void bytesToFile() {
     System.out.println("Outputting file");
@@ -93,6 +90,6 @@ public class FileParser {
     }
   }
   public boolean isFinished(){
-    return false;
+    return piecesInPossesion.cardinality()==numberOfPieces;
   }
 }

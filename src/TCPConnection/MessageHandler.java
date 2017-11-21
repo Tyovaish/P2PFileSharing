@@ -3,7 +3,6 @@ package TCPConnection;
 import Message.*;
 import TCPConnection.Neighbor.NeighborState;
 
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 import static Message.Message.*;
@@ -12,7 +11,7 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    final boolean debug=false;
+    final boolean debug=true;
     TCPConnection tcpConnection;
     NeighborState currentNeighborState;
     MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
@@ -66,8 +65,10 @@ public class MessageHandler {
 
     private void handlePieceMessage(Message message) {
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
-       byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()).array();
-       tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),0,1);
+       byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
+       tcpConnection.getFile().setPiece(payLoad,pieceIndex);
+       tcpConnection.getClient().sendHaveMessageToNeighbors(pieceIndex);
+       tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,1);
 
     }
 
@@ -76,21 +77,15 @@ public class MessageHandler {
             System.out.println("Recieved Unchoke");
         }
         currentNeighborState.unchokeClient();
-        tcpConnection.getInformationLogger().logChoke(1001);
+        tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleRequestMessage(Message message) {
         if(debug){
             System.out.println("Recieved Request");
         }
-        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
-        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
-
-        /*
-        byte[] payload = message.getByteMessage();
-        int index = payload.toInt();
-        byte[] piece = file.getPiece(index);
-        */
+        int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        sendPieceMessage(pieceIndex);
     }
 
     private void handleNotInterestedMessage(Message message) {
@@ -113,7 +108,9 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Have Message");
         }
-        currentNeighborState.updateBitField(ByteBuffer.wrap(message.getPayload()).getInt());
+        int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        currentNeighborState.updateBitField(pieceIndex);
+        tcpConnection.getInformationLogger().logHaveMessage(currentNeighborState.getNeighborPeerID(),pieceIndex);
 
     }
     private void handleChokeMessage(Message message) {
@@ -121,13 +118,14 @@ public class MessageHandler {
             System.out.println("Recieved Choke");
         }
         currentNeighborState.chokeClient();
+        tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleBitfieldMessage(Message message) {
         if(debug){
             System.out.println("Recieved Bitfield");
         }
-        currentNeighborState.updateBitfield(message.getPayload());
+        currentNeighborState.recievedBitfield(message.getPayload());
     }
 
      public synchronized void sendHaveMessage(int pieceIndex){
@@ -158,7 +156,7 @@ public class MessageHandler {
         if(debug){
             System.out.println("Sent Piece Message");
         }
-        tcpConnection.sendMessage(new Message(PIECE,pieceIndex,new byte[0]));
+        tcpConnection.sendMessage(new Message(PIECE,pieceIndex,tcpConnection.getFile().getPiece(pieceIndex)));
     }
     public synchronized void sendUnchokeMessage(){
         if(debug){
