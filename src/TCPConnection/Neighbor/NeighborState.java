@@ -1,4 +1,5 @@
 package TCPConnection.Neighbor;
+import File.CommonFileParser;
 import File.FileParser;
 import Peer.PeerInfo;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class NeighborState {
     boolean hasSentNotInterested=false;
     boolean hasSentInterested=false;
 
-    BitSet bitfield;
+    BitSet bitfield=new BitSet();
     int piecesRecieved;
 
     public NeighborState(PeerInfo neighborInfo){
@@ -87,7 +88,8 @@ public class NeighborState {
     }
 
     public void recievedBitfield(byte [] bitfield){
-        hasRecievedBitfield=true;this.bitfield=BitSet.valueOf(bitfield);
+        hasRecievedBitfield=true;
+        this.bitfield=BitSet.valueOf(bitfield);
     }
 
     public void sentBitfield(){
@@ -129,6 +131,9 @@ public class NeighborState {
         return false;
     }
     public boolean knowHasPieceAlready(int pieceIndex){
+        if(bitfield==null){
+            return false;
+        }
         return bitfield.get(pieceIndex);
     }
     public int getNeighborPeerID(){

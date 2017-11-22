@@ -11,7 +11,7 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    final boolean debug=true;
+    final boolean debug=false;
     TCPConnection tcpConnection;
     NeighborState currentNeighborState;
     MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
@@ -90,7 +90,6 @@ public class MessageHandler {
             System.out.println("Recieved Request");
         }
         int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
-        System.out.println("Piece Requested"+pieceIndex);
         sendPieceMessage(pieceIndex);
     }
 
@@ -136,7 +135,7 @@ public class MessageHandler {
         currentNeighborState.recievedBitfield(message.getPayload());
     }
 
-     public synchronized void sendHaveMessage(int pieceIndex){
+     public void sendHaveMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Have");
         }
