@@ -31,13 +31,14 @@ public class Message{
         this.payload= ByteBuffer.allocate(4).putInt(pieceIndex).array();
     }
     public Message(byte messageType,int pieceIndex,byte[] payload){
+        this.messageType=messageType;
         byte [] pieceIndexInBytes=ByteBuffer.allocate(4).putInt(pieceIndex).array();
         this.payload=new byte[pieceIndexInBytes.length+payload.length];
         for(int i=0;i<pieceIndexInBytes.length;++i){
             this.payload[i]=pieceIndexInBytes[i];
         }
         for(int i=pieceIndexInBytes.length;i<this.payload.length;++i){
-            this.payload[i]=payload[i];
+            this.payload[i]=payload[i-pieceIndexInBytes.length];
         }
     }
     public byte[] getPayload(){
@@ -48,6 +49,13 @@ public class Message{
     }
     public int getPayloadLength(){
         return payload.length;
+    }
+    public void print(){
+        System.out.print("MessageType: "+messageType+" ");
+        for(int i=0;i<payload.length;i++){
+            System.out.print((int) payload[i]+" ");
+        }
+        System.out.println();
     }
 
 }

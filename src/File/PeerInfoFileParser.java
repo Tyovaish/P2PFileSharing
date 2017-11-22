@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Trevor on 11/1/2017.
  */
 public class PeerInfoFileParser {
-    public static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/FileTest/Common.cfg";
+    public static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/FileTest/PeerInfo.cfg";
     public static  ArrayList<PeerInfo> getPeersToConnect(){
         String line = null;
         ArrayList<PeerInfo> peersToConnect=new ArrayList<PeerInfo>();
@@ -21,6 +21,7 @@ public class PeerInfoFileParser {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
                 String[] peerInfoProperties = line.split(" ");
+                System.out.println("peer info properties: " + peerInfoProperties[0]);
                 int peerID=Integer.parseInt(peerInfoProperties[0]);
                 String hostName=peerInfoProperties[1];
                 int portNumber=Integer.parseInt(peerInfoProperties[2]);
@@ -45,5 +46,8 @@ public class PeerInfoFileParser {
             }
         }
         return null;
+    }
+    public static int numberOfPeersToConnect(){
+        return getPeersToConnect().size();
     }
 }

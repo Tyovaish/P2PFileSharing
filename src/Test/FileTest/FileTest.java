@@ -5,13 +5,13 @@ import java.lang.*;
 import java.nio.file.*;
 import File.CommonFileParser;
 import File.FileParser;
-
+import Peer.PeerInfo;
 
 
 public class FileTest {
 
     public static void main(String args[]) {
-        FileParser fp = new FileParser();
+        FileParser fp = new FileParser(1001);
 
         File file = fp.readFile();
 

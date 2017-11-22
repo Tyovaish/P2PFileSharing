@@ -13,20 +13,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.logging.Logger;
+
+import Logger.InformationLogger;
 
 import static Message.Message.HAVE;
 
 public class PeerClient {
     PeerInfo peerInfo;
     IntervalManager intervalManager;
+    int numberOfPeersToConnect=PeerInfoFileParser.numberOfPeersToConnect();
     ArrayList<TCPConnection> neighbors;
     Comparator<TCPConnection> comp;
     PriorityQueue<TCPConnection> preferred;
     FileParser file;
+    InformationLogger log;
     int NumberOfPreferredNeighbors;
     public PeerClient(int peerID)
     {
         neighbors=new ArrayList<TCPConnection>();
+        file=new FileParser(peerID);
+        log=new InformationLogger(peerID);
         NumberOfPreferredNeighbors = CommonFileParser.getNumberOfPreferredNeighbors();
         comp = new NeighborComparator();
         preferred = new PriorityQueue<TCPConnection>(NumberOfPreferredNeighbors, comp);
@@ -48,7 +55,7 @@ public class PeerClient {
             new Thread(peer).start();
         }
     }
-    public void sendHaveMessageToNeighbors(int pieceIndex){
+    public synchronized void sendHaveMessageToNeighbors(int pieceIndex){
         for(int i=0;i<neighbors.size();i++){
             neighbors.get(i).sendMessage(new Message(HAVE,pieceIndex));
         }
@@ -86,6 +93,9 @@ public class PeerClient {
         }
     }
     public boolean allFinished(){
+        if(neighbors.size()!=numberOfPeersToConnect){
+            return false;
+        }
         for(int i=0;i<neighbors.size();i++){
             if(neighbors.get(i).isFinished()==false){
                 return false;
@@ -106,6 +116,7 @@ public class PeerClient {
         return peerInfo;
     }
     public FileParser getFile(){return file;}
+    public InformationLogger getInformationLogger(){return log;}
     public void run() {
         connectToPreviousPeers();
         new Thread(intervalManager).start();

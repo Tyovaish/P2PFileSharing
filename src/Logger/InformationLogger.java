@@ -1,8 +1,11 @@
 package Logger;
 
+import Peer.PeerInfo;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.FileHandler;
@@ -13,14 +16,14 @@ import java.util.logging.FileHandler;
  */
 public class InformationLogger {
     Date date;
-    int peerIDOfProccess;
+    int peerIDOfClient;
     FileWriter fileWriter;
     BufferedWriter bufferedWriter;
-    public InformationLogger(int peerIDOfProccess){
-        this.peerIDOfProccess=peerIDOfProccess;
+    public InformationLogger(int peerIDOfClient){
+        this.peerIDOfClient=peerIDOfClient;
         date=new Date();
         try {
-            fileWriter=new FileWriter("log_peer_"+peerIDOfProccess+".log",true);
+            fileWriter=new FileWriter("log_peer_"+peerIDOfClient+".log",true);
             bufferedWriter=new BufferedWriter(fileWriter);
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,8 +33,8 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
-        output.append("makes a connection to Peer ");
+        output.append(peerIDOfClient);
+        output.append(" makes a connection to Peer ");
         output.append(peerIDOfReciever);
         addToLogFile(output.toString());
     }
@@ -39,18 +42,18 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
-        output.append("is connected from Peer ");
+        output.append(peerIDOfClient);
+        output.append(" is connected from Peer ");
         output.append(peerIDOfSender);
         addToLogFile(output.toString());
 
     }
-    public synchronized void logChangePrefferedNeighbors(ArrayList<Integer> prefferedNeighborsList){
+    public synchronized void logChangePrefferedNeighbors(ArrayList<PeerInfo> prefferedNeighborsList){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
-        output.append("has the preffered  ");
+        output.append(peerIDOfClient);
+        output.append(" has the preffered  ");
         for(int i=0;i<prefferedNeighborsList.size();i++){
             output.append(prefferedNeighborsList.get(i));
         }
@@ -60,7 +63,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" has optimistically unchoked neighbor ");
         output.append(peerIDOfUnchokeNeighbor);
         addToLogFile(output.toString());
@@ -69,7 +72,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" is unchoked by Peer ");
         output.append(peerIDOfRecievedUnchokingNeighbor);
         addToLogFile(output.toString());
@@ -78,7 +81,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" is choked by Peer ");
         output.append(peerIDOfChokedNeighbor);
         addToLogFile(output.toString());
@@ -87,7 +90,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" received the 'have' message from ");
         output.append(peerIDOfHaveSender);
         output.append(" for the piece ");
@@ -98,7 +101,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" received the 'interested' message from ");
         output.append(peerIDOfInterested);
         addToLogFile(output.toString());
@@ -107,7 +110,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" received the 'not interested' message from ");
         output.append(peerIDOfNotInterested);
         addToLogFile(output.toString());
@@ -116,7 +119,7 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" has downloaded the piece ");
         output.append(pieceIndex);
         output.append(" from ");
@@ -129,18 +132,20 @@ public class InformationLogger {
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
-        output.append(peerIDOfProccess);
+        output.append(peerIDOfClient);
         output.append(" has downloaded the complete file.");
         addToLogFile(output.toString());
     }
-    public synchronized void addToLogFile(String log){
+    public synchronized void addToLogFile(String log) {
         try {
             bufferedWriter.write(log);
             bufferedWriter.newLine();
+            bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public synchronized void closeLog(){
         try {
             bufferedWriter.close();

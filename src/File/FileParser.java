@@ -5,38 +5,75 @@ import java.lang.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.BitSet;
+
 import Peer.PeerInfo;
 
 public class FileParser {
 
   private long fileSize = CommonFileParser.getFileSize();
-  private long pieceSize = CommonFileParser.getPieceSize();;
+  private long pieceSize = CommonFileParser.getPieceSize();
+  private int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
   private String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
-  private String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+  private byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
+  private BitSet piecesInPossesion = new BitSet(numberOfPieces);
+  private int peerID;
 
-  private byte byteFile[][] = new byte[(int)Math.ceil(fileSize / pieceSize) + 1][(int)pieceSize];
-  BitSet bs = new BitSet((int)Math.ceil(fileSize / pieceSize));
-  boolean[] received = new boolean[(int)Math.ceil(fileSize / pieceSize)];
-
+  public FileParser(int peerID){
+    PeerInfo peerInfo = PeerInfoFileParser.getPeerInfo(peerID);
+    this.peerID = peerID;
+    try {
+      if(peerInfo.getHasFile()) {
+        for(int i=0; i<numberOfPieces; i++) {
+          piecesInPossesion.set(i, true);
+        }
+      }
+    }
+    catch (NullPointerException e) {
+      System.out.println("Exception in constructor");
+    }
+  }
 
   public void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
-    received[index] = true;
-    bs.set(index);
+    piecesInPossesion.set(index,true);
   }
 
-
   public byte[] getPiece(int index) {
-    System.out.println("Getting Piece: " + byteFile[index]);
     return byteFile[index];
   }
 
-
-  public int getPiecesWeHave() {
-    return bs.cardinality();
+  public BitSet getCurrentFileState() {
+    return piecesInPossesion;
   }
 
+  public int getNumberOfPieces(){
+    return numberOfPieces;
+  }
+
+  public int getNumberOfPiecesInPossession(){
+      return piecesInPossesion.cardinality();
+  }
+
+  public ArrayList<Integer> getInterestedPieces(BitSet peerBitfield){
+    ArrayList<Integer> interestedPieces=new ArrayList<Integer>();
+    for(int i=0;i<numberOfPieces;++i){
+      if(!piecesInPossesion.get(i) && peerBitfield.get(i)){
+        interestedPieces.add(i);
+      }
+    }
+    return interestedPieces;
+  }
+
+  public byte[] getBitFieldMessage(){
+    byte [] bytesOfPiecesInPossesion=piecesInPossesion.toByteArray();
+    byte [] bitfield=new byte[numberOfPieces];
+    for(int i=0;i<bytesOfPiecesInPossesion.length;i++){
+     bitfield[i]=bytesOfPiecesInPossesion[i];
+    }
+    return bitfield;
+  }
 
   public File readFile() {
     String filePath = CommonFileParser.getFileName();
@@ -67,24 +104,12 @@ public class FileParser {
     return file;
   }
 
-
   public void bytesToFile() {
     System.out.println("Outputting file");
 
-    for(int i = 0; i < bs.length(); i++) {
-      if(bs.get(i) == true) {
-        System.out.print(1);
-      }
-      else {
-        System.out.print(0);
-      }
-    }
-
-    System.out.println("\n");
-
     PeerInfo pid = new PeerInfo();
 
-    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + pid.getPeerID());
+    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + peerID);
 
     if(!directory.exists()) {
       directory.mkdir();
@@ -109,11 +134,7 @@ public class FileParser {
     }
   }
 
-
   public boolean isFinished(){
-    if(bs.cardinality() == (int)Math.ceil(fileSize / pieceSize))
-      return true;
-    else
-      return false;
+    return piecesInPossesion.cardinality()==numberOfPieces;
   }
 }

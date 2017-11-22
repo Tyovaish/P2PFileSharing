@@ -1,4 +1,5 @@
 package TCPConnection;
+import Logger.InformationLogger;
 import Message.Message;
 import TCPConnection.Neighbor.NeighborState;
 import Peer.PeerInfo;
@@ -21,11 +22,10 @@ public class TCPConnection implements Runnable{
     MessageHandler messageHandler;
     DataOutputStream out;
     DataInputStream in;
-
+    InformationLogger informationLogger;
     public TCPConnection(PeerClient peerClient, Socket socket){
         this.peerClient = peerClient;
         this.socket=socket;
-        this.currentNeighborState=new NeighborState();
         this.clientPeerInfo= peerClient.getPeerInfo().copy();
         this.neighborPeerInfo=new PeerInfo();
         try {
@@ -37,11 +37,13 @@ public class TCPConnection implements Runnable{
         }
         HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
         HandshakeMessage.readHandshake(in,neighborPeerInfo);
+        this.currentNeighborState=new NeighborState(neighborPeerInfo);
+        getInformationLogger().logTCPConnectionSent(neighborPeerInfo.getPeerID());
+        getInformationLogger().logTCPConnectionRecieved(neighborPeerInfo.getPeerID());
         messageHandler=new MessageHandler(this,this.currentNeighborState);
     }
     public TCPConnection(PeerClient peerClient, PeerInfo peerInfo) {
         try {
-            this.currentNeighborState = new NeighborState();
             this.peerClient = peerClient;
             this.clientPeerInfo = peerClient.getPeerInfo().copy();
             this.neighborPeerInfo=peerInfo;
@@ -50,9 +52,11 @@ public class TCPConnection implements Runnable{
             this.out=new DataOutputStream(socket.getOutputStream());
             out.flush();
             this.in=new DataInputStream(socket.getInputStream());
-
             HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
             HandshakeMessage.readHandshake(in,neighborPeerInfo);
+            getInformationLogger().logTCPConnectionSent(neighborPeerInfo.getPeerID());
+            getInformationLogger().logTCPConnectionRecieved(neighborPeerInfo.getPeerID());
+            this.currentNeighborState = new NeighborState(neighborPeerInfo);
             messageHandler = new MessageHandler(this, this.currentNeighborState);
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -64,7 +68,7 @@ public class TCPConnection implements Runnable{
     public synchronized void sendMessage(Message message){
         try {
             out.writeInt(message.getPayloadLength());
-            out.write(message.getMessageType());
+            out.writeByte(message.getMessageType());
             out.write(message.getPayload());
             out.flush();
         } catch (IOException e) {
@@ -84,12 +88,12 @@ public class TCPConnection implements Runnable{
         return null;
     }
     public MessageHandler getMessageHandler(){return messageHandler;}
-    public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
-    public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
-    public NeighborState getNeighborState(){return getNeighborState();}
+    public NeighborState getNeighborState(){return currentNeighborState;}
     public FileParser getFile(){return peerClient.getFile();}
     public Socket getSocket(){return socket;}
-    public boolean isFinished(){return currentNeighborState.checkIfFinished();}
+    public InformationLogger getInformationLogger(){return peerClient.getInformationLogger();}
+    public PeerClient getClient(){return peerClient;}
+    public boolean isFinished(){return currentNeighborState.checkIfFinished(getFile());}
     @Override
     public void run() {
         while(true) {

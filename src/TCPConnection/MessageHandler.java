@@ -3,7 +3,6 @@ package TCPConnection;
 import Message.*;
 import TCPConnection.Neighbor.NeighborState;
 
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 import static Message.Message.*;
@@ -12,7 +11,7 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    final boolean debug=false;
+    final boolean debug=true;
     TCPConnection tcpConnection;
     NeighborState currentNeighborState;
     MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
@@ -51,22 +50,25 @@ public class MessageHandler {
 
     }
     public void handleSendingMessage(){
-        boolean isInterested=currentNeighborState.isInterestedInNeighbor(tcpConnection.getFile());
+        boolean isInterested=currentNeighborState.checkIfInterested(tcpConnection.getFile());
         if(!currentNeighborState.hasSentBitfield()){
             sendBitfieldMessage();
             currentNeighborState.sentBitfield();
         } else if(!currentNeighborState.isChokingClient()&&isInterested){
             sendRequestMessage(currentNeighborState.getRandomPiece(tcpConnection.getFile()));
-        } else if(isInterested){
+        } else if(isInterested && !currentNeighborState.hasSentInterested()){
             sendInterestedMessage();
-        } else {
+        } else if(!currentNeighborState.hasSentNotInterested()){
             sendNotInterestedMessage();
         }
     }
 
     private void handlePieceMessage(Message message) {
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
-       byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()).array();
+       byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
+        tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession());
+       tcpConnection.getFile().setPiece(payLoad,pieceIndex);
+       tcpConnection.getClient().sendHaveMessageToNeighbors(pieceIndex);
 
     }
 
@@ -74,6 +76,7 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Unchoke");
         }
+        tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
         currentNeighborState.unchokeClient();
     }
 
@@ -81,16 +84,8 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Request");
         }
-        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
-        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
-        if(!currentNeighborState.isChokingNeighbor()){
-
-        }
-        /*
-        byte[] payload = message.getByteMessage();
-        int index = payload.toInt();
-        byte[] piece = file.getPiece(index);
-        */
+        int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        sendPieceMessage(pieceIndex);
     }
 
     private void handleNotInterestedMessage(Message message) {
@@ -98,6 +93,7 @@ public class MessageHandler {
             System.out.println("Recieved Not Interested");
         }
         currentNeighborState.setNotInterestedInClient();
+        tcpConnection.getInformationLogger().logNotInterestedMessage(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleInterestedMessage(Message message) {
@@ -105,13 +101,16 @@ public class MessageHandler {
             System.out.println("Recieved Intereseted");
         }
         currentNeighborState.setInterestedInClient();
+        tcpConnection.getInformationLogger().logInterestedMessage(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleHaveMessage(Message message) {
         if(debug){
             System.out.println("Recieved Have Message");
         }
-        currentNeighborState.updateBitField(ByteBuffer.wrap(message.getPayload()).getInt());
+        int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        currentNeighborState.updateBitField(pieceIndex);
+        tcpConnection.getInformationLogger().logHaveMessage(currentNeighborState.getNeighborPeerID(),pieceIndex);
 
     }
     private void handleChokeMessage(Message message) {
@@ -119,13 +118,14 @@ public class MessageHandler {
             System.out.println("Recieved Choke");
         }
         currentNeighborState.chokeClient();
+        tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
     }
 
     private void handleBitfieldMessage(Message message) {
         if(debug){
             System.out.println("Recieved Bitfield");
         }
-        currentNeighborState.updateBitfield(message.getPayload());
+        currentNeighborState.recievedBitfield(message.getPayload());
     }
 
      public synchronized void sendHaveMessage(int pieceIndex){
@@ -138,25 +138,27 @@ public class MessageHandler {
         if(debug){
             System.out.println("Sent Bitfield");
         }
-        tcpConnection.sendMessage(new Message(BITFIELD));
+        tcpConnection.sendMessage(new Message(BITFIELD,tcpConnection.getFile().getBitFieldMessage()));
     }
      public synchronized void sendInterestedMessage(){
         if(debug){
             System.out.println("Sent Interested");
         }
+        currentNeighborState.setInterestedInNeighbor();
         tcpConnection.sendMessage(new Message(INTERESTED));
     }
      public synchronized void sendNotInterestedMessage(){
         if(debug){
             System.out.println("Sent Not Interested");
         }
+        currentNeighborState.setNotInterestedInNeighbor();
         tcpConnection.sendMessage(new Message(NOTINTERESTED));
     }
      public synchronized void sendPieceMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Piece Message");
         }
-        tcpConnection.sendMessage(new Message(PIECE,pieceIndex,new byte[0]));
+        tcpConnection.sendMessage(new Message(PIECE,pieceIndex,tcpConnection.getFile().getPiece(pieceIndex)));
     }
     public synchronized void sendUnchokeMessage(){
         if(debug){
