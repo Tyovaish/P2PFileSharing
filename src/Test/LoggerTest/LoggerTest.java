@@ -5,7 +5,8 @@ import Logger.InformationLogger;
  */
 public class LoggerTest {
     public static void main(String args[]){
-        InformationLogger logger= InformationLogger.Instance(1001);
+        InformationLogger logger= InformationLogger.Instance();
+        logger.init(1001);
         logger.logChoke(1002);
         logger.logOptimisticallyUnchokeNeighbor(1301);
 
