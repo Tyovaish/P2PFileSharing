@@ -2,6 +2,9 @@ package File;
 
 import java.io.*;
 import java.lang.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.BitSet;
 
@@ -17,6 +20,14 @@ public class FileParser {
   byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
   BitSet piecesInPossesion = new BitSet(numberOfPieces);
 
+  public FileParser(int peerID){
+    PeerInfo peerInfo=PeerInfoFileParser.getPeerInfo(peerID);
+    if(peerInfo.getHasFile()){
+      for(int i=0;i<numberOfPieces;i++){
+        piecesInPossesion.set(i,true);
+      }
+    }
+  }
   public void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
     piecesInPossesion.set(index,true);
@@ -30,16 +41,17 @@ public class FileParser {
 
   public byte[] getPiece(int index) {
     System.out.println("Getting Piece: " + byteFile[index]);
-
     return byteFile[index];
   }
 
   public BitSet getCurrentFileState() {
     return piecesInPossesion;
   }
+
   public int getNumberOfPieces(){
     return numberOfPieces;
   }
+
   public int getNumberOfPiecesInPossession(){
     int pieceCount=0;
     for(int i=0;i<numberOfPieces;i++){
@@ -49,6 +61,7 @@ public class FileParser {
     }
       return pieceCount;
   }
+
   public ArrayList<Integer> getInterestedPieces(BitSet peerBitfield){
       ArrayList<Integer> interestedPieces=new ArrayList<Integer>();
       for(int i=0;i<numberOfPieces;++i){
@@ -58,7 +71,14 @@ public class FileParser {
       }
       return interestedPieces;
   }
-
+  public byte[] getBitFieldMessage(){
+    byte [] bytesOfPiecesInPossesion=piecesInPossesion.toByteArray();
+    byte [] bitfield=new byte[numberOfPieces];
+    for(int i=0;i<bytesOfPiecesInPossesion.length;i++){
+     bitfield[i]=bytesOfPiecesInPossesion[i];
+    }
+    return bitfield;
+  }
 
   public void bytesToFile() {
     System.out.println("Outputting file");

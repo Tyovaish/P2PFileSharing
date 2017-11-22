@@ -19,6 +19,7 @@ public class MessageHandler {
         this.currentNeighborState=neighbor;
     }
     public void handleMessage(Message message){
+        message.print();
         switch(message.getMessageType()){
             case BITFIELD:
                 handleBitfieldMessage(message);
@@ -50,15 +51,15 @@ public class MessageHandler {
 
     }
     public void handleSendingMessage(){
-        boolean isInterested=currentNeighborState.isInterestedInNeighbor(tcpConnection.getFile());
+        boolean isInterested=currentNeighborState.checkIfInterested(tcpConnection.getFile());
         if(!currentNeighborState.hasSentBitfield()){
             sendBitfieldMessage();
             currentNeighborState.sentBitfield();
         } else if(!currentNeighborState.isChokingClient()&&isInterested){
             sendRequestMessage(currentNeighborState.getRandomPiece(tcpConnection.getFile()));
-        } else if(isInterested){
+        } else if(isInterested && !currentNeighborState.hasSentInterested()){
             sendInterestedMessage();
-        } else {
+        } else if(!currentNeighborState.hasSentNotInterested()){
             sendNotInterestedMessage();
         }
     }
@@ -66,9 +67,9 @@ public class MessageHandler {
     private void handlePieceMessage(Message message) {
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
+        tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession());
        tcpConnection.getFile().setPiece(payLoad,pieceIndex);
        tcpConnection.getClient().sendHaveMessageToNeighbors(pieceIndex);
-       tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,1);
 
     }
 
@@ -76,8 +77,8 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Unchoke");
         }
-        currentNeighborState.unchokeClient();
         tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
+        currentNeighborState.unchokeClient();
     }
 
     private void handleRequestMessage(Message message) {
@@ -138,18 +139,20 @@ public class MessageHandler {
         if(debug){
             System.out.println("Sent Bitfield");
         }
-        tcpConnection.sendMessage(new Message(BITFIELD));
+        tcpConnection.sendMessage(new Message(BITFIELD,tcpConnection.getFile().getBitFieldMessage()));
     }
      public synchronized void sendInterestedMessage(){
         if(debug){
             System.out.println("Sent Interested");
         }
+        currentNeighborState.setInterestedInNeighbor();
         tcpConnection.sendMessage(new Message(INTERESTED));
     }
      public synchronized void sendNotInterestedMessage(){
         if(debug){
             System.out.println("Sent Not Interested");
         }
+        currentNeighborState.setNotInterestedInNeighbor();
         tcpConnection.sendMessage(new Message(NOTINTERESTED));
     }
      public synchronized void sendPieceMessage(int pieceIndex){

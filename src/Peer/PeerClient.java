@@ -22,6 +22,7 @@ import static Message.Message.HAVE;
 public class PeerClient {
     PeerInfo peerInfo;
     IntervalManager intervalManager;
+    int numberOfPeersToConnect=PeerInfoFileParser.numberOfPeersToConnect();
     ArrayList<TCPConnection> neighbors;
     Comparator<TCPConnection> comp;
     PriorityQueue<TCPConnection> preferred;
@@ -31,7 +32,7 @@ public class PeerClient {
     public PeerClient(int peerID)
     {
         neighbors=new ArrayList<TCPConnection>();
-        file=new FileParser();
+        file=new FileParser(peerID);
         log=new InformationLogger(peerID);
         NumberOfPreferredNeighbors = CommonFileParser.getNumberOfPreferredNeighbors();
         comp = new NeighborComparator();
@@ -92,6 +93,9 @@ public class PeerClient {
         }
     }
     public boolean allFinished(){
+        if(neighbors.size()!=numberOfPeersToConnect){
+            return false;
+        }
         for(int i=0;i<neighbors.size();i++){
             if(neighbors.get(i).isFinished()==false){
                 return false;
