@@ -64,9 +64,14 @@ public class MessageHandler {
     }
 
     private void handlePieceMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved "+ByteBuffer.wrap(message.getPayload(),0,4).getInt());
+        }
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
        byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
-        tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession());
+       if(!tcpConnection.getFile().hasPiece(pieceIndex)){
+            tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession()+1);
+        }
        tcpConnection.getFile().setPiece(payLoad,pieceIndex);
        tcpConnection.getClient().sendHaveMessageToNeighbors(pieceIndex);
 
@@ -85,6 +90,7 @@ public class MessageHandler {
             System.out.println("Recieved Request");
         }
         int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        System.out.println("Piece Requested"+pieceIndex);
         sendPieceMessage(pieceIndex);
     }
 
@@ -109,8 +115,10 @@ public class MessageHandler {
             System.out.println("Recieved Have Message");
         }
         int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        if(!currentNeighborState.knowHasPieceAlready(pieceIndex)) {
+            tcpConnection.getInformationLogger().logHaveMessage(currentNeighborState.getNeighborPeerID(), pieceIndex);
+        }
         currentNeighborState.updateBitField(pieceIndex);
-        tcpConnection.getInformationLogger().logHaveMessage(currentNeighborState.getNeighborPeerID(),pieceIndex);
 
     }
     private void handleChokeMessage(Message message) {
@@ -132,7 +140,7 @@ public class MessageHandler {
         if(debug){
             System.out.println("Sent Have");
         }
-        tcpConnection.sendMessage(new Message(HAVE));
+        tcpConnection.sendMessage(new Message(HAVE,pieceIndex));
     }
     public synchronized void sendBitfieldMessage(){
         if(debug){
@@ -157,6 +165,7 @@ public class MessageHandler {
      public synchronized void sendPieceMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Piece Message");
+            System.out.println("Piece Looking For"+pieceIndex);
         }
         tcpConnection.sendMessage(new Message(PIECE,pieceIndex,tcpConnection.getFile().getPiece(pieceIndex)));
     }
@@ -175,6 +184,7 @@ public class MessageHandler {
     public synchronized void sendRequestMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Request");
+            System.out.println("Piece Requested "+pieceIndex);
         }
         tcpConnection.sendMessage(new Message(REQUEST,pieceIndex));
     }

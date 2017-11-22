@@ -50,6 +50,7 @@ public class NeighborState {
     }
 
     public void unchokeNeighbor() {
+        piecesRecieved=0;
         chokingNeighbor = false;
     }
 
@@ -80,7 +81,8 @@ public class NeighborState {
         hasSentNotInterested=true;
     }
 
-    public void updateBitField(int pieceIndex) {
+    public synchronized void updateBitField(int pieceIndex) {
+        piecesRecieved++;
         bitfield.set(pieceIndex,true);
     }
 
@@ -93,9 +95,11 @@ public class NeighborState {
     }
 
     public boolean hasSentNotInterested(){
+
         return hasSentNotInterested;
     }
     public boolean hasSentInterested(){
+
         return hasSentInterested;
     }
 
@@ -124,7 +128,9 @@ public class NeighborState {
         }
         return false;
     }
-
+    public boolean knowHasPieceAlready(int pieceIndex){
+        return bitfield.get(pieceIndex);
+    }
     public int getNeighborPeerID(){
         return neighborInfo.getPeerID();
     }
