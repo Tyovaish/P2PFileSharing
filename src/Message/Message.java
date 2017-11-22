@@ -51,7 +51,7 @@ public class Message{
         return payload.length;
     }
     public void print(){
-        System.out.print("MessageType"+messageType);
+        System.out.print("MessageType: "+messageType+" ");
         for(int i=0;i<payload.length;i++){
             System.out.print((int) payload[i]+" ");
         }

@@ -19,7 +19,6 @@ public class MessageHandler {
         this.currentNeighborState=neighbor;
     }
     public void handleMessage(Message message){
-        message.print();
         switch(message.getMessageType()){
             case BITFIELD:
                 handleBitfieldMessage(message);

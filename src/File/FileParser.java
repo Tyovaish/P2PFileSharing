@@ -32,10 +32,6 @@ public class FileParser {
     byteFile[index] = bytes;
     piecesInPossesion.set(index,true);
 
-    for(int i = 0; i < byteFile[index].length; i++) {
-      System.out.println("Setting piece: " + byteFile[index][i]);
-    }
-
     System.out.println("byteFile has " + byteFile.length + " columns and " + byteFile[index].length + " rows.");
   }
 
@@ -53,13 +49,7 @@ public class FileParser {
   }
 
   public int getNumberOfPiecesInPossession(){
-    int pieceCount=0;
-    for(int i=0;i<numberOfPieces;i++){
-      if (piecesInPossesion.get(i)==true){
-          ++pieceCount;
-      }
-    }
-      return pieceCount;
+      return piecesInPossesion.cardinality();
   }
 
   public ArrayList<Integer> getInterestedPieces(BitSet peerBitfield){
