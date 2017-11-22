@@ -28,7 +28,7 @@ public class FileParser {
       }
     }
   }
-  public void setPiece(byte[] bytes, int index) {
+  public synchronized void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
     piecesInPossesion.set(index,true);
 
@@ -40,7 +40,7 @@ public class FileParser {
     return byteFile[index];
   }
 
-  public BitSet getCurrentFileState() {
+  public synchronized BitSet getCurrentFileState() {
     return piecesInPossesion;
   }
 
@@ -52,7 +52,7 @@ public class FileParser {
       return piecesInPossesion.cardinality();
   }
 
-  public ArrayList<Integer> getInterestedPieces(BitSet peerBitfield){
+  public synchronized ArrayList<Integer> getInterestedPieces(BitSet peerBitfield){
       ArrayList<Integer> interestedPieces=new ArrayList<Integer>();
       for(int i=0;i<numberOfPieces;++i){
         if(piecesInPossesion.get(i)==false && peerBitfield.get(i)==true){
@@ -102,4 +102,5 @@ public class FileParser {
   public boolean isFinished(){
     return piecesInPossesion.cardinality()==numberOfPieces;
   }
+  public boolean hasPiece(int pieceIndex){return piecesInPossesion.get(pieceIndex);}
 }

@@ -57,7 +57,7 @@ public class PeerClient {
     }
     public synchronized void sendHaveMessageToNeighbors(int pieceIndex){
         for(int i=0;i<neighbors.size();i++){
-            neighbors.get(i).sendMessage(new Message(HAVE,pieceIndex));
+            neighbors.get(i).getMessageHandler().sendHaveMessage(pieceIndex);
         }
     }
     public void unchokeBestNeighbors(){

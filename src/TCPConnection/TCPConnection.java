@@ -75,7 +75,7 @@ public class TCPConnection implements Runnable{
             e.printStackTrace();
         }
     }
-    public Message getMessage() {
+    public synchronized Message getMessage() {
         try {
            int payloadLength=in.readInt();
            byte messageType=in.readByte();
