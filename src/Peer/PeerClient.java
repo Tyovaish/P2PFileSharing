@@ -127,6 +127,7 @@ public class PeerClient {
                 Socket neighbor=serverSocket.accept();
                 System.out.println("Accepted");
                 TCPConnection currentTCPConnection = new TCPConnection(this, neighbor);
+                neighbors.add(currentTCPConnection);
                 System.out.println("About to start thread");
                 new Thread(currentTCPConnection).start();
             }
