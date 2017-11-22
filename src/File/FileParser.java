@@ -12,31 +12,35 @@ import Peer.PeerInfo;
 
 public class FileParser {
 
-  long fileSize = CommonFileParser.getFileSize();
-  long pieceSize = CommonFileParser.getPieceSize();
-  int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
-  String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
-  String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
-  byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
-  BitSet piecesInPossesion = new BitSet(numberOfPieces);
+  private long fileSize = CommonFileParser.getFileSize();
+  private long pieceSize = CommonFileParser.getPieceSize();
+  private int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
+  private String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
+  private byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
+  private BitSet piecesInPossesion = new BitSet(numberOfPieces);
+  private int peerID;
 
   public FileParser(int peerID){
-    PeerInfo peerInfo=PeerInfoFileParser.getPeerInfo(peerID);
-    if(peerInfo.getHasFile()){
-      for(int i=0;i<numberOfPieces;i++){
-        piecesInPossesion.set(i,true);
+    PeerInfo peerInfo = PeerInfoFileParser.getPeerInfo(peerID);
+    this.peerID = peerID;
+    try {
+      if(peerInfo.getHasFile()) {
+        for(int i=0; i<numberOfPieces; i++) {
+          piecesInPossesion.set(i, true);
+        }
       }
     }
+    catch (NullPointerException e) {
+      System.out.println("Exception in constructor");
+    }
   }
+  
   public synchronized void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
     piecesInPossesion.set(index,true);
-
-    System.out.println("byteFile has " + byteFile.length + " columns and " + byteFile[index].length + " rows.");
   }
 
   public byte[] getPiece(int index) {
-    System.out.println("Getting Piece: " + byteFile[index]);
     return byteFile[index];
   }
 
@@ -59,8 +63,10 @@ public class FileParser {
           interestedPieces.add(i);
         }
       }
-      return interestedPieces;
+   
+    return interestedPieces;
   }
+
   public byte[] getBitFieldMessage(){
     byte [] bytesOfPiecesInPossesion=piecesInPossesion.toByteArray();
     byte [] bitfield=new byte[numberOfPieces];
@@ -70,12 +76,41 @@ public class FileParser {
     return bitfield;
   }
 
+  public File readFile() {
+    String filePath = CommonFileParser.getFileName();
+
+    File file = new File(filePath);
+
+    if (file.isFile()) {
+      System.out.println("File exists");
+
+      try {
+        FileInputStream fis = new FileInputStream(file);
+
+        try {
+          fis.close();
+        }
+        catch (IOException e) {
+          System.out.println("IO Exception when closing file");
+        }
+      }
+      catch (FileNotFoundException e) {
+        System.out.println("File not found exception");
+      }
+    }
+    else {
+      System.out.println("File does not exist");
+
+    }
+    return file;
+  }
+
   public void bytesToFile() {
     System.out.println("Outputting file");
 
     PeerInfo pid = new PeerInfo();
 
-    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + pid.getPeerID());
+    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + peerID);
 
     if(!directory.exists()) {
       directory.mkdir();
@@ -99,6 +134,7 @@ public class FileParser {
       System.out.println("IO Exception");
     }
   }
+
   public boolean isFinished(){
     return piecesInPossesion.cardinality()==numberOfPieces;
   }
