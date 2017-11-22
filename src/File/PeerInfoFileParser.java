@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Trevor on 11/1/2017.
  */
 public class PeerInfoFileParser {
-    public static final String filePath="C:\\Users\\Trevor\\IdeaProjects\\NetworkingProject\\src\\Test\\FileTest\\PeerInfo.cfg";
+    public static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/FileTest/Common.cfg";
     public static  ArrayList<PeerInfo> getPeersToConnect(){
         String line = null;
         ArrayList<PeerInfo> peersToConnect=new ArrayList<PeerInfo>();

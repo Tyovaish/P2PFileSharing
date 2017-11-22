@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by Trevor on 11/1/2017.
  */
 public class CommonFileParser {
-    static final String filePath="C:\\Users\\Trevor\\IdeaProjects\\NetworkingProject\\src\\Test\\FileTest\\Common.cfg";
+    static final String filePath="/home/keanu/Documents/College/NetworkFundamentals/Project/src/Test/FileTest/Common.cfg";
 
     private static String getValueOfProperty(String indentifier) {
         String line=null;

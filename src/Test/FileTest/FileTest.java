@@ -11,67 +11,37 @@ import File.FileParser;
 public class FileTest {
 
     public static void main(String args[]) {
+        FileParser fp = new FileParser();
 
-        String filePath = CommonFileParser.getFileName();
+        File file = fp.readFile();
 
-        System.out.println("File Name: " + CommonFileParser.getFileName());
+        try {
+            Path pth = Paths.get(CommonFileParser.getFileName());
+            byte[] byteFile = Files.readAllBytes(pth);
 
-        File file = new File(filePath);
+            int byteIndex = 0;
 
-        if (file.isFile()) {
-            System.out.println("File exists");
-
-            try {
-
-                FileInputStream fis = new FileInputStream(file);
-
-                try {
-                    fis.close();
-                }
-                catch (IOException e) {
-                    System.out.println("IO Exception when closing file");
-                }
-
-                try {
-                    Path pth = Paths.get(filePath);
-                    byte[] byteFile = Files.readAllBytes(pth);
-
-                    FileParser fp = new FileParser();
-
-                    int byteIndex = 0;
-                    for(int i = 0; i < byteFile.length; i += CommonFileParser.getPieceSize()) {
-                        System.out.println("Getting new segment");
-                        byte[] byteSegment = new byte[(int) CommonFileParser.getPieceSize()];
-                        for(int j = 0; j < (int) CommonFileParser.getPieceSize(); j++) {
-                            if(i + j < byteFile.length) {
-                                System.out.println("Getting new byte");
-                                byteSegment[j] = byteFile[i + j];
-                            }
-                        }
-
-                        fp.setPiece(byteSegment, byteIndex);
-
-                        byteIndex++;
+            for(int i = 0; i < byteFile.length; i += CommonFileParser.getPieceSize()) {
+                byte[] byteSegment = new byte[(int) CommonFileParser.getPieceSize()];
+                for(int j = 0; j < (int) CommonFileParser.getPieceSize(); j++) {
+                    if(i + j < byteFile.length) {
+                        byteSegment[j] = byteFile[i + j];
                     }
-
-                    System.out.println(fp.getPiece(0));
-
-                    fp.bytesToFile();
                 }
-                catch (IOException i) {
-                    System.out.println("IO Exception with byte array");
-                }
+                fp.setPiece(byteSegment, byteIndex);
+                byteIndex++;
             }
-            catch (FileNotFoundException e) {
-                System.out.println("File not found exception");
-            }
-
+        }
+        catch (IOException i) {
+            System.out.println("IO Exception with byte array");
         }
 
-        else {
-            System.out.println("File does not exist");
-        }
+        if(fp.isFinished())
+            fp.bytesToFile();
+        else
+            System.out.println("Not finished");
 
     }
+
 
 }

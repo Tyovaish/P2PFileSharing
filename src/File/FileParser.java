@@ -2,69 +2,85 @@ package File;
 
 import java.io.*;
 import java.lang.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.BitSet;
 import Peer.PeerInfo;
 
 public class FileParser {
 
-  long fileSize = CommonFileParser.getFileSize();
-  long pieceSize = CommonFileParser.getPieceSize();;
-  String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
-  String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
+  private long fileSize = CommonFileParser.getFileSize();
+  private long pieceSize = CommonFileParser.getPieceSize();;
+  private String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
+  private String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-  byte byteFile[][] = new byte[(int)Math.ceil(fileSize / pieceSize) + 1][(int)pieceSize];
-  boolean receivedPieces[] = new boolean[(int)Math.ceil(fileSize / pieceSize) + 1];
+  private byte byteFile[][] = new byte[(int)Math.ceil(fileSize / pieceSize) + 1][(int)pieceSize];
+  BitSet bs = new BitSet((int)Math.ceil(fileSize / pieceSize));
+  boolean[] received = new boolean[(int)Math.ceil(fileSize / pieceSize)];
+
 
   public void setPiece(byte[] bytes, int index) {
     byteFile[index] = bytes;
-    receivedPieces[index] = true;
-
-    for(int i = 0; i < byteFile[index].length; i++) {
-      System.out.println("Setting piece: " + byteFile[index][i]);
-    }
-
-    System.out.println("byteFile has " + byteFile.length + " columns and " + byteFile[index].length + " rows.");
+    received[index] = true;
+    bs.set(index);
   }
+
 
   public byte[] getPiece(int index) {
     System.out.println("Getting Piece: " + byteFile[index]);
-
     return byteFile[index];
   }
 
-  public byte[] getPiecesWeDontHave() {
-    System.out.println("Getting pieces we don't have");
 
-    byte pieces[] = new byte[(int)Math.ceil(fileSize / pieceSize)];
-    for(int i = 0; i < receivedPieces.length; i++) {
-      if(!receivedPieces[i]) {
-        pieces[i] = 1;
-      }
-      else {
-        pieces[0] = 0;
-      }
-    }
-
-    return pieces;
+  public int getPiecesWeHave() {
+    return bs.cardinality();
   }
 
-  public byte[] getPiecesWeHave() {
-    System.out.println("Getting pieces we do have");
 
-    byte pieces[] = new byte[(int)Math.ceil(fileSize / pieceSize)];
-    for(int i = 0; i < receivedPieces.length; i++) {
-      if(receivedPieces[i] == true) {
-        pieces[i] = 1;
+  public File readFile() {
+    String filePath = CommonFileParser.getFileName();
+
+    File file = new File(filePath);
+
+    if (file.isFile()) {
+      System.out.println("File exists");
+
+      try {
+        FileInputStream fis = new FileInputStream(file);
+
+        try {
+          fis.close();
+        }
+        catch (IOException e) {
+          System.out.println("IO Exception when closing file");
+        }
       }
-      else {
-        pieces[0] = 0;
+      catch (FileNotFoundException e) {
+        System.out.println("File not found exception");
       }
     }
+    else {
+      System.out.println("File does not exist");
 
-    return pieces;
+    }
+    return file;
   }
+
 
   public void bytesToFile() {
     System.out.println("Outputting file");
+
+    for(int i = 0; i < bs.length(); i++) {
+      if(bs.get(i) == true) {
+        System.out.print(1);
+      }
+      else {
+        System.out.print(0);
+      }
+    }
+
+    System.out.println("\n");
 
     PeerInfo pid = new PeerInfo();
 
@@ -92,7 +108,12 @@ public class FileParser {
       System.out.println("IO Exception");
     }
   }
+
+
   public boolean isFinished(){
-    return false;
+    if(bs.cardinality() == (int)Math.ceil(fileSize / pieceSize))
+      return true;
+    else
+      return false;
   }
 }
