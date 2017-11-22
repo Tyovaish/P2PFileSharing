@@ -8,7 +8,8 @@ public class LoggerTest {
         InformationLogger logger=new InformationLogger(1001);
         logger.logChoke(1002);
         logger.logOptimisticallyUnchokeNeighbor(1301);
-
+        logger.logNotInterestedMessage(131);
+        logger.logInterestedMessage(1313);
         logger.logCompletition();
         logger.closeLog();
     }

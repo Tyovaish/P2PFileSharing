@@ -5,6 +5,7 @@ import Peer.PeerInfo;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.FileHandler;
@@ -33,7 +34,7 @@ public class InformationLogger {
         output.append(date.toString());
         output.append(": Peer ");
         output.append(peerIDOfClient);
-        output.append("makes a connection to Peer ");
+        output.append(" makes a connection to Peer ");
         output.append(peerIDOfReciever);
         addToLogFile(output.toString());
     }
@@ -42,7 +43,7 @@ public class InformationLogger {
         output.append(date.toString());
         output.append(": Peer ");
         output.append(peerIDOfClient);
-        output.append("is connected from Peer ");
+        output.append(" is connected from Peer ");
         output.append(peerIDOfSender);
         addToLogFile(output.toString());
 
@@ -52,7 +53,7 @@ public class InformationLogger {
         output.append(date.toString());
         output.append(": Peer ");
         output.append(peerIDOfClient);
-        output.append("has the preffered  ");
+        output.append(" has the preffered  ");
         for(int i=0;i<prefferedNeighborsList.size();i++){
             output.append(prefferedNeighborsList.get(i));
         }
@@ -135,14 +136,16 @@ public class InformationLogger {
         output.append(" has downloaded the complete file.");
         addToLogFile(output.toString());
     }
-    public synchronized void addToLogFile(String log){
+    public synchronized void addToLogFile(String log) {
         try {
             bufferedWriter.write(log);
             bufferedWriter.newLine();
+            bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public synchronized void closeLog(){
         try {
             bufferedWriter.close();

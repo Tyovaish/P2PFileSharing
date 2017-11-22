@@ -39,6 +39,7 @@ public class TCPConnection implements Runnable{
         HandshakeMessage.readHandshake(in,neighborPeerInfo);
         this.currentNeighborState=new NeighborState(neighborPeerInfo);
         getInformationLogger().logTCPConnectionSent(neighborPeerInfo.getPeerID());
+        getInformationLogger().logTCPConnectionRecieved(neighborPeerInfo.getPeerID());
         messageHandler=new MessageHandler(this,this.currentNeighborState);
     }
     public TCPConnection(PeerClient peerClient, PeerInfo peerInfo) {
@@ -51,9 +52,10 @@ public class TCPConnection implements Runnable{
             this.out=new DataOutputStream(socket.getOutputStream());
             out.flush();
             this.in=new DataInputStream(socket.getInputStream());
-            getInformationLogger().logTCPConnectionSent(peerInfo.getPeerID());
             HandshakeMessage.sendHandshake(out,clientPeerInfo.getPeerID());
             HandshakeMessage.readHandshake(in,neighborPeerInfo);
+            getInformationLogger().logTCPConnectionSent(neighborPeerInfo.getPeerID());
+            getInformationLogger().logTCPConnectionRecieved(neighborPeerInfo.getPeerID());
             this.currentNeighborState = new NeighborState(neighborPeerInfo);
             messageHandler = new MessageHandler(this, this.currentNeighborState);
         } catch (UnknownHostException e) {
@@ -66,7 +68,7 @@ public class TCPConnection implements Runnable{
     public synchronized void sendMessage(Message message){
         try {
             out.writeInt(message.getPayloadLength());
-            out.write(message.getMessageType());
+            out.writeByte(message.getMessageType());
             out.write(message.getPayload());
             out.flush();
         } catch (IOException e) {
@@ -86,8 +88,6 @@ public class TCPConnection implements Runnable{
         return null;
     }
     public MessageHandler getMessageHandler(){return messageHandler;}
-    public PeerInfo getNeighborPeerInfo(){return neighborPeerInfo;}
-    public PeerInfo getClientPeerInfo(){return clientPeerInfo;}
     public NeighborState getNeighborState(){return currentNeighborState;}
     public FileParser getFile(){return peerClient.getFile();}
     public Socket getSocket(){return socket;}
