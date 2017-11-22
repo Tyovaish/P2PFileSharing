@@ -102,7 +102,7 @@ public class NeighborState {
     public int getRandomPiece(FileParser file){
        ArrayList<Integer> interestedFilePieces = file.getInterestedPieces(bitfield);
        int pieceIndexInterested=new Random().nextInt(interestedFilePieces.size());
-       return  pieceIndexInterested;
+       return  interestedFilePieces.get(pieceIndexInterested);
     }
 
     public boolean checkIfFinished(FileParser file){
