@@ -85,7 +85,7 @@ public class FileParser {
         return new byte[numberOfPieces][(int)pieceSize];
       }
     }
-
+    return byteFile;
   }
 
 

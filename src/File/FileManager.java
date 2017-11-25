@@ -6,17 +6,20 @@ import java.io.*;
 
 public class FileManager {
 
+    private String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
+    private long fileSize = CommonFileParser.getFileSize();
+    private long pieceSize = CommonFileParser.getPieceSize();
+    private int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
+    private byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
+
     public File readFile() {
         String filePath = CommonFileParser.getFileName();
 
         File file = new File(filePath);
 
         if (file.isFile()) {
-            System.out.println("File exists");
-
             try {
                 FileInputStream fis = new FileInputStream(file);
-
                 try {
                     fis.close();
                 }
