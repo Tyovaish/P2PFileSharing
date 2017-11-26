@@ -74,20 +74,10 @@ public class FileParser {
     return bytesOfPiecesInPossesion;
   }
 
-  public byte[][] getFileFromPeer() {
-    for(int i = 0; i < piecesInPossesion.length(); i++) {
-      if(piecesInPossesion.get(i)) {
-        break;
-      }
-      else if (!piecesInPossesion.get(i) && i == piecesInPossesion.length() - 1) {
-        return new byte[numberOfPieces][(int)pieceSize];
-      }
-    }
-    return byteFile;
-  }
-
-
   public void bytesToFile() {
+    if(peerInfo.getHasFile()){
+      return;
+    }
     System.out.println("Outputting file");
 
     File directory = new File("./peer_" + peerInfo.getPeerID());
@@ -95,15 +85,14 @@ public class FileParser {
     if(!directory.exists()) {
       directory.mkdir();
     }
-
+    printFileInBytes();
     File outputFile = new File(directory + "/" + fileName);
 
     System.out.println("File name is " + fileName);
 
     try {
       FileOutputStream fos = new FileOutputStream(outputFile);
-      
-      for(int i = 0; i < Math.ceil(fileSize / pieceSize); i++) {
+      for(int i = 0; i < numberOfPieces; i++) {
         fos.write(byteFile[i]);
       }
       fos.flush();
@@ -115,14 +104,16 @@ public class FileParser {
   }
   public void readFile() {
     String filePath ="peer_"+peerInfo.getPeerID()+"/"+CommonFileParser.getFileName();
-
     File file = new File(filePath);
+    System.out.println(file.length());
     if (file.isFile()) {
       try {
-        byte [] fileInBytes=Files.readAllBytes(file.toPath());
+        InputStream is=new FileInputStream(filePath);
+        byte [] fileInBytes=new byte[(int) fileSize];
+        is.read(fileInBytes);
         for(int i=0;i<fileInBytes.length;i++){
           System.out.println(i);
-          byteFile[(int) (i/pieceSize)][(int) (i%pieceSize)]=fileInBytes[i];
+          byteFile[(int) (i/pieceSize)][(i%(int)pieceSize)]=fileInBytes[i];
         }
 
       }
@@ -135,6 +126,14 @@ public class FileParser {
     else {
       System.out.println("File does not exist");
 
+    }
+  }
+  public void printFileInBytes(){
+    for(int i=0;i<numberOfPieces;i++){
+      for(int j=0;j<pieceSize;j++){
+        System.out.print(byteFile[i][j]+" ");
+      }
+      System.out.println();
     }
   }
 }
