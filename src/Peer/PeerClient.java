@@ -48,7 +48,6 @@ public class PeerClient {
                 positionInitialized=i;
             }
         }
-        System.out.println(positionInitialized);
         for(int i=positionInitialized-1;i>=0;--i){
             TCPConnection peer=new TCPConnection(this,allPeerInfo.get(i));
             neighbors.add(peer);

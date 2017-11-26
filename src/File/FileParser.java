@@ -14,23 +14,20 @@ public class FileParser {
 
   public static long fileSize = CommonFileParser.getFileSize();
   public  static long pieceSize = CommonFileParser.getPieceSize();
-  public static int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
+  public static int numberOfPieces= (int) Math.ceil(fileSize /(float)(pieceSize));
   private String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
-  private byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
+  private byte byteFile[][] = new byte[numberOfPieces][(int) pieceSize];
   private BitSet piecesInPossesion = new BitSet(numberOfPieces);
-  private int peerID;
+  private PeerInfo peerInfo;
 
   public FileParser(int peerID){
-    PeerInfo peerInfo = PeerInfoFileParser.getPeerInfo(peerID);
-    this.peerID = peerID;
+    this.peerInfo = PeerInfoFileParser.getPeerInfo(peerID);
     try {
       if(peerInfo.getHasFile()) {
         for(int i=0; i<numberOfPieces; i++) {
           this.piecesInPossesion.set(i, true);
         }
-        /*for(int i=0;i<fileSize;i++){
-          this.byteFile[(int) (i/pieceSize)][(int) (i%pieceSize)]= (byte) i;
-        }*/
+        readFile();
       }
     }
     catch (NullPointerException e) {
@@ -42,7 +39,9 @@ public class FileParser {
     byteFile[index] = bytes;
     piecesInPossesion.set(index,true);
   }
+  public boolean isFinished(){return piecesInPossesion.cardinality()==numberOfPieces;}
 
+  public boolean hasPiece(int pieceIndex){return piecesInPossesion.get(pieceIndex);}
   public byte[] getPiece(int index) {
     return byteFile[index];
   }
@@ -91,9 +90,7 @@ public class FileParser {
   public void bytesToFile() {
     System.out.println("Outputting file");
 
-    PeerInfo pid = new PeerInfo();
-
-    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + peerID);
+    File directory = new File("./peer_" + peerInfo.getPeerID());
 
     if(!directory.exists()) {
       directory.mkdir();
@@ -109,7 +106,6 @@ public class FileParser {
       for(int i = 0; i < Math.ceil(fileSize / pieceSize); i++) {
         fos.write(byteFile[i]);
       }
-
       fos.flush();
       fos.close();
     }
@@ -117,9 +113,28 @@ public class FileParser {
       System.out.println("IO Exception");
     }
   }
-  public boolean isFinished(){return piecesInPossesion.cardinality()==numberOfPieces;}
+  public void readFile() {
+    String filePath ="peer_"+peerInfo.getPeerID()+"/"+CommonFileParser.getFileName();
 
+    File file = new File(filePath);
+    if (file.isFile()) {
+      try {
+        byte [] fileInBytes=Files.readAllBytes(file.toPath());
+        for(int i=0;i<fileInBytes.length;i++){
+          System.out.println(i);
+          byteFile[(int) (i/pieceSize)][(int) (i%pieceSize)]=fileInBytes[i];
+        }
 
- 
-  public boolean hasPiece(int pieceIndex){return piecesInPossesion.get(pieceIndex);}
+      }
+      catch (FileNotFoundException e) {
+        System.out.println("File not found exception");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      System.out.println("File does not exist");
+
+    }
+  }
 }
