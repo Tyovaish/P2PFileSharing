@@ -22,7 +22,7 @@ public class IntervalManager implements Runnable {
     public void run() {
         long unchokingStartTime=System.currentTimeMillis();
         long optmisticallyUnchokeTime=System.currentTimeMillis();
-        while(true){
+        while(!peerClient.allFinished()){
             if(System.currentTimeMillis()-unchokingStartTime>unchokingInterval){
                 unchokingStartTime=System.currentTimeMillis();
                 //peerClient.unchokeBestNeighbors();
@@ -32,16 +32,14 @@ public class IntervalManager implements Runnable {
                 optmisticallyUnchokeTime=System.currentTimeMillis();
                 //peerClient.optimisticallyUnchoke();
             }
-            if(peerClient.allFinished()){
-                peerClient.shutdown();
-                peerClient.getInformationLogger().closeLog();
-                System.out.println("Finished");
-            }
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+            peerClient.getInformationLogger().closeLog();
+            peerClient.getFile().bytesToFile();
+            System.out.println("Finished");
     }
 }

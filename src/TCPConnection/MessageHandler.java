@@ -65,11 +65,17 @@ public class MessageHandler {
             System.out.println("Recieved "+ByteBuffer.wrap(message.getPayload(),0,4).getInt());
         }
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
-       byte [] payLoad=ByteBuffer.wrap(message.getPayload(),4,message.getPayloadLength()-4).array();
+       byte [] pieceInBytes=new byte[message.getPayloadLength()-4];
+
+       for(int i=0;i<pieceInBytes.length;i++){
+           pieceInBytes[i]=message.getPayload()[i+4];
+           System.out.println((int) pieceInBytes[i]+" ");
+       }
+       System.out.println();
        if(!tcpConnection.getFile().hasPiece(pieceIndex)){
             tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession()+1);
         }
-       tcpConnection.getFile().setPiece(payLoad,pieceIndex);
+       tcpConnection.getFile().setPiece(pieceInBytes,pieceIndex);
        tcpConnection.getClient().sendHaveMessageToNeighbors(pieceIndex);
 
     }
