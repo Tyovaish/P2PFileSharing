@@ -75,34 +75,18 @@ public class FileParser {
     return bytesOfPiecesInPossesion;
   }
 
-  public File readFile() {
-    String filePath = CommonFileParser.getFileName();
-
-    File file = new File(filePath);
-
-    if (file.isFile()) {
-      System.out.println("File exists");
-
-      try {
-        FileInputStream fis = new FileInputStream(file);
-
-        try {
-          fis.close();
-        }
-        catch (IOException e) {
-          System.out.println("IO Exception when closing file");
-        }
+  public byte[][] getFileFromPeer() {
+    for(int i = 0; i < piecesInPossesion.length(); i++) {
+      if(piecesInPossesion.get(i)) {
+        break;
       }
-      catch (FileNotFoundException e) {
-        System.out.println("File not found exception");
+      else if (!piecesInPossesion.get(i) && i == piecesInPossesion.length() - 1) {
+        return new byte[numberOfPieces][(int)pieceSize];
       }
     }
-    else {
-      System.out.println("File does not exist");
-
-    }
-    return file;
+    return byteFile;
   }
+
 
   public void bytesToFile() {
     System.out.println("Outputting file");
@@ -134,5 +118,8 @@ public class FileParser {
     }
   }
   public boolean isFinished(){return piecesInPossesion.cardinality()==numberOfPieces;}
+
+
+ 
   public boolean hasPiece(int pieceIndex){return piecesInPossesion.get(pieceIndex);}
 }
