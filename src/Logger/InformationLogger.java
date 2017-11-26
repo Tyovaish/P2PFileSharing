@@ -19,6 +19,7 @@ public class InformationLogger {
     int peerIDOfClient;
     FileWriter fileWriter;
     BufferedWriter bufferedWriter;
+    boolean completedFile=false;
     public InformationLogger(int peerIDOfClient){
         this.peerIDOfClient=peerIDOfClient;
         date=new Date();
@@ -129,12 +130,15 @@ public class InformationLogger {
         addToLogFile(output.toString());
     }
     public synchronized void logCompletition(){
-        StringBuilder output=new StringBuilder();
-        output.append(date.toString());
-        output.append(": Peer ");
-        output.append(peerIDOfClient);
-        output.append(" has downloaded the complete file.");
-        addToLogFile(output.toString());
+        if(!completedFile) {
+            StringBuilder output = new StringBuilder();
+            output.append(date.toString());
+            output.append(": Peer ");
+            output.append(peerIDOfClient);
+            output.append(" has downloaded the complete file.");
+            addToLogFile(output.toString());
+            completedFile=true;
+        }
     }
     public synchronized void addToLogFile(String log) {
         try {

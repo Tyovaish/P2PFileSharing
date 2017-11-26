@@ -50,11 +50,8 @@ public class MessageHandler {
 
     }
     public void handleSendingMessage(){
-        boolean isInterested=currentNeighborState.checkIfInterested(tcpConnection.getFile());
-        if(!currentNeighborState.hasSentBitfield()){
-            sendBitfieldMessage();
-            currentNeighborState.sentBitfield();
-        } else if(!currentNeighborState.isChokingClient()&&isInterested){
+      boolean isInterested=currentNeighborState.checkIfInterested(tcpConnection.getFile());
+      if(!currentNeighborState.isChokingClient()&&isInterested){
             sendRequestMessage(currentNeighborState.getRandomPiece(tcpConnection.getFile()));
         } else if(isInterested && !currentNeighborState.hasSentInterested()){
             sendInterestedMessage();
@@ -81,7 +78,7 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Unchoke");
         }
-        tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
+        tcpConnection.getInformationLogger().logRecievedOptimisticallyUnchoke(currentNeighborState.getNeighborPeerID());
         currentNeighborState.unchokeClient();
     }
 
@@ -132,6 +129,7 @@ public class MessageHandler {
         if(debug){
             System.out.println("Recieved Bitfield");
         }
+        message.print();
         currentNeighborState.recievedBitfield(message.getPayload());
     }
 
@@ -172,12 +170,14 @@ public class MessageHandler {
         if(debug){
             System.out.println("Sent Unchoke Message");
         }
+        currentNeighborState.unchokeNeighbor();
         tcpConnection.sendMessage(new Message(UNCHOKE));
     }
     public synchronized void sendChokeMessage(){
         if(debug){
             System.out.println("Sent Choke");
         }
+        currentNeighborState.chokeNeighbor();
         tcpConnection.sendMessage(new Message(CHOKE));
     }
     public synchronized void sendRequestMessage(int pieceIndex){

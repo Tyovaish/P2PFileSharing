@@ -15,13 +15,10 @@ public class NeighborState {
     boolean chokingClient = false; //DEBUGGING
     boolean interestedInClient=false;
     boolean interestedInNeighbor=false;
-    boolean sentBitfield=false;
-
-    boolean hasRecievedBitfield=false;
     boolean hasSentNotInterested=false;
     boolean hasSentInterested=false;
 
-    BitSet bitfield=new BitSet();
+    BitSet bitfield=new BitSet(FileParser.numberOfPieces);
     int piecesRecieved;
 
     public NeighborState(PeerInfo neighborInfo){
@@ -38,9 +35,6 @@ public class NeighborState {
         return interestedInClient;
     }
 
-    public boolean hasSentBitfield(){
-        return sentBitfield;
-    }
 
     public int getPiecesRecieved() {
         return piecesRecieved;
@@ -88,12 +82,7 @@ public class NeighborState {
     }
 
     public void recievedBitfield(byte [] bitfield){
-        hasRecievedBitfield=true;
         this.bitfield=BitSet.valueOf(bitfield);
-    }
-
-    public void sentBitfield(){
-        sentBitfield=true;
     }
 
     public boolean hasSentNotInterested(){
@@ -111,17 +100,11 @@ public class NeighborState {
        return  interestedFilePieces.get(pieceIndexInterested);
     }
 
-    public boolean checkIfFinished(FileParser file){
-        if(!hasRecievedBitfield){
-            return false;
-        }
-        return bitfield.cardinality()==file.getNumberOfPieces();
+    public boolean checkIfFinished(){
+        return bitfield.cardinality()==FileParser.numberOfPieces;
     }
 
     public boolean checkIfInterested(FileParser file){
-        if(!hasRecievedBitfield){
-            return false;
-        }
         BitSet numberOfPiecesInClientPossesion=file.getCurrentFileState();
         for(int i=0;i<file.getNumberOfPieces();++i){
             if(bitfield.get(i)==true && numberOfPiecesInClientPossesion.get(i)==false){

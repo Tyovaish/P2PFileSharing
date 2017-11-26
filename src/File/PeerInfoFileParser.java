@@ -47,6 +47,6 @@ public class PeerInfoFileParser {
         return null;
     }
     public static int numberOfPeersToConnect(){
-        return getPeersToConnect().size();
+        return getPeersToConnect().size()-1;
     }
 }

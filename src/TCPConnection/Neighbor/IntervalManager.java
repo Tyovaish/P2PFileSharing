@@ -34,8 +34,8 @@ public class IntervalManager implements Runnable {
             }
             if(peerClient.allFinished()){
                 peerClient.shutdown();
-                peerClient.getInformationLogger().logCompletition();
                 peerClient.getInformationLogger().closeLog();
+                System.out.println("Finished");
             }
             try {
                 Thread.sleep(100);

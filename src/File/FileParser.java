@@ -12,9 +12,9 @@ import Peer.PeerInfo;
 
 public class FileParser {
 
-  private long fileSize = CommonFileParser.getFileSize();
-  private long pieceSize = CommonFileParser.getPieceSize();
-  private int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
+  public static long fileSize = CommonFileParser.getFileSize();
+  public  static long pieceSize = CommonFileParser.getPieceSize();
+  public static int numberOfPieces=(int)Math.ceil(fileSize / pieceSize);
   private String fileName = CommonFileParser.getFileName().substring(CommonFileParser.getFileName().lastIndexOf("/") + 1);
   private byte byteFile[][] = new byte[numberOfPieces][(int)pieceSize];
   private BitSet piecesInPossesion = new BitSet(numberOfPieces);
@@ -26,8 +26,11 @@ public class FileParser {
     try {
       if(peerInfo.getHasFile()) {
         for(int i=0; i<numberOfPieces; i++) {
-          piecesInPossesion.set(i, true);
+          this.piecesInPossesion.set(i, true);
         }
+        /*for(int i=0;i<fileSize;i++){
+          this.byteFile[(int) (i/pieceSize)][(int) (i%pieceSize)]= (byte) i;
+        }*/
       }
     }
     catch (NullPointerException e) {
@@ -69,11 +72,7 @@ public class FileParser {
 
   public byte[] getBitFieldMessage(){
     byte [] bytesOfPiecesInPossesion=piecesInPossesion.toByteArray();
-    byte [] bitfield=new byte[numberOfPieces];
-    for(int i=0;i<bytesOfPiecesInPossesion.length;i++){
-     bitfield[i]=bytesOfPiecesInPossesion[i];
-    }
-    return bitfield;
+    return bytesOfPiecesInPossesion;
   }
 
   public byte[][] getFileFromPeer() {
@@ -89,8 +88,38 @@ public class FileParser {
   }
 
 
-  public boolean isFinished(){
-    return piecesInPossesion.cardinality()==numberOfPieces;
+  public void bytesToFile() {
+    System.out.println("Outputting file");
+
+    PeerInfo pid = new PeerInfo();
+
+    File directory = new File("/home/keanu/Documents/College/NetworkFundamentals/Project/peer_" + peerID);
+
+    if(!directory.exists()) {
+      directory.mkdir();
+    }
+
+    File outputFile = new File(directory + "/" + fileName);
+
+    System.out.println("File name is " + fileName);
+
+    try {
+      FileOutputStream fos = new FileOutputStream(outputFile);
+      
+      for(int i = 0; i < Math.ceil(fileSize / pieceSize); i++) {
+        fos.write(byteFile[i]);
+      }
+
+      fos.flush();
+      fos.close();
+    }
+    catch(IOException e) {
+      System.out.println("IO Exception");
+    }
   }
+  public boolean isFinished(){return piecesInPossesion.cardinality()==numberOfPieces;}
+
+
+ 
   public boolean hasPiece(int pieceIndex){return piecesInPossesion.get(pieceIndex);}
 }
