@@ -66,7 +66,9 @@ public class MessageHandler {
         }
        int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
        byte [] pieceInBytes=new byte[message.getPayloadLength()-4];
-
+       for(int i=0;i<pieceInBytes.length;i++){
+           pieceInBytes[i]=message.getPayload()[i+4];
+       }
        if(!tcpConnection.getFile().hasPiece(pieceIndex)){
             tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession()+1);
         }
