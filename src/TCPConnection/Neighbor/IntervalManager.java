@@ -28,7 +28,6 @@ public class IntervalManager implements Runnable {
                 //peerClient.unchokeBestNeighbors();
             }
             if(System.currentTimeMillis()-optmisticallyUnchokeTime>optimisticallyUnchokingInterval){
-                System.out.println("OptimisticallyUnchoke");
                 optmisticallyUnchokeTime=System.currentTimeMillis();
                 //peerClient.optimisticallyUnchoke();
             }
