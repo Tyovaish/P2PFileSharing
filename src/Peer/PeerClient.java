@@ -9,10 +9,7 @@ import TCPConnection.TCPConnection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Logger;
 
 import Logger.InformationLogger;
@@ -25,7 +22,7 @@ public class PeerClient {
     int numberOfPeersToConnect=PeerInfoFileParser.numberOfPeersToConnect();
     ArrayList<TCPConnection> neighbors;
     Comparator<TCPConnection> comp;
-    PriorityQueue<TCPConnection> preferred;
+    ArrayList<TCPConnection> preferred;
     FileParser file;
     InformationLogger log;
     int NumberOfPreferredNeighbors;
@@ -36,7 +33,7 @@ public class PeerClient {
         log=new InformationLogger(peerID);
         NumberOfPreferredNeighbors = CommonFileParser.getNumberOfPreferredNeighbors();
         comp = new NeighborComparator();
-        preferred = new PriorityQueue<TCPConnection>(NumberOfPreferredNeighbors, comp);
+        preferred = new ArrayList<TCPConnection>();
         this.intervalManager=new IntervalManager(this);
         this.peerInfo=new PeerInfo(peerID,PeerInfoFileParser.getPeerInfo(peerID).getPortNumber());
     }
@@ -63,20 +60,25 @@ public class PeerClient {
         }
     }
     public void unchokeBestNeighbors(){
+        //reorder list by data rate
+        Collections.sort(neighbors, comp);
+        //choke all neighbors
         for(int i = 0; i < neighbors.size(); i++){
-            neighbors.get(i).getMessageHandler().sendChokeMessage();
-            if( preferred.size() < NumberOfPreferredNeighbors || comp.compare(neighbors.get(i), preferred.peek()) == 1){
-                 if(neighbors.get(i).getNeighborState().isInterestedInClient()) {
-                     if (preferred.size() == NumberOfPreferredNeighbors) {
-                         preferred.remove(preferred.peek());
-                     }
-                     preferred.offer(neighbors.get(i));
-                 }
+            if(neighbors.get(i).getNeighborState().isChokingNeighbor()) {
+                neighbors.get(i).getNeighborState().chokeNeighbor();
             }
         }
-        for(int j = 0; j < preferred.size(); j++){
-            preferred.peek().getNeighborState().unchokeNeighbor();
+        //clear previous preferred list
+        preferred.clear();
+        //create new preferred list
+        for(int i = 0; i < neighbors.size(); i++){
+            if(preferred.size() < NumberOfPreferredNeighbors && neighbors.get(i).getNeighborState().isInterestedInClient()){
+                preferred.add(neighbors.get(i));
+                neighbors.get(i).getNeighborState().unchokeNeighbor();
+                neighbors.get(i).getMessageHandler().sendUnchokeMessage();
+            }
         }
+        log.logChangePrefferedNeighbors(preferred);
     }
     public void optimisticallyUnchoke(){
         Random random = new Random();
@@ -90,6 +92,7 @@ public class PeerClient {
             }
             neighbors.get(i).getNeighborState().unchokeNeighbor();
             neighbors.get(i).getMessageHandler().sendUnchokeMessage();
+            log.logOptimisticallyUnchokeNeighbor(neighbors.get(i).getNeighborState().getNeighborPeerID());
             break;
         }
     }
