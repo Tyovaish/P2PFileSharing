@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class NeighborState {
     PeerInfo neighborInfo;
-    boolean chokingNeighbor = false; //DEBUGGING
-    boolean chokingClient = false; //DEBUGGING
+    boolean chokingNeighbor = true; //DEBUGGING
+    boolean chokingClient = true; //DEBUGGING
     boolean interestedInClient=false;
     boolean interestedInNeighbor=false;
     boolean hasSentNotInterested=false;

@@ -1,6 +1,7 @@
 package Logger;
 
 import Peer.PeerInfo;
+import TCPConnection.TCPConnection;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -49,14 +50,14 @@ public class InformationLogger {
         addToLogFile(output.toString());
 
     }
-    public synchronized void logChangePrefferedNeighbors(ArrayList<PeerInfo> prefferedNeighborsList){
+    public synchronized void logChangePrefferedNeighbors(ArrayList<TCPConnection> prefferedNeighborsList){
         StringBuilder output=new StringBuilder();
         output.append(date.toString());
         output.append(": Peer ");
         output.append(peerIDOfClient);
-        output.append(" has the preffered  ");
+        output.append(" has the preferred  ");
         for(int i=0;i<prefferedNeighborsList.size();i++){
-            output.append(prefferedNeighborsList.get(i));
+            output.append(prefferedNeighborsList.get(i).getNeighborState().getNeighborPeerID() + " ");
         }
         addToLogFile(output.toString());
     }

@@ -12,10 +12,10 @@ public class NeighborComparator implements Comparator<TCPConnection> {
     @Override
     public int compare(TCPConnection n1, TCPConnection n2){
         if(n1.getNeighborState().getPiecesRecieved() < n2.getNeighborState().getPiecesRecieved()){
-            return -1;
+            return 1;
         }
         if(n1.getNeighborState().getPiecesRecieved() > n2.getNeighborState().getPiecesRecieved()){
-            return 1;
+            return -1;
         }
         return 0;
     }
