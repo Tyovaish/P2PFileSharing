@@ -65,7 +65,7 @@ public class PeerClient {
         //choke all neighbors
         for(int i = 0; i < neighbors.size(); i++){
             if(neighbors.get(i).getNeighborState().isChokingNeighbor()) {
-                neighbors.get(i).getNeighborState().chokeNeighbor();
+                neighbors.get(i).getMessageHandler().sendChokeMessage();
             }
         }
         //clear previous preferred list
@@ -74,7 +74,6 @@ public class PeerClient {
         for(int i = 0; i < neighbors.size(); i++){
             if(preferred.size() < NumberOfPreferredNeighbors && neighbors.get(i).getNeighborState().isInterestedInClient()){
                 preferred.add(neighbors.get(i));
-                neighbors.get(i).getNeighborState().unchokeNeighbor();
                 neighbors.get(i).getMessageHandler().sendUnchokeMessage();
             }
         }
@@ -90,7 +89,6 @@ public class PeerClient {
                 remaining--;
                 continue;
             }
-            neighbors.get(i).getNeighborState().unchokeNeighbor();
             neighbors.get(i).getMessageHandler().sendUnchokeMessage();
             log.logOptimisticallyUnchokeNeighbor(neighbors.get(i).getNeighborState().getNeighborPeerID());
             break;
