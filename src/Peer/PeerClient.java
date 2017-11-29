@@ -64,7 +64,7 @@ public class PeerClient {
         Collections.sort(neighbors, comp);
         //choke all neighbors
         for(int i = 0; i < neighbors.size(); i++){
-            if(neighbors.get(i).getNeighborState().isChokingNeighbor()) {
+            if(!neighbors.get(i).getNeighborState().isChokingNeighbor()) {
                 neighbors.get(i).getMessageHandler().sendChokeMessage();
             }
         }

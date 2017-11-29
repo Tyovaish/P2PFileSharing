@@ -11,7 +11,7 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    final boolean debug=false;
+    final boolean debug=true;
     TCPConnection tcpConnection;
     NeighborState currentNeighborState;
     MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
@@ -53,7 +53,7 @@ public class MessageHandler {
       boolean isInterested=currentNeighborState.checkIfInterested(tcpConnection.getFile());
       if(!currentNeighborState.isChokingClient()&&isInterested){
             sendRequestMessage(currentNeighborState.getRandomPiece(tcpConnection.getFile()));
-        } else if(isInterested && !currentNeighborState.hasSentInterested()){
+        } else if(isInterested){
             sendInterestedMessage();
         } else if(!currentNeighborState.hasSentNotInterested()){
             sendNotInterestedMessage();
