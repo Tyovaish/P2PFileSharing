@@ -124,4 +124,8 @@ public class NeighborState {
     }
 
 
+    public void resetInterested() {
+        hasSentInterested=false;
+        hasSentNotInterested=false;
+    }
 }

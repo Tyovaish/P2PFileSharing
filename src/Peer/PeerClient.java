@@ -72,12 +72,14 @@ public class PeerClient {
         preferred.clear();
         //create new preferred list
         for(int i = 0; i < neighbors.size(); i++){
-            if(preferred.size() < NumberOfPreferredNeighbors && neighbors.get(i).getNeighborState().isInterestedInClient()){
+            if(preferred.size() <= NumberOfPreferredNeighbors && neighbors.get(i).getNeighborState().isInterestedInClient()){
                 preferred.add(neighbors.get(i));
                 neighbors.get(i).getMessageHandler().sendUnchokeMessage();
             }
         }
-        log.logChangePrefferedNeighbors(preferred);
+        if(preferred.size()!=0) {
+            log.logChangePrefferedNeighbors(preferred);
+        }
     }
     public void optimisticallyUnchoke(){
         Random random = new Random();
@@ -100,6 +102,7 @@ public class PeerClient {
         }
         for(int i=0;i<neighbors.size();i++){
             if(neighbors.get(i).isFinished()==false){
+                System.out.println("Peer "+neighbors.get(i).getNeighborPeerInfo().getPeerID());
                 return false;
             }
         }

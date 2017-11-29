@@ -11,7 +11,7 @@ import static Message.Message.*;
  * Created by Trevor on 11/3/2017.
  */
 public class MessageHandler {
-    final boolean debug=true;
+    final boolean debug=false;
     TCPConnection tcpConnection;
     NeighborState currentNeighborState;
     MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
@@ -55,7 +55,7 @@ public class MessageHandler {
             sendRequestMessage(currentNeighborState.getRandomPiece(tcpConnection.getFile()));
         } else if(isInterested){
             sendInterestedMessage();
-        } else if(!currentNeighborState.hasSentNotInterested()){
+        } else {
             sendNotInterestedMessage();
         }
     }
@@ -142,52 +142,53 @@ public class MessageHandler {
         }
         tcpConnection.sendMessage(new Message(HAVE,pieceIndex));
     }
-    public synchronized void sendBitfieldMessage(){
+    public void sendBitfieldMessage(){
         if(debug){
             System.out.println("Sent Bitfield");
         }
         tcpConnection.sendMessage(new Message(BITFIELD,tcpConnection.getFile().getBitFieldMessage()));
     }
-     public synchronized void sendInterestedMessage(){
+     public void sendInterestedMessage(){
         if(debug){
             System.out.println("Sent Interested");
         }
         currentNeighborState.setInterestedInNeighbor();
         tcpConnection.sendMessage(new Message(INTERESTED));
     }
-     public synchronized void sendNotInterestedMessage(){
+     public void sendNotInterestedMessage(){
         if(debug){
             System.out.println("Sent Not Interested");
         }
         currentNeighborState.setNotInterestedInNeighbor();
         tcpConnection.sendMessage(new Message(NOTINTERESTED));
     }
-     public synchronized void sendPieceMessage(int pieceIndex){
+     public void sendPieceMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Piece Message");
             System.out.println("Piece Looking For"+pieceIndex);
         }
         tcpConnection.sendMessage(new Message(PIECE,pieceIndex,tcpConnection.getFile().getPiece(pieceIndex)));
     }
-    public synchronized void sendUnchokeMessage(){
+    public void sendUnchokeMessage(){
         if(debug){
             System.out.println("Sent Unchoke Message");
         }
         currentNeighborState.unchokeNeighbor();
         tcpConnection.sendMessage(new Message(UNCHOKE));
     }
-    public synchronized void sendChokeMessage(){
+    public void sendChokeMessage(){
         if(debug){
             System.out.println("Sent Choke");
         }
         currentNeighborState.chokeNeighbor();
         tcpConnection.sendMessage(new Message(CHOKE));
     }
-    public synchronized void sendRequestMessage(int pieceIndex){
+    public void sendRequestMessage(int pieceIndex){
         if(debug){
             System.out.println("Sent Request");
             System.out.println("Piece Requested "+pieceIndex);
         }
+        tcpConnection.getNeighborState().resetInterested();
         tcpConnection.sendMessage(new Message(REQUEST,pieceIndex));
     }
 

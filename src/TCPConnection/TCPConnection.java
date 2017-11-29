@@ -78,7 +78,7 @@ public class TCPConnection implements Runnable{
             e.printStackTrace();
         }
     }
-    public synchronized Message getMessage() {
+    public Message getMessage() {
         try {
            int payloadLength=in.readInt();
            byte messageType=in.readByte();
@@ -93,6 +93,11 @@ public class TCPConnection implements Runnable{
     public MessageHandler getMessageHandler(){return messageHandler;}
     public NeighborState getNeighborState(){return currentNeighborState;}
     public FileParser getFile(){return peerClient.getFile();}
+
+    public PeerInfo getNeighborPeerInfo() {
+        return neighborPeerInfo;
+    }
+
     public Socket getSocket(){return socket;}
     public InformationLogger getInformationLogger(){return peerClient.getInformationLogger();}
     public PeerClient getClient(){return peerClient;}

@@ -85,7 +85,6 @@ public class FileParser {
     if(!directory.exists()) {
       directory.mkdir();
     }
-    printFileInBytes();
     File outputFile = new File(directory + "/" + fileName);
 
     System.out.println("File name is " + fileName);
@@ -112,7 +111,6 @@ public class FileParser {
         byte [] fileInBytes=new byte[(int) fileSize];
         is.read(fileInBytes);
         for(int i=0;i<fileInBytes.length;i++){
-          System.out.println(i);
           byteFile[(int) (i/pieceSize)][(i%(int)pieceSize)]=fileInBytes[i];
         }
 

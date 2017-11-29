@@ -22,14 +22,21 @@ public class IntervalManager implements Runnable {
     public void run() {
         long unchokingStartTime=System.currentTimeMillis();
         long optmisticallyUnchokeTime=System.currentTimeMillis();
-        while(!peerClient.allFinished()){
-            if(System.currentTimeMillis()-unchokingStartTime>unchokingInterval){
-                unchokingStartTime=System.currentTimeMillis();
+        while(true) {
+            if (System.currentTimeMillis() - unchokingStartTime > unchokingInterval) {
+                unchokingStartTime = System.currentTimeMillis();
                 peerClient.unchokeBestNeighbors();
+                System.out.println(peerClient.getFile().isFinished());
             }
-            if(System.currentTimeMillis()-optmisticallyUnchokeTime>optimisticallyUnchokingInterval){
-                optmisticallyUnchokeTime=System.currentTimeMillis();
+            if (System.currentTimeMillis() - optmisticallyUnchokeTime > optimisticallyUnchokingInterval) {
+                optmisticallyUnchokeTime = System.currentTimeMillis();
                 peerClient.optimisticallyUnchoke();
+            }
+            if (peerClient.allFinished()) {
+                peerClient.getInformationLogger().closeLog();
+                peerClient.getFile().bytesToFile();
+                System.out.println("Finished");
+                System.exit(0);
             }
             try {
                 Thread.sleep(100);
@@ -37,8 +44,5 @@ public class IntervalManager implements Runnable {
                 e.printStackTrace();
             }
         }
-            peerClient.getInformationLogger().closeLog();
-            peerClient.getFile().bytesToFile();
-            System.out.println("Finished");
     }
 }
