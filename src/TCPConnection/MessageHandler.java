@@ -1,0 +1,196 @@
+package TCPConnection;
+
+import Message.*;
+import TCPConnection.Neighbor.NeighborState;
+
+import java.nio.ByteBuffer;
+
+import static Message.Message.*;
+
+/**
+ * Created by Trevor on 11/3/2017.
+ */
+public class MessageHandler {
+    final boolean debug=false;
+    TCPConnection tcpConnection;
+    NeighborState currentNeighborState;
+    MessageHandler(TCPConnection tcpConnection,  NeighborState neighbor){
+        this.tcpConnection=tcpConnection;
+        this.currentNeighborState=neighbor;
+    }
+    public void handleMessage(Message message){
+        if(message==null){
+            return;
+        }
+        switch(message.getMessageType()){
+            case BITFIELD:
+                handleBitfieldMessage(message);
+                break;
+            case CHOKE:
+                handleChokeMessage(message);
+                break;
+            case HAVE:
+                handleHaveMessage(message);
+                break;
+            case INTERESTED:
+                handleInterestedMessage(message);
+                break;
+            case NOTINTERESTED:
+                handleNotInterestedMessage(message);
+                break;
+            case REQUEST:
+                handleRequestMessage(message);
+                break;
+            case UNCHOKE:
+                handleUnchokeMessage(message);
+                break;
+            case PIECE:
+                handlePieceMessage(message);
+                break;
+            default:
+                System.out.println("ERROR: Message Type Invalid");
+        }
+
+    }
+    public synchronized void handleSendingMessage(){
+        boolean isInterested=currentNeighborState.checkIfInterested(tcpConnection.getFile());
+      if(!currentNeighborState.isChokingClient() && isInterested){
+            int randomPiece=currentNeighborState.getRandomPiece(tcpConnection.getFile());
+            if(randomPiece!=-1) {
+                sendRequestMessage(randomPiece);
+            }
+        } else if(isInterested&&!currentNeighborState.hasSentInterested()){
+            sendInterestedMessage();
+        } else if(!isInterested&&!currentNeighborState.hasSentNotInterested()){
+            sendNotInterestedMessage();
+        }
+    }
+
+    private  void handlePieceMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved "+ByteBuffer.wrap(message.getPayload(),0,4).getInt());
+        }
+       int pieceIndex=ByteBuffer.wrap(message.getPayload(),0,4).getInt();
+       byte [] pieceInBytes=new byte[message.getPayloadLength()-4];
+       for(int i=0;i<pieceInBytes.length;i++){
+           pieceInBytes[i]=message.getPayload()[i+4];
+       }
+        tcpConnection.getInformationLogger().logDownloading(currentNeighborState.getNeighborPeerID(),pieceIndex,tcpConnection.getFile().getNumberOfPiecesInPossession()+1);
+        tcpConnection.getClient().sendHaveMessageToNeighbors(pieceInBytes,pieceIndex);
+    }
+
+    private void handleUnchokeMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved Unchoke");
+        }
+        tcpConnection.getInformationLogger().logRecievedOptimisticallyUnchoke(currentNeighborState.getNeighborPeerID());
+        currentNeighborState.unchokeClient();
+    }
+
+    private void handleRequestMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved Request");
+        }
+        int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        sendPieceMessage(pieceIndex);
+    }
+
+    private void handleNotInterestedMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved Not Interested");
+        }
+        currentNeighborState.setNotInterestedInClient();
+        tcpConnection.getInformationLogger().logNotInterestedMessage(currentNeighborState.getNeighborPeerID());
+    }
+
+    private void handleInterestedMessage(Message message) {
+        if (debug) {
+            System.out.println("Recieved Intereseted");
+        }
+        currentNeighborState.setInterestedInClient();
+        tcpConnection.getInformationLogger().logInterestedMessage(currentNeighborState.getNeighborPeerID());
+    }
+
+    private void handleHaveMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved Have Message");
+        }
+        int pieceIndex=ByteBuffer.wrap(message.getPayload()).getInt();
+        tcpConnection.getInformationLogger().logHaveMessage(currentNeighborState.getNeighborPeerID(), pieceIndex);
+        currentNeighborState.updateBitField(pieceIndex);
+
+    }
+    private void handleChokeMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved Choke");
+        }
+        currentNeighborState.chokeClient();
+        tcpConnection.getInformationLogger().logChoke(currentNeighborState.getNeighborPeerID());
+    }
+
+    private void handleBitfieldMessage(Message message) {
+        if(debug){
+            System.out.println("Recieved Bitfield");
+            message.print();
+        }
+        currentNeighborState.recievedBitfield(message.getPayload());
+    }
+
+     public synchronized void sendHaveMessage(int pieceIndex){
+        if(debug){
+            System.out.println("Sent Have");
+        }
+        tcpConnection.sendMessage(new Message(HAVE,pieceIndex));
+    }
+    public void sendBitfieldMessage(){
+        if(debug){
+            System.out.println("Sent Bitfield");
+        }
+        tcpConnection.sendMessage(new Message(BITFIELD,tcpConnection.getFile().getBitFieldMessage()));
+    }
+     public  void sendInterestedMessage(){
+        if(debug){
+            System.out.println("Sent Interested");
+        }
+        currentNeighborState.setInterestedInNeighbor();
+        tcpConnection.sendMessage(new Message(INTERESTED));
+    }
+     public void sendNotInterestedMessage(){
+        if(debug){
+            System.out.println("Sent Not Interested");
+        }
+        currentNeighborState.setNotInterestedInNeighbor();
+        tcpConnection.sendMessage(new Message(NOTINTERESTED));
+    }
+     public void sendPieceMessage(int pieceIndex){
+        if(debug){
+            System.out.println("Sent Piece Message");
+            System.out.println("Piece Looking For"+pieceIndex);
+        }
+        tcpConnection.sendMessage(new Message(PIECE,pieceIndex,tcpConnection.getFile().getPiece(pieceIndex)));
+        handleMessage(tcpConnection.getMessage());
+    }
+    public synchronized void sendUnchokeMessage(){
+        if(debug){
+            System.out.println("Sent Unchoke Message");
+        }
+        currentNeighborState.unchokeNeighbor();
+        tcpConnection.sendMessage(new Message(UNCHOKE));
+    }
+    public synchronized void sendChokeMessage(){
+        if(debug){
+            System.out.println("Sent Choke");
+        }
+        currentNeighborState.chokeNeighbor();
+        tcpConnection.sendMessage(new Message(CHOKE));
+    }
+    public void sendRequestMessage(int pieceIndex){
+        if(debug){
+            System.out.println("Sent Request");
+            System.out.println("Piece Requested "+pieceIndex);
+        }
+        currentNeighborState.resetInterested();
+        tcpConnection.sendMessage(new Message(REQUEST,pieceIndex));
+    }
+
+}
